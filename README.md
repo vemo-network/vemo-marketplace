@@ -1,62 +1,101 @@
 # Marketplace smart contracts
-
-Power by [LooksRare](https://docs.looksrare.org/developers/welcome)
+Smart contracts for Marketplace-v2, powered by [LooksRare exchange v1](https://docs.looksrare.org/developers/welcome)
 
 ## Prerequisites
+- [NodeJS v18.x](https://nodejs.org/en)
+- [Hardhat v2.16.x](https://hardhat.org/)
+- [Foundry latest](https://book.getfoundry.sh/getting-started/installation)
+- [OpenZeppelin v4.x](https://docs.openzeppelin.com/contracts/4.x/)
 
--   NodeJS v16
-
-## Install
-
-Install dependencies
-
+## Setup
+- Install dependencies
 ```bash
 $ yarn
 ```
 
+- Create .env file from template
+```bash
+$ cp .env.example .env
+```
+
+- Fulfill credentials and secrets to .env file
+
+## Compile
+- Compile smart contracts
+```bash
+$ npx hardhat clean
+$ npx hardhat compile
+```
+
 ## Testing
-
-Execute test cases
-
+- Hardhat test
 ```bash
 $ npm test
 ```
 
-# Build & Compile
-
-Compile bytecode sẽ thực hiện luôn npx hardhat typechain để sinh ra d.ts tương ứng.
-
+## Foundry
+- Compile
 ```bash
-$ npm run compile
+$ forge build
 ```
 
-# Run local node
-
+- Test
 ```bash
-$ npm run node
+$ forge test
 ```
 
-# Deployment
+## Deploy
+- (Once) Add supported chain config to hardhat.config.ts
+```typescript
+const config: HardhatUserConfig = {
+  networks: {
+    bnb_testnet: {
+      url: "https://data-seed-prebsc-1-s1.bnbchain.org:8545",
+      chainId: 97,
+      accounts: [privateKey1, privateKey2]
+    },
+    ...
+  }
+  ...
+}
+```
 
+- Deploy managers
 ```bash
-$ npx hardhat deploy --network hardhat --reset # need reset for hardhat testnet
-
+$ npx hardhat run ./scripts/deploy-managers.ts --network <chain-name>
 ```
 
+- Deploy marketplace
+```bash
+$ CURRENCY_MANAGER="<address>" \
+EXECUTION_MANAGER="<address>" \
+ROYALTY_FEE_MANAGER="<address>" \
+WETH="<address>" \
+npx hardhat run scripts/deploy-marketplace.ts --network <chain-name>
 ```
-yarn deploy --network hardhat --tags xxx
+> WETH addresses for chains are
+> - [WBNB](https://testnet.bscscan.com/address/0xae13d989dac2f0debff460ac112a837c89baa7cd)
+
+## Verify contract
+- Obtain and fulfill Explorer API key to .env file
+```bash
+export BSCSCAN_API_KEY="<API_KEY>"
 ```
 
-or
-
-```
-yarn deploy --network localhost --tags xxx
-
+- Verify contract, please remember to pass corresponding constructor arguments
+```bash
+$ npx hardhat verify --network <chain-name> <contract-address>
 ```
 
-# Note:
+## Upgrade contracts
+TBD
 
-Sử dụng .env để cấu hình một số biến đặc biệt (các private key của các ví deploy)
+## Troubleshoot
+- Deploy failed due to chain congestion, the solution is need to wait for traffic reduce and redeploy
 
-set biến env trước khi build để build thư mục test_deployments thay vì deployments (staging)
+## Note
+- set biến env trước khi build để build thư mục test_deployments thay vì deployments (staging)
 DEPLOYMENT_ENV=test_deployments
+
+## License
+Copyright belongs to DareNFT - Alpha Waves PTE. LTD, 2023
