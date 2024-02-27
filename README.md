@@ -65,6 +65,16 @@ const config: HardhatUserConfig = {
 $ npx hardhat run ./scripts/deploy-managers.ts --network <chain-name>
 ```
 
+- Deploy strategies
+```bash
+$ npx hardhat run ./scripts/deploy-strategy.ts --network <chain-name>
+```
+
+- Setup currency whitelist, etc
+```bash
+$ npx hardhat run ./scripts/setup-marketplace.ts --network <chain-name>
+```
+
 - Deploy marketplace
 ```bash
 $ CURRENCY_MANAGER="<address>" \

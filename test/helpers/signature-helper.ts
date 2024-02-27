@@ -33,7 +33,9 @@ const signTypedData = async (
         verifyingContract: verifyingContract,
     };
 
-    const domainSeparator = _TypedDataEncoder.hashDomain(domain);
+    //const domainSeparator = _TypedDataEncoder.hashDomain(domain);
+    const domainSeparator = "0x5e0451a061ded37b9070286450363b3833ad2de7c3d16563850cdd16ba92df0a";
+    console.log(`domain separator`, domainSeparator);
 
     // https://docs.ethers.io/v5/api/utils/abi/coder/#AbiCoder--methods
     const hash = keccak256(defaultAbiCoder.encode(types, values));

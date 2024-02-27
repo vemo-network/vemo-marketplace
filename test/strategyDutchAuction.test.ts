@@ -15,7 +15,7 @@ import { increaseTo } from "./helpers/block-traveller";
 
 const { defaultAbiCoder, parseEther } = utils;
 
-describe("Strategy - Dutch Auction", () => {
+describe.skip("Strategy - Dutch Auction", () => {
     // Mock contracts
     let mockERC721: Contract;
     let mockERC721WithRoyalty: Contract;

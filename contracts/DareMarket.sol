@@ -225,7 +225,7 @@ contract DareMarket is
                 (takerBid.price - msg.value)
             );
         } else {
-            require(takerBid.price == msg.value, "Order: Msg.value too high");
+            require(takerBid.price == msg.value, "Order:  too high");
         }
 
         // Wrap ETH sent to this contract
