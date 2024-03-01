@@ -14,7 +14,7 @@ import { tokenSetUp } from "./token-set-up";
 
 const { defaultAbiCoder, parseEther } = utils;
 
-describe.skip("Strategy - PrivateSale", () => {
+describe("Strategy - PrivateSale", () => {
     // Mock contracts
     let mockERC721: Contract;
     let mockERC721WithRoyalty: Contract;

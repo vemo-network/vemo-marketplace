@@ -13,6 +13,9 @@ import { setUp } from "./test-setup";
 import { tokenSetUp } from "./token-set-up";
 import { increaseTo } from "./helpers/block-traveller";
 
+import dotenv from "dotenv";
+dotenv.config();
+
 const { defaultAbiCoder, parseEther } = utils;
 
 describe("Test setup", () => {

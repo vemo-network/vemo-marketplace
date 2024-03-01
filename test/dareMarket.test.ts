@@ -150,18 +150,19 @@ describe("DareMarket", () => {
               process.env.TOKEN_ID != undefined && process.env.TOKEN_ID.length > 0) {
               //const wallet = new ethers.Wallet(process.env.OWNER_KEY, ethers.getDefaultProvider());              
               const signer = await ethers.getSigner(process.env.OWNER);
+              const price = "0.0001";
 
               const myAskOrder: MakerOrderWithSignature =
                 await createMakerOrder({
                     isOrderAsk: true,
                     signer: signer.address,
                     collection: process.env.COLLECTION,
-                    price: parseEther("0.0001"),
+                    price: parseEther(price),
                     tokenId: BigNumber.from(process.env.TOKEN_ID),
                     amount: constants.One,
                     strategy: process.env.STRATEGY,
                     currency: process.env.WETH,
-                    nonce: constants.Zero,
+                    nonce: BigNumber.from(1709092357),
                     startTime: BigNumber.from(0),
                     endTime: BigNumber.from(1809016170),
                     minPercentageToAsk: constants.Zero,
@@ -171,17 +172,6 @@ describe("DareMarket", () => {
                 });
 
               console.log(`my order ask`, myAskOrder);
-
-              const myTakerBidOrder = createTakerOrder({
-                  isOrderAsk: false,
-                  taker: takerBidUser.address,
-                  price: parseEther("0.0001"),
-                  tokenId: constants.Zero,
-                  minPercentageToAsk: constants.Zero,
-                  params: defaultAbiCoder.encode([], []),
-              });
-
-              console.log(`my TakerBid order`, myTakerBidOrder);
             }
 
 
@@ -438,6 +428,48 @@ describe("DareMarket", () => {
         it("Standard Order/ERC721/WETH only - MakerBid order is matched by TakerAsk order", async () => {
             const makerBidUser = accounts[2];
             const takerAskUser = accounts[1];
+
+            if (process.env.OWNER != undefined && process.env.OWNER.length > 0 &&
+              process.env.MARKETPLACE != undefined && process.env.MARKETPLACE.length > 0 && 
+              process.env.WETH != undefined && process.env.WETH.length > 0 && 
+              process.env.STRATEGY != undefined && process.env.STRATEGY.length > 0 && 
+              process.env.COLLECTION != undefined && process.env.COLLECTION.length > 0 && 
+              process.env.TOKEN_ID != undefined && process.env.TOKEN_ID.length > 0) {
+              //const wallet = new ethers.Wallet(process.env.OWNER_KEY, ethers.getDefaultProvider());              
+              const signer = await ethers.getSigner(process.env.OWNER);
+              const price = "0.0001";
+
+              const myMakerBidOrder = await createMakerOrder({
+                  isOrderAsk: false,
+                  signer: signer.address,
+                  collection: process.env.COLLECTION,
+                  tokenId: BigNumber.from(process.env.TOKEN_ID),
+                  price: parseEther(price),
+                  amount: constants.One,
+                  strategy: process.env.STRATEGY,
+                  currency: process.env.WETH,
+                  nonce: BigNumber.from(1709092351),
+                  startTime: BigNumber.from(0),
+                  endTime: BigNumber.from(1809016170),
+                  minPercentageToAsk: constants.Zero,
+                  params: defaultAbiCoder.encode([], []),
+                  signerUser: signer,
+                  verifyingContract: process.env.MARKETPLACE,
+              });
+
+              console.log(`myMakerBidOrder`, myMakerBidOrder);
+
+              // const myTakerAskOrder = createTakerOrder({
+              //     isOrderAsk: true,
+              //     taker: takerAskUser.address,
+              //     tokenId: constants.Zero,
+              //     price: myMakerBidOrder.price,
+              //     minPercentageToAsk: constants.Zero,
+              //     params: defaultAbiCoder.encode([], []),
+              // });
+
+              // console.log(`myTakerAskOrder`, myTakerAskOrder);
+            }
 
             const makerBidOrder = await createMakerOrder({
                 isOrderAsk: false,

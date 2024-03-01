@@ -16,9 +16,8 @@ export function findPrivateKey(publicKey: string): string {
     case "0x15d34aaf54267db7d7c367839aaf71a00a2c6a65":
       return "0x47e179ec197488593b187f80a00eb0da91f1b9d0b13f8733639f19c30a34926a";
 
-    // TODO
     case "0x9572ea312b275678bfa57adc2fa7e0705552cea6":
-      return "0xb81d3ca50e49506b37f08efcd1e2628787fa555055ad9ca6931f79b831eea9b7";
+      return process.env.PRIVATE_KEY1!;
 
     default:
       return "0x";

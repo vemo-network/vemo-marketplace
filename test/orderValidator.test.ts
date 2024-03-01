@@ -28,7 +28,7 @@ import { OrderValidator } from "typechain";
 
 const { defaultAbiCoder, parseEther } = utils;
 
-describe.skip("OrderValidator (additional tests)", () => {
+describe("OrderValidator (additional tests)", () => {
     let mockERC721: Contract;
     let mockERC721WithRoyalty: Contract;
     let mockERC1155: Contract;

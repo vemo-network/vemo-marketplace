@@ -23,7 +23,7 @@ import { HardhatUserConfig } from "hardhat/types";
 import { accounts, node_url } from "./lib/utils/utils/network";
 
 import dotenv from "dotenv";
-dotenv.config()
+dotenv.config();
 
 if (![TASK_COMPILE, TASK_TEST].includes(process.argv[2])) {
     (async () => {
