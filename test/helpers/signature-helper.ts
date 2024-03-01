@@ -11,6 +11,10 @@ import { findPrivateKey } from "./hardhat-keys";
 
 const { defaultAbiCoder, keccak256, solidityPack } = utils;
 
+const DOMAIN_NAME = "DareMarket";
+const DOMAIN_VERSION = "1";
+const DOMAIN_CHAIN_ID = "31337"; // HRE
+
 /**
  * Generate a signature used to generate v, r, s parameters
  * @param signer signer
@@ -26,14 +30,10 @@ const signTypedData = async (
     values: (string | boolean | BigNumber)[],
     verifyingContract: string
 ): Promise<Signature> => {
-    const domain: TypedDataDomain = {
-        name: "DareMarket",
-        version: "1",
-        chainId: "31337", // HRE
-        verifyingContract: verifyingContract,
-    };
-
-    const domainSeparator = _TypedDataEncoder.hashDomain(domain);
+    let domainSeparator = computeDomainSeparator(verifyingContract);
+    if (process.env.CHAIN_ID != undefined && process.env.CHAIN_ID.length > 0){
+      domainSeparator = computeDomainSeparatorWithChainId(verifyingContract, process.env.CHAIN_ID);
+    }
 
     // https://docs.ethers.io/v5/api/utils/abi/coder/#AbiCoder--methods
     const hash = keccak256(defaultAbiCoder.encode(types, values));
@@ -52,14 +52,26 @@ const signTypedData = async (
 
 export const computeDomainSeparator = (verifyingContract: string): string => {
     const domain: TypedDataDomain = {
-        name: "DareMarket",
-        version: "1",
-        chainId: "31337", // HRE
+        name: DOMAIN_NAME,
+        version: DOMAIN_VERSION,
+        chainId: DOMAIN_CHAIN_ID,
         verifyingContract: verifyingContract,
     };
 
     return _TypedDataEncoder.hashDomain(domain);
 };
+
+export const computeDomainSeparatorWithChainId = (verifyingContract: string, chainId: string): string => {
+  const domain: TypedDataDomain = {
+      name: DOMAIN_NAME,
+      version: DOMAIN_VERSION,
+      chainId,
+      verifyingContract: verifyingContract,
+  };
+
+  return _TypedDataEncoder.hashDomain(domain);
+};
+
 /**
  * Compute order hash for a maker order
  * @param order MakerOrder

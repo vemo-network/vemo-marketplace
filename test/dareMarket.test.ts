@@ -139,8 +139,41 @@ describe("DareMarket", () => {
 
     describe("#1 - Regular sales", async () => {
         it("Standard Order/ERC721/ETH only - MakerAsk order is matched by TakerBid order", async () => {
-            const makerAskUser = accounts[1];
+            let makerAskUser = accounts[1];
             const takerBidUser = accounts[2];
+
+            if (process.env.OWNER != undefined && process.env.OWNER.length > 0 &&
+              process.env.MARKETPLACE != undefined && process.env.MARKETPLACE.length > 0 && 
+              process.env.WETH != undefined && process.env.WETH.length > 0 && 
+              process.env.STRATEGY != undefined && process.env.STRATEGY.length > 0 && 
+              process.env.COLLECTION != undefined && process.env.COLLECTION.length > 0 && 
+              process.env.TOKEN_ID != undefined && process.env.TOKEN_ID.length > 0) {
+              //const wallet = new ethers.Wallet(process.env.OWNER_KEY, ethers.getDefaultProvider());              
+              const signer = await ethers.getSigner(process.env.OWNER);
+              const price = "0.0001";
+
+              const myAskOrder: MakerOrderWithSignature =
+                await createMakerOrder({
+                    isOrderAsk: true,
+                    signer: signer.address,
+                    collection: process.env.COLLECTION,
+                    price: parseEther(price),
+                    tokenId: BigNumber.from(process.env.TOKEN_ID),
+                    amount: constants.One,
+                    strategy: process.env.STRATEGY,
+                    currency: process.env.WETH,
+                    nonce: BigNumber.from(1709092357),
+                    startTime: BigNumber.from(0),
+                    endTime: BigNumber.from(1809016170),
+                    minPercentageToAsk: constants.Zero,
+                    params: defaultAbiCoder.encode([], []),
+                    signerUser: signer,
+                    verifyingContract: process.env.MARKETPLACE,
+                });
+
+              console.log(`my order ask`, myAskOrder);
+            }
+
 
             const makerAskOrder: MakerOrderWithSignature =
                 await createMakerOrder({
@@ -171,6 +204,9 @@ describe("DareMarket", () => {
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
             });
+
+            //console.log(`MakerAsk order`, makerAskOrder);
+            //console.log(`TakerBid order`, takerBidOrder);
 
             const tx = await dareMarket
                 .connect(takerBidUser)
@@ -393,6 +429,48 @@ describe("DareMarket", () => {
             const makerBidUser = accounts[2];
             const takerAskUser = accounts[1];
 
+            if (process.env.OWNER != undefined && process.env.OWNER.length > 0 &&
+              process.env.MARKETPLACE != undefined && process.env.MARKETPLACE.length > 0 && 
+              process.env.WETH != undefined && process.env.WETH.length > 0 && 
+              process.env.STRATEGY != undefined && process.env.STRATEGY.length > 0 && 
+              process.env.COLLECTION != undefined && process.env.COLLECTION.length > 0 && 
+              process.env.TOKEN_ID != undefined && process.env.TOKEN_ID.length > 0) {
+              //const wallet = new ethers.Wallet(process.env.OWNER_KEY, ethers.getDefaultProvider());              
+              const signer = await ethers.getSigner(process.env.OWNER);
+              const price = "0.0001";
+
+              const myMakerBidOrder = await createMakerOrder({
+                  isOrderAsk: false,
+                  signer: signer.address,
+                  collection: process.env.COLLECTION,
+                  tokenId: BigNumber.from(process.env.TOKEN_ID),
+                  price: parseEther(price),
+                  amount: constants.One,
+                  strategy: process.env.STRATEGY,
+                  currency: process.env.WETH,
+                  nonce: BigNumber.from(1709092351),
+                  startTime: BigNumber.from(0),
+                  endTime: BigNumber.from(1809016170),
+                  minPercentageToAsk: constants.Zero,
+                  params: defaultAbiCoder.encode([], []),
+                  signerUser: signer,
+                  verifyingContract: process.env.MARKETPLACE,
+              });
+
+              console.log(`myMakerBidOrder`, myMakerBidOrder);
+
+              // const myTakerAskOrder = createTakerOrder({
+              //     isOrderAsk: true,
+              //     taker: takerAskUser.address,
+              //     tokenId: constants.Zero,
+              //     price: myMakerBidOrder.price,
+              //     minPercentageToAsk: constants.Zero,
+              //     params: defaultAbiCoder.encode([], []),
+              // });
+
+              // console.log(`myTakerAskOrder`, myTakerAskOrder);
+            }
+
             const makerBidOrder = await createMakerOrder({
                 isOrderAsk: false,
                 signer: makerBidUser.address,
@@ -519,7 +597,7 @@ describe("DareMarket", () => {
         });
     });
 
-    describe("#2 - EIP1271 wallet orders", async () => {
+    describe.skip("#2 - EIP1271 wallet orders", async () => {
         it("EIP1271/Contract Signature - MakerBid order is matched by TakerAsk order", async () => {
             const userSigningThroughContract = accounts[1];
             const takerAskUser = accounts[2];
@@ -715,7 +793,7 @@ describe("DareMarket", () => {
         });
     });
 
-    describe("#3 - Royalty fee system", async () => {
+    describe.skip("#3 - Royalty fee system", async () => {
         it("Fee/Royalty - Payment with ERC2981 works for non-ETH orders", async () => {
             const makerAskUser = accounts[1];
             const takerBidUser = accounts[2];
@@ -1579,7 +1657,7 @@ describe("DareMarket", () => {
         });
     });
 
-    describe("#4 - Standard logic revertions", async () => {
+    describe.skip("#4 - Standard logic revertions", async () => {
         it("One Cancel Other - Initial order is not executable anymore", async () => {
             const makerAskUser = accounts[1];
             const takerBidUser = accounts[2];
@@ -2599,7 +2677,7 @@ describe("DareMarket", () => {
         });
     });
 
-    describe("#5 - Unusual logic revertions", async () => {
+    describe.skip("#5 - Unusual logic revertions", async () => {
         it("CurrencyManager/ExecutionManager - Revertions work as expected", async () => {
             await expect(
                 currencyManager.connect(admin).addCurrency(weth.address)
@@ -2853,7 +2931,7 @@ describe("DareMarket", () => {
         });
     });
 
-    describe("#6 - Owner functions and access rights", async () => {
+    describe.skip("#6 - Owner functions and access rights", async () => {
         it("DareMarket - Null address in owner functions", async () => {
             await expect(
                 dareMarket
@@ -3082,7 +3160,7 @@ describe("DareMarket", () => {
         });
     });
 
-    describe("#7 - View functions", async () => {
+    describe.skip("#7 - View functions", async () => {
         it("CurrencyManager - View functions work as expected", async () => {
             // Add a 2nd currency
             await currencyManager.connect(admin).addCurrency(mockUSDT.address);

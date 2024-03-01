@@ -23,7 +23,7 @@ import { HardhatUserConfig } from "hardhat/types";
 import { accounts, node_url } from "./lib/utils/utils/network";
 
 import dotenv from "dotenv";
-dotenv.config()
+dotenv.config();
 
 if (![TASK_COMPILE, TASK_TEST].includes(process.argv[2])) {
     (async () => {
@@ -89,7 +89,7 @@ const config: HardhatUserConfig = {
     },
     networks: {        
       bnb_testnet: {
-        url: "https://data-seed-prebsc-2-s3.binance.org:8545/",
+        url: "https://data-seed-prebsc-1-s2.binance.org:8545/",
         accounts: [privateKey1],
       },    
     },
