@@ -22,7 +22,7 @@ async function main() {
   const [owner] = await ethers.getSigners();
   const DareMarket = await ethers.getContractFactory("DareMarket");
   const marketplace = await upgrades.deployProxy(DareMarket, [owner.address, currencyManager, executionManager, royaltyFeeManager, wETH, owner.address]);
-  console.log("Marketplace is deployed to: ", await marketplace.address);
+  console.log("Marketplace is deployed at address ", await marketplace.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

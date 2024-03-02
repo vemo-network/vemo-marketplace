@@ -62,7 +62,21 @@ const config: HardhatUserConfig = {
       timeout: 120000,
     },
     etherscan: {
-      apiKey: process.env.BSCSCAN_API_KEY,
+      //apiKey: process.env.BSCSCAN_API_KEY,
+      apiKey: {
+        avax_fuji: "snowtrace", // apiKey is not required, just set a placeholder
+        bscTestnet: process.env.BSCSCAN_API_KEY!,
+      },
+      customChains: [
+        {
+          network: "avax_fuji",
+          chainId: 43113,
+          urls: {
+            apiURL: "https://api.routescan.io/v2/network/testnet/evm/43113/etherscan",
+            browserURL: "https://testnet.snowtrace.io"
+          }
+        }
+      ] 
     },
     gasReporter,
     preprocess: {
@@ -91,7 +105,12 @@ const config: HardhatUserConfig = {
       bnb_testnet: {
         url: "https://data-seed-prebsc-1-s2.binance.org:8545/",
         accounts: [privateKey1],
-      },    
+      },
+      avax_fuji: {
+        url: "https://api.avax-test.network/ext/bc/C/rpc",
+        chainId: 43113,
+        accounts: [privateKey1],
+      },
     },
     typechain: {
         outDir: "typechain",
