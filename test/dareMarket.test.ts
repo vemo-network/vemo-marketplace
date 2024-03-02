@@ -162,7 +162,7 @@ describe("DareMarket", () => {
                     amount: constants.One,
                     strategy: process.env.STRATEGY,
                     currency: process.env.WETH,
-                    nonce: BigNumber.from(1709092357),
+                    nonce: BigNumber.from(0),
                     startTime: BigNumber.from(0),
                     endTime: BigNumber.from(1809016170),
                     minPercentageToAsk: constants.Zero,
@@ -597,7 +597,7 @@ describe("DareMarket", () => {
         });
     });
 
-    describe.skip("#2 - EIP1271 wallet orders", async () => {
+    describe("#2 - EIP1271 wallet orders", async () => {
         it("EIP1271/Contract Signature - MakerBid order is matched by TakerAsk order", async () => {
             const userSigningThroughContract = accounts[1];
             const takerAskUser = accounts[2];
@@ -793,7 +793,7 @@ describe("DareMarket", () => {
         });
     });
 
-    describe.skip("#3 - Royalty fee system", async () => {
+    describe("#3 - Royalty fee system", async () => {
         it("Fee/Royalty - Payment with ERC2981 works for non-ETH orders", async () => {
             const makerAskUser = accounts[1];
             const takerBidUser = accounts[2];
@@ -1657,7 +1657,7 @@ describe("DareMarket", () => {
         });
     });
 
-    describe.skip("#4 - Standard logic revertions", async () => {
+    describe("#4 - Standard logic revertions", async () => {
         it("One Cancel Other - Initial order is not executable anymore", async () => {
             const makerAskUser = accounts[1];
             const takerBidUser = accounts[2];
@@ -2677,7 +2677,7 @@ describe("DareMarket", () => {
         });
     });
 
-    describe.skip("#5 - Unusual logic revertions", async () => {
+    describe("#5 - Unusual logic revertions", async () => {
         it("CurrencyManager/ExecutionManager - Revertions work as expected", async () => {
             await expect(
                 currencyManager.connect(admin).addCurrency(weth.address)
@@ -2931,7 +2931,7 @@ describe("DareMarket", () => {
         });
     });
 
-    describe.skip("#6 - Owner functions and access rights", async () => {
+    describe("#6 - Owner functions and access rights", async () => {
         it("DareMarket - Null address in owner functions", async () => {
             await expect(
                 dareMarket
@@ -3160,7 +3160,7 @@ describe("DareMarket", () => {
         });
     });
 
-    describe.skip("#7 - View functions", async () => {
+    describe("#7 - View functions", async () => {
         it("CurrencyManager - View functions work as expected", async () => {
             // Add a 2nd currency
             await currencyManager.connect(admin).addCurrency(mockUSDT.address);
