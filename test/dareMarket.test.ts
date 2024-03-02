@@ -162,7 +162,7 @@ describe("DareMarket", () => {
                     amount: constants.One,
                     strategy: process.env.STRATEGY,
                     currency: process.env.WETH,
-                    nonce: BigNumber.from(1709092357),
+                    nonce: BigNumber.from(0),
                     startTime: BigNumber.from(0),
                     endTime: BigNumber.from(1809016170),
                     minPercentageToAsk: constants.Zero,
