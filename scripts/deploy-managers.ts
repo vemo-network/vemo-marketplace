@@ -13,7 +13,7 @@ import {
 } from "typechain";
 
 const ROYALTY_FEE_LIMIT = 5000 // in basis point
-const PROTOCOL_FEE = 100 // in basis point
+const PROTOCOL_FEE = 200 // in basis point
 
 enum ManagerKind {
   CURRENCY_MANAGER,
