@@ -60,22 +60,19 @@ const config: HardhatUserConfig = {
 }
 ```
 
-- Deploy managers
+### Deploy managers
+- Deploy main managers
 ```bash
-$ npx hardhat run ./scripts/deploy-managers.ts --network <chain-name>
+$ IMPLEMENTATION=<kind> \
+npx hardhat run ./scripts/deploy-managers.ts --network <chain-name>
 ```
 
-- Deploy strategies
-```bash
-$ npx hardhat run ./scripts/deploy-strategy.ts --network <chain-name>
-```
+>   where IMPLEMENTATION is number kind, values corresponding
+>   - 0: CURRENCY_MANAGER
+>   - 1: EXECUTION_MANAGER
+>   - 2: ROYALTY_FEE_MANAGER
 
-- Setup currency whitelist, etc
-```bash
-$ npx hardhat run ./scripts/setup-marketplace.ts --network <chain-name>
-```
-
-- Deploy marketplace
+### Deploy marketplace
 ```bash
 $ CURRENCY_MANAGER="<address>" \
 EXECUTION_MANAGER="<address>" \
@@ -83,8 +80,35 @@ ROYALTY_FEE_MANAGER="<address>" \
 WETH="<address>" \
 npx hardhat run scripts/deploy-marketplace.ts --network <chain-name>
 ```
+
+> Managers address is retrieved from previous step.
 > WETH addresses for chains are
 > - [WBNB](https://testnet.bscscan.com/address/0xae13d989dac2f0debff460ac112a837c89baa7cd)
+> - [WAVAX](https://testnet.snowtrace.io/address/0xd00ae08403b9bbb9124bb305c09058e32c39a48c)
+
+### Deploy helper components
+```bash
+$ IMPLEMENTATION=<kind> \
+MARKETPLACE=<address> \
+npx hardhat run ./scripts/deploy-managers.ts --network <chain-name>
+```
+
+>   where IMPLEMENTATION is number kind, values corresponding
+>   - 3: TRANSFER_NFT_SELECTOR
+>   - 4: ORDER_VALIDATOR
+>   MARKETPLACE is contract address of marketplace, retrieved from previous step.
+
+### Deploy execution strategy
+```bash
+$ IMPLEMENTATION=<kind> \
+EXECUTION_MANAGER=<address> \
+npx hardhat run ./scripts/deploy-managers.ts --network <chain-name>
+```
+
+>   where IMPLEMENTATION is number kind, values corresponding
+>   - 5: STRATEGY_STANDARD_FIXED_PRICE
+>   EXECUTION_MANAGER is contract address of execution manager, retrieved from previous step.
+
 
 ## Verify contract
 - Obtain and fulfill Explorer API key to .env file
@@ -103,9 +127,6 @@ TBD
 ## Troubleshoot
 - Deploy failed due to chain congestion, the solution is need to wait for traffic reduce and redeploy
 
-## Note
-- set biến env trước khi build để build thư mục test_deployments thay vì deployments (staging)
-DEPLOYMENT_ENV=test_deployments
 
 ## License
 Copyright belongs to DareNFT - Alpha Waves PTE. LTD, 2023
