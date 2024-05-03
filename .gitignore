@@ -18,3 +18,5 @@ node_modules
 
 # flatten contracts
 flatten/*.sol
+
+*.log

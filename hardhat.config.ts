@@ -65,6 +65,7 @@ const config: HardhatUserConfig = {
       //apiKey: process.env.BSCSCAN_API_KEY,
       apiKey: {
         avax_fuji: "snowtrace", // apiKey is not required, just set a placeholder
+        avalanche: "snowtrace",
         bscTestnet: process.env.BSCSCAN_API_KEY!,
       },
       customChains: [
@@ -75,7 +76,23 @@ const config: HardhatUserConfig = {
             apiURL: "https://api.routescan.io/v2/network/testnet/evm/43113/etherscan",
             browserURL: "https://testnet.snowtrace.io"
           }
-        }
+        },
+        {
+          network: "avax_mainnet",
+          chainId: 43113,
+          urls: {
+            apiURL: "https://api.routescan.io/v2/network/testnet/evm/43114/etherscan",
+            browserURL: "https://snowtrace.io/"
+          }
+        },
+        {
+          network: "bnb_mainnet",
+          chainId: 56,
+          urls: {
+            apiURL: "https://api.routescan.io/v2/network/testnet/evm/56/etherscan",
+            browserURL: "https://bscscan.com/"
+          }
+        },
       ] 
     },
     gasReporter,
@@ -109,6 +126,16 @@ const config: HardhatUserConfig = {
       avax_fuji: {
         url: "https://api.avax-test.network/ext/bc/C/rpc",
         chainId: 43113,
+        accounts: [privateKey1],
+      },
+      avax_mainnet: {
+        url: "https://api.avax.network/ext/bc/C/rpc",
+        chainId: 43114,
+        accounts: [privateKey1],
+      },
+      bnb_mainnet: {
+        url: "https://bsc-dataseed4.bnbchain.org",
+        chainId: 56,
         accounts: [privateKey1],
       },
     },
