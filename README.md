@@ -129,4 +129,35 @@ TBD
 
 
 ## License
-Copyright belongs to DareNFT - Alpha Waves PTE. LTD, 2023
+Copyright belongs to VemeNFT - Ace Labs
+
+| Contract Type                         | Address                                   |
+|---------------------------------------|-------------------------------------------|
+| WETH                                  | 0xd00ae08403b9bbb9124bb305c09058e32c39a48c |
+| MARKETPLACE                           | 0x2829012FC81983C4ABD08A53d5243F05CAc4bb0D |
+| EXECUTION_MANAGER                     | 0x2aA8A49Ac88F4bAE2fb0C7517dDB4a3aD57348da |
+| ROYALTY_FEE_MANAGER                   | 0x9ee1BFf46f270aB0818A6Ae9b7083Df40f9BeaA4 |
+| CurrencyManager                       | 0x20A39584bF67419e051111a87678606f84c07Eff |
+| StrategyStandardSaleForFixedPrice     | 0xB83876eb92198aBe282489f79740113050483D8c |
+
+
+
+| Contract Type                         | Address                                   |
+|---------------------------------------|-------------------------------------------|
+| WETH                                  | 0xd00ae08403b9bbb9124bb305c09058e32c39a48c |
+| MARKETPLACE                           | 0x4eE89877330A247065E6E340BB914B3bba304d3e |
+| EXECUTION_MANAGER                     | 0x320b6996a815AF9C4A773fD59A3130994a8daC2b |
+| ROYALTY_FEE_MANAGER                   | 0xd047e208b9A3feDD27ED361586C9827C91c0093d |
+| CurrencyManager                       | 0x27B7ceC5Baf9C2B8558Ff4c5e2F8B5e57FCfFE11 |
+| StrategyStandardSaleForFixedPrice     | 0x19B8dd424BbEe16F091628a415f58cBCd438c429 |
+
+
+
+| Contract Type                         | Address                                   |
+|---------------------------------------|-------------------------------------------|
+| WETH                                  | 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c |
+| MARKETPLACE                           | 0x0f38Dd0D6D67388aF2575736629c5F8a9D81C8aA |
+| EXECUTION_MANAGER                     | 0x954149a56f084e8451401dceFd0242182EB9954c |
+| ROYALTY_FEE_MANAGER                   | 0x0d9ed97aaD16FC7A748B749423384EA091260f44 |
+| CurrencyManager                       | 0xe85e685c692f5242E0B4647895206518a3cdCCed |
+| StrategyStandardSaleForFixedPrice     | 0x3A24DA07ae15393F6Bc15a84b296Bc55898a982A |
