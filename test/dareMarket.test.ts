@@ -169,6 +169,8 @@ describe("DareMarket", () => {
                     params: defaultAbiCoder.encode([], []),
                     signerUser: signer,
                     verifyingContract: process.env.MARKETPLACE,
+                    boundTokens: [],
+                    boundAmounts: []
                 });
 
               console.log(`my order ask`, myAskOrder);
@@ -192,6 +194,8 @@ describe("DareMarket", () => {
                     params: defaultAbiCoder.encode([], []),
                     signerUser: makerAskUser,
                     verifyingContract: dareMarket.address,
+                    boundTokens: [],
+                    boundAmounts: []
                 });
 
             await assertOrderValid(makerAskOrder, orderValidator);
@@ -203,6 +207,8 @@ describe("DareMarket", () => {
                 tokenId: constants.Zero,
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
+                boundTokens: [],
+                boundAmounts: []
             });
 
             //console.log(`MakerAsk order`, makerAskOrder);
@@ -282,6 +288,8 @@ describe("DareMarket", () => {
                     params: defaultAbiCoder.encode([], []),
                     signerUser: makerAskUser,
                     verifyingContract: dareMarket.address,
+                    boundTokens: [],
+                    boundAmounts: []
                 });
 
             await assertOrderValid(makerAskOrder, orderValidator);
@@ -293,6 +301,8 @@ describe("DareMarket", () => {
                 price: parseEther("3"),
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
+                boundTokens: [],
+                boundAmounts: []
             });
 
             // Order is worth 3 ETH; taker user splits it as 2 ETH + 1 WETH
@@ -366,6 +376,8 @@ describe("DareMarket", () => {
                     params: defaultAbiCoder.encode([], []),
                     signerUser: makerAskUser,
                     verifyingContract: dareMarket.address,
+                    boundTokens: [],
+                    boundAmounts: []
                 });
 
             await assertOrderValid(makerAskOrder, orderValidator);
@@ -377,6 +389,8 @@ describe("DareMarket", () => {
                 price: parseEther("3"),
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
+                boundTokens: [],
+                boundAmounts: []
             });
 
             const tx = await dareMarket
@@ -455,6 +469,8 @@ describe("DareMarket", () => {
                   params: defaultAbiCoder.encode([], []),
                   signerUser: signer,
                   verifyingContract: process.env.MARKETPLACE,
+                  boundTokens: [],
+                 boundAmounts: []
               });
 
               console.log(`myMakerBidOrder`, myMakerBidOrder);
@@ -487,6 +503,8 @@ describe("DareMarket", () => {
                 params: defaultAbiCoder.encode([], []),
                 signerUser: makerBidUser,
                 verifyingContract: dareMarket.address,
+                boundTokens: [],
+                boundAmounts: []
             });
 
             await assertOrderValid(makerBidOrder, orderValidator);
@@ -498,6 +516,8 @@ describe("DareMarket", () => {
                 price: makerBidOrder.price,
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
+                boundTokens: [],
+                boundAmounts: []
             });
 
             const tx = await dareMarket
@@ -552,6 +572,8 @@ describe("DareMarket", () => {
                 params: defaultAbiCoder.encode([], []),
                 signerUser: makerBidUser,
                 verifyingContract: dareMarket.address,
+                boundTokens: [],
+                boundAmounts: []
             });
 
             await assertOrderValid(makerBidOrder, orderValidator);
@@ -563,6 +585,8 @@ describe("DareMarket", () => {
                 price: makerBidOrder.price,
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
+                boundTokens: [],
+                boundAmounts: []
             });
 
             const tx = await dareMarket
@@ -633,6 +657,8 @@ describe("DareMarket", () => {
                 params: defaultAbiCoder.encode([], []),
                 signerUser: userSigningThroughContract,
                 verifyingContract: dareMarket.address,
+                boundTokens: [],
+                boundAmounts: []
             });
 
             await assertOrderValid(makerBidOrder, orderValidator);
@@ -644,6 +670,8 @@ describe("DareMarket", () => {
                 price: makerBidOrder.price,
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
+                boundTokens: [],
+                boundAmounts: []
             });
 
             const tx = await dareMarket
@@ -733,6 +761,8 @@ describe("DareMarket", () => {
                 params: defaultAbiCoder.encode([], []),
                 signerUser: userSigningThroughContract,
                 verifyingContract: dareMarket.address,
+                boundTokens: [],
+                boundAmounts: []
             });
 
             await assertOrderValid(makerAskOrder, orderValidator);
@@ -744,6 +774,8 @@ describe("DareMarket", () => {
                 price: makerAskOrder.price,
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
+                boundTokens: [],
+                boundAmounts: []
             });
 
             const tx = await dareMarket
@@ -828,6 +860,8 @@ describe("DareMarket", () => {
                 params: defaultAbiCoder.encode([], []),
                 signerUser: makerAskUser,
                 verifyingContract: dareMarket.address,
+                boundTokens: [],
+                boundAmounts: []
             });
 
             await assertOrderValid(makerAskOrder, orderValidator);
@@ -839,6 +873,8 @@ describe("DareMarket", () => {
                 tokenId: makerAskOrder.tokenId,
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
+                boundTokens: [],
+                boundAmounts: []
             };
 
             const tx = await dareMarket
@@ -928,6 +964,8 @@ describe("DareMarket", () => {
                 params: defaultAbiCoder.encode([], []),
                 signerUser: makerAskUser,
                 verifyingContract: dareMarket.address,
+                boundTokens: [],
+                boundAmounts: []
             });
 
             await assertOrderValid(makerAskOrder, orderValidator);
@@ -939,6 +977,8 @@ describe("DareMarket", () => {
                 tokenId: makerAskOrder.tokenId,
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
+                boundTokens: [],
+                boundAmounts: []
             };
 
             const tx = await dareMarket
@@ -1055,6 +1095,8 @@ describe("DareMarket", () => {
                 params: defaultAbiCoder.encode([], []),
                 signerUser: makerAskUser,
                 verifyingContract: dareMarket.address,
+                boundTokens: [],
+                boundAmounts: []
             });
 
             await assertOrderValid(makerAskOrder, orderValidator);
@@ -1066,6 +1108,8 @@ describe("DareMarket", () => {
                 price: parseEther("3"),
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
+                boundTokens: [],
+                boundAmounts: []
             };
 
             tx = await dareMarket
@@ -1152,6 +1196,8 @@ describe("DareMarket", () => {
                 params: defaultAbiCoder.encode([], []),
                 signerUser: makerAskUser,
                 verifyingContract: dareMarket.address,
+                boundTokens: [],
+                boundAmounts: []
             });
 
             await assertOrderValid(makerAskOrder, orderValidator);
@@ -1179,6 +1225,8 @@ describe("DareMarket", () => {
                 price: parseEther("3"),
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
+                boundTokens: [],
+                boundAmounts: []
             };
 
             await expect(
@@ -1258,6 +1306,8 @@ describe("DareMarket", () => {
                 params: defaultAbiCoder.encode([], []),
                 signerUser: makerBidUser,
                 verifyingContract: dareMarket.address,
+                boundTokens: [],
+                boundAmounts: []
             });
 
             await assertOrderValid(makerBidOrder, orderValidator);
@@ -1269,6 +1319,8 @@ describe("DareMarket", () => {
                 price: parseEther("3"),
                 minPercentageToAsk: BigNumber.from("9500"), // ProtocolFee: 2%, RoyaltyFee: 3%
                 params: defaultAbiCoder.encode([], []),
+                boundTokens: [],
+                boundAmounts: []
             });
 
             // Update to 3.01% for royalties
@@ -1351,6 +1403,8 @@ describe("DareMarket", () => {
                 ), // target user
                 signerUser: makerAskUser,
                 verifyingContract: dareMarket.address,
+                boundTokens: [],
+                boundAmounts: []
             });
 
             await assertOrderValid(makerAskOrder, orderValidator);
@@ -1362,6 +1416,8 @@ describe("DareMarket", () => {
                 price: parseEther("3"),
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
+                boundTokens: [],
+                boundAmounts: []
             };
 
             const tx = await dareMarket
@@ -1679,6 +1735,8 @@ describe("DareMarket", () => {
                     params: defaultAbiCoder.encode([], []),
                     signerUser: makerAskUser,
                     verifyingContract: dareMarket.address,
+                    boundTokens: [],
+                    boundAmounts: []
                 });
 
             const adjustedMakerAskOrder: MakerOrderWithSignature =
@@ -1698,6 +1756,8 @@ describe("DareMarket", () => {
                     params: defaultAbiCoder.encode([], []),
                     signerUser: makerAskUser,
                     verifyingContract: dareMarket.address,
+                    boundTokens: [],
+                    boundAmounts: []
                 });
 
             await assertOrderValid(initialMakerAskOrder, orderValidator);
@@ -1710,6 +1770,8 @@ describe("DareMarket", () => {
                 tokenId: constants.Zero,
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
+                boundTokens: [],
+                boundAmounts: []
             });
 
             const tx = await dareMarket
@@ -1795,6 +1857,8 @@ describe("DareMarket", () => {
                 params: defaultAbiCoder.encode([], []),
                 signerUser: makerAskUser,
                 verifyingContract: dareMarket.address,
+                boundTokens: [],
+                boundAmounts: []
             });
 
             await assertOrderValid(makerAskOrder, orderValidator);
@@ -1806,6 +1870,8 @@ describe("DareMarket", () => {
                 price: makerAskOrder.price,
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
+                boundTokens: [],
+                boundAmounts: []
             });
 
             const tx = await dareMarket
@@ -1852,6 +1918,8 @@ describe("DareMarket", () => {
                 params: defaultAbiCoder.encode([], []),
                 signerUser: makerAskUser,
                 verifyingContract: dareMarket.address,
+                boundTokens: [],
+                boundAmounts: []
             });
 
             await assertOrderValid(makerAskOrder, orderValidator);
@@ -1863,6 +1931,8 @@ describe("DareMarket", () => {
                 price: makerAskOrder.price,
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
+                boundTokens: [],
+                boundAmounts: []
             });
 
             const tx = await dareMarket
@@ -1910,6 +1980,8 @@ describe("DareMarket", () => {
                 params: defaultAbiCoder.encode([], []),
                 signerUser: makerAskUser,
                 verifyingContract: dareMarket.address,
+                boundTokens: [],
+                boundAmounts: []
             });
 
             const takerBidOrder: TakerOrder = {
@@ -1919,6 +1991,8 @@ describe("DareMarket", () => {
                 tokenId: makerAskOrder.tokenId,
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
+                boundTokens: [],
+                boundAmounts: []
             };
 
             await expect(
@@ -1954,6 +2028,8 @@ describe("DareMarket", () => {
                 params: defaultAbiCoder.encode([], []),
                 signerUser: makerAskUser,
                 verifyingContract: dareMarket.address,
+                boundTokens: [],
+                boundAmounts: []
             });
 
             await assertErrorCode(
@@ -1969,6 +2045,8 @@ describe("DareMarket", () => {
                 price: makerAskOrder.price,
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
+                boundTokens: [],
+                boundAmounts: []
             };
 
             await expect(
@@ -2001,6 +2079,8 @@ describe("DareMarket", () => {
                 params: defaultAbiCoder.encode([], []),
                 signerUser: makerAskUser,
                 verifyingContract: dareMarket.address,
+                boundTokens: [],
+                boundAmounts: []
             });
 
             const takerBidOrder: TakerOrder = {
@@ -2010,6 +2090,8 @@ describe("DareMarket", () => {
                 price: makerAskOrder.price,
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
+                boundTokens: [],
+                boundAmounts: []
             };
 
             await expect(
@@ -2090,6 +2172,8 @@ describe("DareMarket", () => {
                 params: defaultAbiCoder.encode([], []),
                 signerUser: makerBidUser,
                 verifyingContract: dareMarket.address,
+                boundTokens: [],
+                boundAmounts: []
             });
 
             const takerAskOrder = createTakerOrder({
@@ -2099,6 +2183,8 @@ describe("DareMarket", () => {
                 price: makerAskOrder.price,
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
+                boundTokens: [],
+                boundAmounts: []
             });
 
             await expect(
@@ -2206,6 +2292,8 @@ describe("DareMarket", () => {
                     params: defaultAbiCoder.encode([], []),
                     signerUser: makerAskUser,
                     verifyingContract: dareMarket.address,
+                    boundTokens: [],
+                    boundAmounts: []
                 });
 
             await assertErrorCode(
@@ -2221,6 +2309,8 @@ describe("DareMarket", () => {
                 price: makerAskOrder.price,
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
+                boundTokens: [],
+                boundAmounts: []
             });
             await expect(
                 dareMarket
@@ -2260,6 +2350,8 @@ describe("DareMarket", () => {
                     params: defaultAbiCoder.encode([], []),
                     signerUser: makerBidUser,
                     verifyingContract: dareMarket.address,
+                    boundTokens: [],
+                    boundAmounts: []
                 });
 
             const takerAskOrder = createTakerOrder({
@@ -2269,6 +2361,8 @@ describe("DareMarket", () => {
                 price: makerBidOrder.price,
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
+                boundTokens: [],
+                boundAmounts: []
             });
 
             await increaseTo(endTimeOrder.add(1));
@@ -2312,6 +2406,8 @@ describe("DareMarket", () => {
                 params: defaultAbiCoder.encode([], []),
                 signerUser: makerAskUser,
                 verifyingContract: dareMarket.address,
+                boundTokens: [],
+                boundAmounts: []
             });
 
             await assertErrorCode(
@@ -2327,6 +2423,8 @@ describe("DareMarket", () => {
                 price: makerAskOrder.price,
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
+                boundTokens: [],
+                boundAmounts: []
             };
 
             await expect(
@@ -2368,6 +2466,8 @@ describe("DareMarket", () => {
                 params: defaultAbiCoder.encode([], []),
                 signerUser: makerAskUser,
                 verifyingContract: dareMarket.address,
+                boundTokens: [],
+                boundAmounts: []
             });
 
             const takerBidOrder: TakerOrder = {
@@ -2377,6 +2477,8 @@ describe("DareMarket", () => {
                 price: makerAskOrder.price,
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
+                boundTokens: [],
+                boundAmounts: []
             };
 
             await expect(
@@ -2422,6 +2524,8 @@ describe("DareMarket", () => {
                 params: defaultAbiCoder.encode([], []),
                 signerUser: makerAskUser,
                 verifyingContract: dareMarket.address,
+                boundTokens: [],
+                boundAmounts: []
             });
 
             await assertErrorCode(
@@ -2437,6 +2541,8 @@ describe("DareMarket", () => {
                 price: makerAskOrder.price,
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
+                boundTokens: [],
+                boundAmounts: []
             };
 
             await expect(
@@ -2493,6 +2599,8 @@ describe("DareMarket", () => {
                 params: defaultAbiCoder.encode([], []),
                 signerUser: makerAskUser,
                 verifyingContract: dareMarket.address,
+                boundTokens: [],
+                boundAmounts: []
             });
 
             const takerBidOrder: TakerOrder = {
@@ -2502,6 +2610,8 @@ describe("DareMarket", () => {
                 price: makerAskOrder.price,
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
+                boundTokens: [],
+                boundAmounts: []
             };
 
             let tx = await executionManager
@@ -2586,6 +2696,8 @@ describe("DareMarket", () => {
                 params: defaultAbiCoder.encode([], []),
                 signerUser: makerAskUser,
                 verifyingContract: dareMarket.address,
+                boundTokens: [],
+                boundAmounts: []
             });
 
             await assertErrorCode(
@@ -2601,6 +2713,8 @@ describe("DareMarket", () => {
                 price: makerAskOrder.price,
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
+                boundTokens: [],
+                boundAmounts: []
             };
 
             await expect(
@@ -2719,6 +2833,8 @@ describe("DareMarket", () => {
                 params: defaultAbiCoder.encode([], []),
                 signerUser: makerAskUser,
                 verifyingContract: dareMarket.address,
+                boundTokens: [],
+                boundAmounts: []
             });
 
             await assertOrderValid(makerAskOrder, orderValidator);
@@ -2737,6 +2853,8 @@ describe("DareMarket", () => {
                 price: makerAskOrder.price,
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
+                boundTokens: [],
+                boundAmounts: []
             };
 
             await expect(
@@ -2766,6 +2884,8 @@ describe("DareMarket", () => {
                 params: defaultAbiCoder.encode([], []),
                 signerUser: makerAskUser,
                 verifyingContract: dareMarket.address,
+                boundTokens: [],
+                boundAmounts: []
             });
 
             // The s value is picked randomly to make the condition be rejected
@@ -2785,6 +2905,8 @@ describe("DareMarket", () => {
                 tokenId: makerAskOrder.tokenId,
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
+                boundTokens: [],
+                boundAmounts: []
             };
 
             await expect(
@@ -2821,6 +2943,8 @@ describe("DareMarket", () => {
                 params: defaultAbiCoder.encode([], []),
                 signerUser: accounts[3],
                 verifyingContract: dareMarket.address,
+                boundTokens: [],
+                boundAmounts: []
             });
 
             await assertErrorCode(
@@ -2836,6 +2960,8 @@ describe("DareMarket", () => {
                 price: makerAskOrder.price,
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
+                boundTokens: [],
+                boundAmounts: []
             };
 
             await expect(
@@ -2862,6 +2988,8 @@ describe("DareMarket", () => {
                 params: defaultAbiCoder.encode([], []),
                 signerUser: accounts[3],
                 verifyingContract: dareMarket.address,
+                boundTokens: [],
+                boundAmounts: []
             });
 
             await assertErrorCode(
@@ -2877,6 +3005,8 @@ describe("DareMarket", () => {
                 price: makerAskOrder.price,
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
+                boundTokens: [],
+                boundAmounts: []
             };
 
             await expect(

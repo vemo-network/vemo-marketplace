@@ -127,6 +127,8 @@ describe("Strategy - Dutch Auction", () => {
             params: defaultAbiCoder.encode(["uint256"], [parseEther("5")]),
             signerUser: makerAskUser,
             verifyingContract: dareMarket.address,
+            boundTokens: [],
+                boundAmounts: []
         });
 
         const takerBidOrder = createTakerOrder({
@@ -136,6 +138,8 @@ describe("Strategy - Dutch Auction", () => {
             price: BigNumber.from(parseEther("3").toString()),
             minPercentageToAsk: constants.Zero,
             params: defaultAbiCoder.encode([], []),
+            boundTokens: [],
+                boundAmounts: []
         });
 
         // User 2 cannot buy since the current auction price is not 3
@@ -209,6 +213,8 @@ describe("Strategy - Dutch Auction", () => {
             params: defaultAbiCoder.encode(["uint256"], [parseEther("5")]),
             signerUser: makerAskUser,
             verifyingContract: dareMarket.address,
+            boundTokens: [],
+                boundAmounts: []
         });
 
         const takerBidOrder = createTakerOrder({
@@ -218,6 +224,8 @@ describe("Strategy - Dutch Auction", () => {
             price: BigNumber.from(parseEther("4.5").toString()),
             minPercentageToAsk: constants.Zero,
             params: defaultAbiCoder.encode([], []),
+            boundTokens: [],
+                boundAmounts: []
         });
 
         // Advance time to half time of the auction (3 is between 5 and 1)
@@ -284,6 +292,8 @@ describe("Strategy - Dutch Auction", () => {
             ), // startPrice/endPrice
             signerUser: makerAskUser,
             verifyingContract: dareMarket.address,
+            boundTokens: [],
+                boundAmounts: []
         });
 
         const takerBidOrder: TakerOrder = {
@@ -293,6 +303,8 @@ describe("Strategy - Dutch Auction", () => {
             price: makerAskOrder.price,
             minPercentageToAsk: constants.Zero,
             params: defaultAbiCoder.encode([], []),
+            boundTokens: [],
+                boundAmounts: []
         };
 
         await expect(
@@ -325,6 +337,8 @@ describe("Strategy - Dutch Auction", () => {
             ), // startPrice/endPrice
             signerUser: makerAskUser,
             verifyingContract: dareMarket.address,
+            boundTokens: [],
+                boundAmounts: []
         });
 
         await expect(
@@ -354,6 +368,8 @@ describe("Strategy - Dutch Auction", () => {
             params: defaultAbiCoder.encode(["uint256"], [parseEther("5")]), // startPrice
             signerUser: takerBidUser,
             verifyingContract: dareMarket.address,
+            boundTokens: [],
+                boundAmounts: []
         });
 
         const takerAskOrder: TakerOrder = {
@@ -363,6 +379,8 @@ describe("Strategy - Dutch Auction", () => {
             price: makerBidOrder.price,
             minPercentageToAsk: constants.Zero,
             params: defaultAbiCoder.encode([], []),
+            boundTokens: [],
+                boundAmounts: []
         };
 
         await expect(

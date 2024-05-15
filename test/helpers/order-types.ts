@@ -14,6 +14,8 @@ export interface MakerOrder {
   startTime: BigNumber; // startTime in epoch
   endTime: BigNumber; // endTime in epoch
   params: BytesLike; // additional parameters
+  boundTokens: string[]; // locked or vesting tokens inside this nft
+  boundAmounts: BigNumber[]; // locked amounts
 }
 
 export interface MakerOrderWithSignature extends MakerOrder {
@@ -29,4 +31,6 @@ export interface TakerOrder {
   tokenId: BigNumber;
   minPercentageToAsk: BigNumber;
   params: BytesLike; // params (e.g., tokenId)
+  boundTokens: string[]; // locked or vesting tokens inside this nft
+  boundAmounts: BigNumber[]; // locked amounts
 }

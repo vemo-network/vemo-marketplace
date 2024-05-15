@@ -147,6 +147,8 @@ describe("Strategy - AnyItemInASetForFixedPrice ('Trait orders')", () => {
             params: defaultAbiCoder.encode(["bytes32"], [hexRoot]),
             signerUser: makerBidUser,
             verifyingContract: dareMarket.address,
+            boundTokens: [],
+                boundAmounts: []
         });
 
         const takerAskOrder = createTakerOrder({
@@ -156,6 +158,8 @@ describe("Strategy - AnyItemInASetForFixedPrice ('Trait orders')", () => {
             price: makerBidOrder.price,
             minPercentageToAsk: constants.Zero,
             params: defaultAbiCoder.encode(["bytes32[]"], [hexProof]),
+            boundTokens: [],
+                boundAmounts: []
         });
 
         const tx = await dareMarket
@@ -225,6 +229,8 @@ describe("Strategy - AnyItemInASetForFixedPrice ('Trait orders')", () => {
             params: defaultAbiCoder.encode(["bytes32"], [hexRoot]),
             signerUser: makerBidUser,
             verifyingContract: dareMarket.address,
+            boundTokens: [],
+                boundAmounts: []
         });
 
         for (const tokenId of Array.from(Array(9).keys())) {
@@ -237,6 +243,8 @@ describe("Strategy - AnyItemInASetForFixedPrice ('Trait orders')", () => {
                     price: parseEther("3"),
                     minPercentageToAsk: constants.Zero,
                     params: defaultAbiCoder.encode(["bytes32[]"], [hexProof]),
+                    boundTokens: [],
+                boundAmounts: []
                 });
 
                 await expect(
@@ -268,6 +276,8 @@ describe("Strategy - AnyItemInASetForFixedPrice ('Trait orders')", () => {
             params: defaultAbiCoder.encode([], []), // these parameters are used after it reverts
             signerUser: makerAskUser,
             verifyingContract: dareMarket.address,
+            boundTokens: [],
+                boundAmounts: []
         });
 
         const takerBidOrder = {
@@ -277,6 +287,8 @@ describe("Strategy - AnyItemInASetForFixedPrice ('Trait orders')", () => {
             price: makerAskOrder.price,
             minPercentageToAsk: constants.Zero,
             params: defaultAbiCoder.encode([], []),
+            boundTokens: [],
+            boundAmounts: []
         };
 
         await expect(

@@ -137,6 +137,8 @@ describe("OrderValidator (additional tests)", () => {
             params: defaultAbiCoder.encode([], []),
             signerUser: makerUser,
             verifyingContract: dareMarket.address,
+            boundTokens: [],
+                boundAmounts: []
         });
 
         // 2. Standard maker ask
@@ -156,6 +158,8 @@ describe("OrderValidator (additional tests)", () => {
             params: defaultAbiCoder.encode([], []),
             signerUser: makerUser,
             verifyingContract: dareMarket.address,
+            boundTokens: [],
+                boundAmounts: []
         });
 
         assertMultipleOrdersValid(
@@ -184,6 +188,8 @@ describe("OrderValidator (additional tests)", () => {
             params: defaultAbiCoder.encode([], []),
             signerUser: makerBidUser,
             verifyingContract: dareMarket.address,
+            boundTokens: [],
+                boundAmounts: []
         });
 
         // 1. No WETH
@@ -239,6 +245,8 @@ describe("OrderValidator (additional tests)", () => {
             params: defaultAbiCoder.encode([], []),
             signerUser: makerAskUser,
             verifyingContract: dareMarket.address,
+            boundTokens: [],
+                boundAmounts: []
         });
 
         await assertErrorCode(
@@ -309,6 +317,8 @@ describe("OrderValidator (additional tests)", () => {
             params: defaultAbiCoder.encode([], []),
             signerUser: makerAskUser,
             verifyingContract: dareMarket.address,
+            boundTokens: [],
+                boundAmounts: []
         });
 
         await assertErrorCode(
@@ -386,6 +396,8 @@ describe("OrderValidator (additional tests)", () => {
             params: defaultAbiCoder.encode([], []),
             signerUser: makerAskUser,
             verifyingContract: dareMarket.address,
+            boundTokens: [],
+                boundAmounts: []
         });
 
         await assertErrorCode(
@@ -427,6 +439,8 @@ describe("OrderValidator (additional tests)", () => {
             params: defaultAbiCoder.encode([], []),
             signerUser: makerAskUser,
             verifyingContract: dareMarket.address,
+            boundTokens: [],
+                boundAmounts: []
         });
 
         await assertErrorCode(
@@ -462,6 +476,8 @@ describe("OrderValidator (additional tests)", () => {
             params: defaultAbiCoder.encode([], []),
             signerUser: makerAskUser,
             verifyingContract: dareMarket.address,
+            boundTokens: [],
+                boundAmounts: []
         });
 
         await assertErrorCode(
@@ -487,6 +503,8 @@ describe("OrderValidator (additional tests)", () => {
             params: defaultAbiCoder.encode([], []),
             signerUser: makerAskUser,
             verifyingContract: dareMarket.address,
+            boundTokens: [],
+                boundAmounts: []
         });
 
         await assertErrorCode(

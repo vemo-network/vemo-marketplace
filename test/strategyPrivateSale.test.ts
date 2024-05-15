@@ -126,6 +126,8 @@ describe("Strategy - PrivateSale", () => {
             params: defaultAbiCoder.encode(["address"], [takerBidUser.address]),
             signerUser: makerAskUser,
             verifyingContract: dareMarket.address,
+            boundTokens: [],
+                boundAmounts: []
         });
 
         let takerBidOrder = createTakerOrder({
@@ -135,6 +137,8 @@ describe("Strategy - PrivateSale", () => {
             price: makerAskOrder.price,
             minPercentageToAsk: constants.Zero,
             params: defaultAbiCoder.encode([], []),
+            boundTokens: [],
+                boundAmounts: []
         });
 
         // User 3 cannot buy since the order target is only taker user
@@ -163,6 +167,8 @@ describe("Strategy - PrivateSale", () => {
             tokenId: constants.Zero,
             minPercentageToAsk: constants.Zero,
             params: defaultAbiCoder.encode([], []),
+            boundTokens: [],
+                boundAmounts: []
         });
 
         expect(await weth.balanceOf(feeRecipient.address)).to.be.deep.equal(
@@ -225,6 +231,8 @@ describe("Strategy - PrivateSale", () => {
             params: defaultAbiCoder.encode(["address"], [takerBidUser.address]),
             signerUser: makerAskUser,
             verifyingContract: dareMarket.address,
+            boundTokens: [],
+                boundAmounts: []
         });
 
         let takerBidOrder = createTakerOrder({
@@ -234,6 +242,8 @@ describe("Strategy - PrivateSale", () => {
             price: makerAskOrder.price,
             minPercentageToAsk: constants.Zero,
             params: defaultAbiCoder.encode([], []),
+            boundTokens: [],
+                boundAmounts: []
         });
 
         // User 3 cannot buy since the order target is only taker user
@@ -262,6 +272,8 @@ describe("Strategy - PrivateSale", () => {
             tokenId: constants.Zero,
             minPercentageToAsk: constants.Zero,
             params: defaultAbiCoder.encode([], []),
+            boundTokens: [],
+                boundAmounts: []
         });
 
         expect(await weth.balanceOf(feeRecipient.address)).to.be.deep.equal(
@@ -322,6 +334,8 @@ describe("Strategy - PrivateSale", () => {
             params: defaultAbiCoder.encode([], []),
             signerUser: takerBidUser,
             verifyingContract: dareMarket.address,
+            boundTokens: [],
+                boundAmounts: []
         });
 
         const takerAskOrder: TakerOrder = {
@@ -331,6 +345,8 @@ describe("Strategy - PrivateSale", () => {
             price: makerBidOrder.price,
             minPercentageToAsk: constants.Zero,
             params: defaultAbiCoder.encode([], []),
+            boundTokens: [],
+                boundAmounts: []
         };
 
         await expect(

@@ -23,6 +23,8 @@ export async function createMakerOrder({
   params,
   signerUser,
   verifyingContract,
+  boundTokens,
+  boundAmounts
 }: SignedMakerOrder): Promise<MakerOrderWithSignature> {
   const makerOrder: MakerOrder = {
     isOrderAsk: isOrderAsk,
@@ -38,6 +40,8 @@ export async function createMakerOrder({
     endTime: endTime,
     minPercentageToAsk: minPercentageToAsk,
     params: params,
+    boundTokens,
+    boundAmounts
   };
 
   const signedOrder = await signMakerOrder(signerUser, verifyingContract, makerOrder);
@@ -60,6 +64,8 @@ export function createTakerOrder({
   tokenId,
   minPercentageToAsk,
   params,
+  boundTokens,
+  boundAmounts
 }: TakerOrder): TakerOrder {
   const takerOrder: TakerOrder = {
     isOrderAsk: isOrderAsk,
@@ -68,6 +74,8 @@ export function createTakerOrder({
     tokenId: tokenId,
     minPercentageToAsk: minPercentageToAsk,
     params: params,
+    boundTokens,
+    boundAmounts
   };
 
   return takerOrder;

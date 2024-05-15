@@ -124,6 +124,8 @@ describe("Strategy - AnyItemFromCollectionForFixedPrice ('Collection orders')", 
             params: defaultAbiCoder.encode([], []),
             signerUser: makerBidUser,
             verifyingContract: dareMarket.address,
+            boundTokens: [],
+                boundAmounts: []
         });
 
         const takerAskOrder = createTakerOrder({
@@ -133,6 +135,8 @@ describe("Strategy - AnyItemFromCollectionForFixedPrice ('Collection orders')", 
             price: makerBidOrder.price,
             minPercentageToAsk: constants.Zero,
             params: defaultAbiCoder.encode([], []),
+            boundTokens: [],
+                boundAmounts: []
         });
 
         const tx = await dareMarket
@@ -181,6 +185,8 @@ describe("Strategy - AnyItemFromCollectionForFixedPrice ('Collection orders')", 
             params: defaultAbiCoder.encode([], []),
             signerUser: makerBidUser,
             verifyingContract: dareMarket.address,
+            boundTokens: [],
+                boundAmounts: []
         });
 
         const takerAskOrder = createTakerOrder({
@@ -190,6 +196,8 @@ describe("Strategy - AnyItemFromCollectionForFixedPrice ('Collection orders')", 
             tokenId: BigNumber.from("2"),
             minPercentageToAsk: constants.Zero,
             params: defaultAbiCoder.encode([], []),
+            boundTokens: [],
+                boundAmounts: []
         });
 
         const tx = await dareMarket
@@ -238,6 +246,8 @@ describe("Strategy - AnyItemFromCollectionForFixedPrice ('Collection orders')", 
             params: defaultAbiCoder.encode([], []),
             signerUser: makerAskUser,
             verifyingContract: dareMarket.address,
+            boundTokens: [],
+                boundAmounts: []
         });
 
         const takerBidOrder: TakerOrder = {
@@ -247,6 +257,8 @@ describe("Strategy - AnyItemFromCollectionForFixedPrice ('Collection orders')", 
             price: makerAskOrder.price,
             minPercentageToAsk: constants.Zero,
             params: defaultAbiCoder.encode([], []),
+            boundTokens: [],
+                boundAmounts: []
         };
 
         await expect(

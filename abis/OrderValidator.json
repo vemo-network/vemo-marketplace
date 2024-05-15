@@ -305,6 +305,16 @@
             "internalType": "bytes32",
             "name": "s",
             "type": "bytes32"
+          },
+          {
+            "internalType": "address[]",
+            "name": "boundTokens",
+            "type": "address[]"
+          },
+          {
+            "internalType": "address[]",
+            "name": "boundAmounts",
+            "type": "address[]"
           }
         ],
         "internalType": "struct OrderTypes.MakerOrder[]",
@@ -406,6 +416,16 @@
             "internalType": "bytes32",
             "name": "s",
             "type": "bytes32"
+          },
+          {
+            "internalType": "address[]",
+            "name": "boundTokens",
+            "type": "address[]"
+          },
+          {
+            "internalType": "address[]",
+            "name": "boundAmounts",
+            "type": "address[]"
           }
         ],
         "internalType": "struct OrderTypes.MakerOrder",
@@ -507,6 +527,16 @@
             "internalType": "bytes32",
             "name": "s",
             "type": "bytes32"
+          },
+          {
+            "internalType": "address[]",
+            "name": "boundTokens",
+            "type": "address[]"
+          },
+          {
+            "internalType": "address[]",
+            "name": "boundAmounts",
+            "type": "address[]"
           }
         ],
         "internalType": "struct OrderTypes.MakerOrder",
@@ -608,6 +638,16 @@
             "internalType": "bytes32",
             "name": "s",
             "type": "bytes32"
+          },
+          {
+            "internalType": "address[]",
+            "name": "boundTokens",
+            "type": "address[]"
+          },
+          {
+            "internalType": "address[]",
+            "name": "boundAmounts",
+            "type": "address[]"
           }
         ],
         "internalType": "struct OrderTypes.MakerOrder",
@@ -714,6 +754,16 @@
             "internalType": "bytes32",
             "name": "s",
             "type": "bytes32"
+          },
+          {
+            "internalType": "address[]",
+            "name": "boundTokens",
+            "type": "address[]"
+          },
+          {
+            "internalType": "address[]",
+            "name": "boundAmounts",
+            "type": "address[]"
           }
         ],
         "internalType": "struct OrderTypes.MakerOrder",
@@ -815,6 +865,16 @@
             "internalType": "bytes32",
             "name": "s",
             "type": "bytes32"
+          },
+          {
+            "internalType": "address[]",
+            "name": "boundTokens",
+            "type": "address[]"
+          },
+          {
+            "internalType": "address[]",
+            "name": "boundAmounts",
+            "type": "address[]"
           }
         ],
         "internalType": "struct OrderTypes.MakerOrder",
@@ -916,6 +976,16 @@
             "internalType": "bytes32",
             "name": "s",
             "type": "bytes32"
+          },
+          {
+            "internalType": "address[]",
+            "name": "boundTokens",
+            "type": "address[]"
+          },
+          {
+            "internalType": "address[]",
+            "name": "boundAmounts",
+            "type": "address[]"
           }
         ],
         "internalType": "struct OrderTypes.MakerOrder",
@@ -1017,6 +1087,16 @@
             "internalType": "bytes32",
             "name": "s",
             "type": "bytes32"
+          },
+          {
+            "internalType": "address[]",
+            "name": "boundTokens",
+            "type": "address[]"
+          },
+          {
+            "internalType": "address[]",
+            "name": "boundAmounts",
+            "type": "address[]"
           }
         ],
         "internalType": "struct OrderTypes.MakerOrder",
@@ -1118,6 +1198,16 @@
             "internalType": "bytes32",
             "name": "s",
             "type": "bytes32"
+          },
+          {
+            "internalType": "address[]",
+            "name": "boundTokens",
+            "type": "address[]"
+          },
+          {
+            "internalType": "address[]",
+            "name": "boundAmounts",
+            "type": "address[]"
           }
         ],
         "internalType": "struct OrderTypes.MakerOrder",

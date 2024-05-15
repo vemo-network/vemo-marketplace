@@ -47,13 +47,17 @@ contract StrategyDutchAuctionTest is TestHelpers, TestParameters {
         uint256 takerPrice = startPrice -
             (((startPrice - endPrice) * (block.timestamp - startTime)) / (endTime - startTime));
 
+        address[] memory tokenAddress;
+        address[] memory tokenAmounts;
         OrderTypes.TakerOrder memory takerBidOrder = OrderTypes.TakerOrder(
             false,
             _TAKER,
             takerPrice,
             _TOKEN_ID,
             _MIN_PERCENTAGE_TO_ASK,
-            _TAKER_PARAMS
+            _TAKER_PARAMS,
+            tokenAddress,
+            tokenAmounts
         );
 
         OrderTypes.MakerOrder memory makerAskOrder = OrderTypes.MakerOrder(
@@ -72,7 +76,9 @@ contract StrategyDutchAuctionTest is TestHelpers, TestParameters {
             makerParams,
             _V,
             _R,
-            _S
+            _S,
+            tokenAddress,
+            tokenAmounts
         );
 
         (bool canExecute, , ) = strategyDutchAuction.canExecuteTakerBid(takerBidOrder, makerAskOrder);
