@@ -38,8 +38,6 @@ library OrderTypes {
         uint256 tokenId;
         uint256 minPercentageToAsk; // // slippage protection (9000 --> 90% of the final price must return to ask)
         bytes params; // other params (e.g., tokenId)
-        address[] boundTokens; // locked or vesting tokens inside this nft
-        uint256[] boundAmounts; // locked amounts
     }
 
     function hash(MakerOrder memory makerOrder)

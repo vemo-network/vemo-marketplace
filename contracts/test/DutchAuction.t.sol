@@ -55,9 +55,7 @@ contract StrategyDutchAuctionTest is TestHelpers, TestParameters {
             takerPrice,
             _TOKEN_ID,
             _MIN_PERCENTAGE_TO_ASK,
-            _TAKER_PARAMS,
-            tokenAddress,
-            tokenAmounts
+            _TAKER_PARAMS
         );
 
         OrderTypes.MakerOrder memory makerAskOrder = OrderTypes.MakerOrder(
