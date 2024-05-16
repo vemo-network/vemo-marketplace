@@ -22,6 +22,8 @@ import {IExecutionStrategy} from "../interfaces/IExecutionStrategy.sol";
 import {IRoyaltyFeeRegistry} from "../interfaces/IRoyaltyFeeRegistry.sol";
 import {ITransferManagerNFT} from "../interfaces/ITransferManagerNFT.sol";
 import {ITransferSelectorNFTExtended, IRoyaltyFeeManagerExtended} from "./ExtendedInterfaces.sol";
+import "../interfaces/IVoucherFactory.sol";
+
 
 // DareMarket
 import {DareMarket} from "../DareMarket.sol";
@@ -42,7 +44,7 @@ contract OrderValidator is Initializable, AccessControlUpgradeable {
     using OrderTypes for OrderTypes.MakerOrder;
 
     // Number of distinct criteria groups checked to evaluate the validity
-    uint256 public constant CRITERIA_GROUPS = 8;
+    uint256 public constant CRITERIA_GROUPS = 10;
 
     // ERC721 interfaceID
     bytes4 public constant INTERFACE_ID_ERC721 = 0x80ac58cd;
@@ -82,6 +84,9 @@ contract OrderValidator is Initializable, AccessControlUpgradeable {
 
     // DareMarket
     DareMarket public dareMarket;
+
+    // VemoFactory
+    IVoucherFactory public vemoVoucherFactory;
 
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() {
@@ -165,6 +170,12 @@ contract OrderValidator is Initializable, AccessControlUpgradeable {
         ) = checkValidityApprovalsAndBalances(makerOrder);
         validationCodes[6] = validationApprovalsAndBalancesCode;
         validationCodes[7] = tokenType;
+        (
+            uint256 validationERC6551Code,
+            uint256 boundTokenType
+        ) = checkERC6551AccountAssets(makerOrder);
+        validationCodes[8] = validationERC6551Code;
+        validationCodes[9] = boundTokenType;
     }
 
     /**
@@ -327,6 +338,47 @@ contract OrderValidator is Initializable, AccessControlUpgradeable {
             return TOO_EARLY_TO_EXECUTE_ORDER;
         if (makerOrder.endTime < block.timestamp)
             return TOO_LATE_TO_EXECUTE_ORDER;
+    }
+    
+    /**
+     * @notice Update Vemo Voucher Factory
+     * @param _voucherFactory new address
+     */
+    function setVemoVoucherFactory(
+        IVoucherFactory _voucherFactory
+    ) public onlyRole(DEFAULT_ADMIN_ROLE){
+        vemoVoucherFactory = _voucherFactory;
+    }
+
+    /**
+     * @notice Check the validity of assets included in the Vemo's ERC6551Account 
+     * @param makerOrder Maker order struct
+     * @return validationCode Validation code
+     * @return tokenType Asset type
+     */
+    function checkERC6551AccountAssets(
+        OrderTypes.MakerOrder calldata makerOrder
+    ) public view returns (uint256 validationCode, uint256 tokenType) {
+        if (address(vemoVoucherFactory) == address(0x0)) {
+            return (0x0, 0x0);
+        }
+
+        if (makerOrder.boundAmounts.length != makerOrder.boundTokens.length
+        ) {
+            return (INVALID_ERC6551_ASSETS_INPUTS, 0x0);
+        }
+
+        address vemoTBA = vemoVoucherFactory.getTokenBoundAccount(makerOrder.collection, makerOrder.tokenId);
+        uint256 assetL = makerOrder.boundAmounts.length;
+
+        for (uint i = 0; i < assetL;) {
+            if (IERC20(makerOrder.boundTokens[i]).balanceOf(vemoTBA) < makerOrder.boundAmounts[i])
+                return (ERC6551_BALANCE_NOT_CORRECT, 20);
+
+            unchecked {
+	            ++i;
+	        }
+        }
     }
 
     /**

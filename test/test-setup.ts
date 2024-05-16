@@ -214,6 +214,10 @@ export async function setUp(
         dareMarket.address,
     ])) as OrderValidator;
 
+    const MockVoucherFactory = await ethers.getContractFactory("MockVoucherFactory");
+    const vemoVoucherFactory = await MockVoucherFactory.deploy();
+    await vemoVoucherFactory.deployed();
+
     /** Return contracts
      */
     return [
@@ -239,7 +243,7 @@ export async function setUp(
         royaltyFeeManager,
         royaltyFeeSetter,
         orderValidator,
-
+        vemoVoucherFactory
 
         // mockDerivative,
     ];

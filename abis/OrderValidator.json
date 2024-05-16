@@ -317,6 +317,122 @@
             "type": "uint256[]"
           }
         ],
+        "internalType": "struct OrderTypes.MakerOrder",
+        "name": "makerOrder",
+        "type": "tuple"
+      }
+    ],
+    "name": "checkERC6551AccountAssets",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "validationCode",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenType",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          {
+            "internalType": "bool",
+            "name": "isOrderAsk",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "signer",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "collection",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "price",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tokenId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "strategy",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "currency",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "nonce",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "startTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "endTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "minPercentageToAsk",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bytes",
+            "name": "params",
+            "type": "bytes"
+          },
+          {
+            "internalType": "uint8",
+            "name": "v",
+            "type": "uint8"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "r",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "s",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "address[]",
+            "name": "boundTokens",
+            "type": "address[]"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "boundAmounts",
+            "type": "uint256[]"
+          }
+        ],
         "internalType": "struct OrderTypes.MakerOrder[]",
         "name": "makerOrders",
         "type": "tuple[]"
@@ -1396,6 +1512,19 @@
   {
     "inputs": [
       {
+        "internalType": "contract IVoucherFactory",
+        "name": "_voucherFactory",
+        "type": "address"
+      }
+    ],
+    "name": "setVemoVoucherFactory",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "bytes4",
         "name": "interfaceId",
         "type": "bytes4"
@@ -1418,6 +1547,19 @@
     "outputs": [
       {
         "internalType": "contract ITransferSelectorNFTExtended",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "vemoVoucherFactory",
+    "outputs": [
+      {
+        "internalType": "contract IVoucherFactory",
         "name": "",
         "type": "address"
       }
