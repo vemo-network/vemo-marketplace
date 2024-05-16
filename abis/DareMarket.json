@@ -620,9 +620,9 @@
             "type": "address[]"
           },
           {
-            "internalType": "address[]",
+            "internalType": "uint256[]",
             "name": "boundAmounts",
-            "type": "address[]"
+            "type": "uint256[]"
           }
         ],
         "internalType": "struct OrderTypes.TakerOrder",
@@ -717,9 +717,9 @@
             "type": "address[]"
           },
           {
-            "internalType": "address[]",
+            "internalType": "uint256[]",
             "name": "boundAmounts",
-            "type": "address[]"
+            "type": "uint256[]"
           }
         ],
         "internalType": "struct OrderTypes.MakerOrder",
@@ -772,9 +772,9 @@
             "type": "address[]"
           },
           {
-            "internalType": "address[]",
+            "internalType": "uint256[]",
             "name": "boundAmounts",
-            "type": "address[]"
+            "type": "uint256[]"
           }
         ],
         "internalType": "struct OrderTypes.TakerOrder",
@@ -869,9 +869,9 @@
             "type": "address[]"
           },
           {
-            "internalType": "address[]",
+            "internalType": "uint256[]",
             "name": "boundAmounts",
-            "type": "address[]"
+            "type": "uint256[]"
           }
         ],
         "internalType": "struct OrderTypes.MakerOrder",
@@ -924,9 +924,9 @@
             "type": "address[]"
           },
           {
-            "internalType": "address[]",
+            "internalType": "uint256[]",
             "name": "boundAmounts",
-            "type": "address[]"
+            "type": "uint256[]"
           }
         ],
         "internalType": "struct OrderTypes.TakerOrder",
@@ -1021,9 +1021,9 @@
             "type": "address[]"
           },
           {
-            "internalType": "address[]",
+            "internalType": "uint256[]",
             "name": "boundAmounts",
-            "type": "address[]"
+            "type": "uint256[]"
           }
         ],
         "internalType": "struct OrderTypes.MakerOrder",

@@ -28,7 +28,7 @@ library OrderTypes {
         bytes32 r; // r: parameter
         bytes32 s; // s: parameter
         address[] boundTokens; // locked or vesting tokens inside this nft
-        address[] boundAmounts; // locked amounts
+        uint256[] boundAmounts; // locked amounts
     }
 
     struct TakerOrder {
@@ -39,7 +39,7 @@ library OrderTypes {
         uint256 minPercentageToAsk; // // slippage protection (9000 --> 90% of the final price must return to ask)
         bytes params; // other params (e.g., tokenId)
         address[] boundTokens; // locked or vesting tokens inside this nft
-        address[] boundAmounts; // locked amounts
+        uint256[] boundAmounts; // locked amounts
     }
 
     function hash(MakerOrder memory makerOrder)

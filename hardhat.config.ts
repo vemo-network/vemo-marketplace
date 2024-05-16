@@ -66,6 +66,7 @@ const config: HardhatUserConfig = {
       apiKey: {
         avax_fuji: "snowtrace", // apiKey is not required, just set a placeholder
         avalanche: "snowtrace",
+        avax_mainnet: "snowtrace",
         bscTestnet: process.env.BSCSCAN_API_KEY!,
       },
       customChains: [
@@ -73,7 +74,7 @@ const config: HardhatUserConfig = {
           network: "avax_fuji",
           chainId: 43113,
           urls: {
-            apiURL: "https://api.routescan.io/v2/network/testnet/evm/43113/etherscan",
+            apiURL: "https://avalanche-fuji-c-chain-rpc.publicnode.com",
             browserURL: "https://testnet.snowtrace.io"
           }
         },

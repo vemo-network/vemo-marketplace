@@ -48,7 +48,7 @@ contract StrategyDutchAuctionTest is TestHelpers, TestParameters {
             (((startPrice - endPrice) * (block.timestamp - startTime)) / (endTime - startTime));
 
         address[] memory tokenAddress;
-        address[] memory tokenAmounts;
+        uint256[] memory tokenAmounts;
         OrderTypes.TakerOrder memory takerBidOrder = OrderTypes.TakerOrder(
             false,
             _TAKER,
