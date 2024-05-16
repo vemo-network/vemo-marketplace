@@ -101,7 +101,7 @@ describe("OrderValidator - ERC6551 standard", () => {
 
     });
 
-    it("invalid TBA assets", async () => {
+    it("allow blank TBA assets", async () => {
         await tokenSetUp(
             accounts.slice(1, 10),
             weth,
@@ -115,7 +115,6 @@ describe("OrderValidator - ERC6551 standard", () => {
 
         const makerUser = accounts[1];
 
-        // 1. Collection order
         const makerBidOrder = await createMakerOrder({
             isOrderAsk: false,
             signer: makerUser.address,
@@ -136,7 +135,6 @@ describe("OrderValidator - ERC6551 standard", () => {
             boundAmounts: []
         });
 
-        // 2. Standard maker ask
         const makerAskOrder: MakerOrderWithSignature = await createMakerOrder({
             isOrderAsk: true,
             signer: makerUser.address,
@@ -157,10 +155,9 @@ describe("OrderValidator - ERC6551 standard", () => {
             boundAmounts: []
         });
 
-        let isValidity = await orderValidator.checkOrderValidity(makerBidOrder);
-        assertOrderValid(makerBidOrder, orderValidator);
-        assertMultipleOrdersValid([makerBidOrder, makerAskOrder], orderValidator)
-        
+        await orderValidator.setVemoVoucherFactory(vemoVoucherFactory.address);
+        await assertOrderValid(makerBidOrder, orderValidator);
+        await assertMultipleOrdersValid([makerBidOrder, makerAskOrder], orderValidator)
     });
 
     it("invalid TBA assets balance", async () => {

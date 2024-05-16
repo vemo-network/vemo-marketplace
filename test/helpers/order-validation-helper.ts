@@ -58,7 +58,6 @@ export async function assertMultipleOrdersValid(
     const res = [
         ...(await orderValidator.checkMultipleOrderValidities(makerOrders)),
     ];
-    // res.pop();
 
     for (let i = 0; i < res.length; i++) {
         /**
@@ -69,6 +68,6 @@ export async function assertMultipleOrdersValid(
         for (let index = 0; index < IGNORED_VALIDATION_CODE_INDEXES.length; index++) {
             validResult[IGNORED_VALIDATION_CODE_INDEXES[index]] = res[i][IGNORED_VALIDATION_CODE_INDEXES[index]];
         }
-        expect(i).to.deep.equal(validResult);
+        expect(res[i]).to.deep.equal(validResult);
     }
 }
