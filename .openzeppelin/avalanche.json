@@ -737,72 +737,72 @@
             "offset": 0,
             "slot": "201",
             "type": "t_address",
-            "contract": "DareMarket",
-            "src": "contracts/DareMarket.sol:50"
+            "contract": "VemoMarket",
+            "src": "contracts/VemoMarket.sol:50"
           },
           {
             "label": "DOMAIN_SEPARATOR",
             "offset": 0,
             "slot": "202",
             "type": "t_bytes32",
-            "contract": "DareMarket",
-            "src": "contracts/DareMarket.sol:51"
+            "contract": "VemoMarket",
+            "src": "contracts/VemoMarket.sol:51"
           },
           {
             "label": "protocolFeeRecipient",
             "offset": 0,
             "slot": "203",
             "type": "t_address",
-            "contract": "DareMarket",
-            "src": "contracts/DareMarket.sol:53"
+            "contract": "VemoMarket",
+            "src": "contracts/VemoMarket.sol:53"
           },
           {
             "label": "currencyManager",
             "offset": 0,
             "slot": "204",
             "type": "t_contract(ICurrencyManager)4728",
-            "contract": "DareMarket",
-            "src": "contracts/DareMarket.sol:55"
+            "contract": "VemoMarket",
+            "src": "contracts/VemoMarket.sol:55"
           },
           {
             "label": "executionManager",
             "offset": 0,
             "slot": "205",
             "type": "t_contract(IExecutionManager)4797",
-            "contract": "DareMarket",
-            "src": "contracts/DareMarket.sol:56"
+            "contract": "VemoMarket",
+            "src": "contracts/VemoMarket.sol:56"
           },
           {
             "label": "royaltyFeeManager",
             "offset": 0,
             "slot": "206",
             "type": "t_contract(IRoyaltyFeeManager)4853",
-            "contract": "DareMarket",
-            "src": "contracts/DareMarket.sol:57"
+            "contract": "VemoMarket",
+            "src": "contracts/VemoMarket.sol:57"
           },
           {
             "label": "transferSelectorNFT",
             "offset": 0,
             "slot": "207",
             "type": "t_contract(ITransferSelectorNFT)4879",
-            "contract": "DareMarket",
-            "src": "contracts/DareMarket.sol:58"
+            "contract": "VemoMarket",
+            "src": "contracts/VemoMarket.sol:58"
           },
           {
             "label": "userMinOrderNonce",
             "offset": 0,
             "slot": "208",
             "type": "t_mapping(t_address,t_uint256)",
-            "contract": "DareMarket",
-            "src": "contracts/DareMarket.sol:60"
+            "contract": "VemoMarket",
+            "src": "contracts/VemoMarket.sol:60"
           },
           {
             "label": "_isUserOrderNonceExecutedOrCancelled",
             "offset": 0,
             "slot": "209",
             "type": "t_mapping(t_address,t_mapping(t_uint256,t_bool))",
-            "contract": "DareMarket",
-            "src": "contracts/DareMarket.sol:61"
+            "contract": "VemoMarket",
+            "src": "contracts/VemoMarket.sol:61"
           }
         ],
         "types": {
@@ -1495,10 +1495,10 @@
             "src": "contracts/orderValidation/OrderValidator.sol:81"
           },
           {
-            "label": "dareMarket",
+            "label": "vemoMarket",
             "offset": 0,
             "slot": "159",
-            "type": "t_contract(DareMarket)10245",
+            "type": "t_contract(VemoMarket)10245",
             "contract": "OrderValidator",
             "src": "contracts/orderValidation/OrderValidator.sol:84"
           }
@@ -1524,8 +1524,8 @@
             "label": "bytes32",
             "numberOfBytes": "32"
           },
-          "t_contract(DareMarket)10245": {
-            "label": "contract DareMarket",
+          "t_contract(VemoMarket)10245": {
+            "label": "contract VemoMarket",
             "numberOfBytes": "20"
           },
           "t_contract(ICurrencyManager)12631": {

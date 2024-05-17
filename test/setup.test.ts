@@ -28,7 +28,7 @@ describe("Test setup", () => {
     // Exchange contracts
     let transferManagerERC721: Contract;
     let transferManagerERC1155: Contract;
-    let dareMarket: Contract;
+    let vemoMarket: Contract;
 
     // Strategy contract
     let strategyDutchAuction: Contract;
@@ -62,7 +62,7 @@ describe("Test setup", () => {
             transferManagerERC721,
             transferManagerERC1155,
             ,
-            dareMarket,
+            vemoMarket,
             ,
             ,
             strategyDutchAuction,
@@ -86,15 +86,15 @@ describe("Test setup", () => {
             mockERC721,
             mockERC721WithRoyalty,
             mockERC1155,
-            dareMarket,
+            vemoMarket,
             transferManagerERC721,
             transferManagerERC1155
         );
 
         // Verify the domain separator is properly computed
         assert.equal(
-            await dareMarket.DOMAIN_SEPARATOR(),
-            computeDomainSeparator(dareMarket.address)
+            await vemoMarket.DOMAIN_SEPARATOR(),
+            computeDomainSeparator(vemoMarket.address)
         );
 
         // Set up defaults startTime/endTime (for orders)

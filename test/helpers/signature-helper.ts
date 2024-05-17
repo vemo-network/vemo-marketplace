@@ -11,7 +11,7 @@ import { findPrivateKey } from "./hardhat-keys";
 
 const { defaultAbiCoder, keccak256, solidityPack } = utils;
 
-const DOMAIN_NAME = "DareMarket";
+const DOMAIN_NAME = "VemoMarket";
 const DOMAIN_VERSION = "1";
 const DOMAIN_CHAIN_ID = "31337"; // HRE
 
@@ -20,7 +20,7 @@ const DOMAIN_CHAIN_ID = "31337"; // HRE
  * @param signer signer
  * @param types solidity types of the value param
  * @param values params to be sent to the Solidity function
- * @param verifyingContract verifying contract address ("DareMarket")
+ * @param verifyingContract verifying contract address ("VemoMarket")
  * @returns splitted signature
  * @see https://docs.ethers.io/v5/api/signer/#Signer-signTypedData
  */

@@ -4,7 +4,7 @@ import { BigNumber, constants, Contract } from "ethers";
 import { ethers, upgrades } from "hardhat";
 import {
     CurrencyManager,
-    DareMarket,
+    VemoMarket,
     ExecutionManager,
     OrderValidator,
     RoyaltyFeeManager,
@@ -166,33 +166,33 @@ export async function setUp(
             royaltyFeeSetter.address
         );
 
-    /** 6. Deploy DareMarket contract
+    /** 6. Deploy VemoMarket contract
      */
 
-    const dareMarket = (await deployUpgradeable("DareMarket", [
+    const vemoMarket = (await deployUpgradeable("VemoMarket", [
         admin.address,
         currencyManager.address,
         executionManager.address,
         royaltyFeeManager.address,
         weth.address,
         feeRecipient.address,
-    ])) as DareMarket;
+    ])) as VemoMarket;
 
     /** 6. Deploy TransferManager contracts and TransferSelector
      */
     const transferManagerERC721 = (await deployUpgradeable(
         "TransferManagerERC721",
-        [admin.address, dareMarket.address]
+        [admin.address, vemoMarket.address]
     )) as TransferManagerERC721;
 
     const transferManagerERC1155 = (await deployUpgradeable(
         "TransferManagerERC1155",
-        [admin.address, dareMarket.address]
+        [admin.address, vemoMarket.address]
     )) as TransferManagerERC1155;
 
     const transferManagerNonCompliantERC721 = (await deployUpgradeable(
         "TransferManagerNonCompliantERC721",
-        [admin.address, dareMarket.address]
+        [admin.address, vemoMarket.address]
     )) as TransferManagerNonCompliantERC721;
 
     const transferSelectorNFT = (await deployUpgradeable(
@@ -204,14 +204,14 @@ export async function setUp(
         ]
     )) as TransferSelectorNFT;
 
-    // Set TransferSelectorNFT in DareMarket
-    await dareMarket
+    // Set TransferSelectorNFT in VemoMarket
+    await vemoMarket
         .connect(admin)
         .updateTransferSelectorNFT(transferSelectorNFT.address);
 
     const orderValidator = (await deployUpgradeable("OrderValidator", [
         admin.address,
-        dareMarket.address,
+        vemoMarket.address,
     ])) as OrderValidator;
 
     const MockVoucherFactory = await ethers.getContractFactory("MockVoucherFactory");
@@ -232,7 +232,7 @@ export async function setUp(
         transferManagerERC721,
         transferManagerERC1155,
         transferManagerNonCompliantERC721,
-        dareMarket,
+        vemoMarket,
         strategyStandardSaleForFixedPrice,
         strategyAnyItemFromCollectionForFixedPrice,
         strategyDutchAuction,

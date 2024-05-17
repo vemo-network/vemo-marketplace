@@ -7,19 +7,19 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol";
 import {IERC20, SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
-// DareMarket interfaces
+// VemoMarket interfaces
 import {ICurrencyManager} from "./interfaces/ICurrencyManager.sol";
 import {IExecutionManager} from "./interfaces/IExecutionManager.sol";
 import {IExecutionStrategy} from "./interfaces/IExecutionStrategy.sol";
 import {IRoyaltyFeeManager} from "./interfaces/IRoyaltyFeeManager.sol";
-import {IDareMarket} from "./interfaces/IDareMarket.sol";
+import {IVemoMarket} from "./interfaces/IVemoMarket.sol";
 import {ITransferManagerNFT} from "./interfaces/ITransferManagerNFT.sol";
 import {ITransferSelectorNFT} from "./interfaces/ITransferSelectorNFT.sol";
 import {IWETH} from "./interfaces/IWETH.sol";
 import {ERC165Checker} from "@openzeppelin/contracts/utils/introspection/ERC165Checker.sol";
 import {Address} from "@openzeppelin/contracts/utils/Address.sol";
 
-// DareMarket libraries
+// VemoMarket libraries
 import {OrderTypes} from "./libraries/OrderTypes.sol";
 import {SignatureChecker} from "./libraries/SignatureChecker.sol";
 import {ICallbackable} from "./interfaces/ICallbackable.sol";
@@ -31,14 +31,14 @@ import "./dare-protocol/interfaces/ITimeHelper.sol";
 import "hardhat/console.sol";
 
 /**
- * @title DareMarket
- * @notice It is the core contract of the DareMarket.
+ * @title VemoMarket
+ * @notice It is the core contract of the VemoMarket.
  */
-contract DareMarket is
+contract VemoMarket is
     Initializable,
     AccessControlUpgradeable,
     ReentrancyGuardUpgradeable,
-    IDareMarket
+    IVemoMarket
 {
     using SafeERC20 for IERC20;
     using ERC165Checker for address;
@@ -144,7 +144,7 @@ contract DareMarket is
         DOMAIN_SEPARATOR = keccak256(
             abi.encode(
                 0x8b73c3c69bb8fe3d512ecc4cf759cc79239f7b179b0ffacaa9a75d522b39400f, // keccak256("EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)")
-                0x98edd044cc1f206866579fa6fe22cf25941c105647a51c9bd8dc8caddb1ebbad, // keccak256("DareMarket")
+                0xf63611282a29401b987f46b08a7e1ebc01b7f65e8947a80b1069dd418cfac049, // keccak256("VemoMarket")
                 0xc89efdaa54c0f20c7adf612882df0950f5a951637e0307cdcb4c672f298b8bc6, // keccak256(bytes("1")) for versionId = 1
                 block.chainid,
                 address(this)

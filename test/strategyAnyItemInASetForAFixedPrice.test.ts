@@ -27,7 +27,7 @@ describe("Strategy - AnyItemInASetForFixedPrice ('Trait orders')", () => {
     // Exchange contracts
     let transferManagerERC721: Contract;
     let transferManagerERC1155: Contract;
-    let dareMarket: Contract;
+    let vemoMarket: Contract;
 
     // Strategy contract
     let strategyAnyItemInASetForFixedPrice: Contract;
@@ -61,7 +61,7 @@ describe("Strategy - AnyItemInASetForFixedPrice ('Trait orders')", () => {
             transferManagerERC721,
             transferManagerERC1155,
             ,
-            dareMarket,
+            vemoMarket,
             ,
             ,
             ,
@@ -85,15 +85,15 @@ describe("Strategy - AnyItemInASetForFixedPrice ('Trait orders')", () => {
             mockERC721,
             mockERC721WithRoyalty,
             mockERC1155,
-            dareMarket,
+            vemoMarket,
             transferManagerERC721,
             transferManagerERC1155
         );
 
         // Verify the domain separator is properly computed
         assert.equal(
-            await dareMarket.DOMAIN_SEPARATOR(),
-            computeDomainSeparator(dareMarket.address)
+            await vemoMarket.DOMAIN_SEPARATOR(),
+            computeDomainSeparator(vemoMarket.address)
         );
 
         // Set up defaults startTime/endTime (for orders)
@@ -146,7 +146,7 @@ describe("Strategy - AnyItemInASetForFixedPrice ('Trait orders')", () => {
             minPercentageToAsk: constants.Zero,
             params: defaultAbiCoder.encode(["bytes32"], [hexRoot]),
             signerUser: makerBidUser,
-            verifyingContract: dareMarket.address,
+            verifyingContract: vemoMarket.address,
             boundTokens: [],
                 boundAmounts: []
         });
@@ -162,11 +162,11 @@ describe("Strategy - AnyItemInASetForFixedPrice ('Trait orders')", () => {
                 boundAmounts: []
         });
 
-        const tx = await dareMarket
+        const tx = await vemoMarket
             .connect(takerAskUser)
             .matchBidWithTakerAsk(takerAskOrder, makerBidOrder);
         await expect(tx)
-            .to.emit(dareMarket, "TakerAsk")
+            .to.emit(vemoMarket, "TakerAsk")
             .withArgs(
                 computeOrderHash(makerBidOrder),
                 makerBidOrder.nonce,
@@ -182,7 +182,7 @@ describe("Strategy - AnyItemInASetForFixedPrice ('Trait orders')", () => {
 
         assert.equal(await mockERC721.ownerOf("2"), makerBidUser.address);
         assert.isTrue(
-            await dareMarket.isUserOrderNonceExecutedOrCancelled(
+            await vemoMarket.isUserOrderNonceExecutedOrCancelled(
                 makerBidUser.address,
                 makerBidOrder.nonce
             )
@@ -228,7 +228,7 @@ describe("Strategy - AnyItemInASetForFixedPrice ('Trait orders')", () => {
             minPercentageToAsk: constants.Zero,
             params: defaultAbiCoder.encode(["bytes32"], [hexRoot]),
             signerUser: makerBidUser,
-            verifyingContract: dareMarket.address,
+            verifyingContract: vemoMarket.address,
             boundTokens: [],
                 boundAmounts: []
         });
@@ -248,7 +248,7 @@ describe("Strategy - AnyItemInASetForFixedPrice ('Trait orders')", () => {
                 });
 
                 await expect(
-                    dareMarket
+                    vemoMarket
                         .connect(takerAskUser)
                         .matchBidWithTakerAsk(takerAskOrder, makerBidOrder)
                 ).to.be.revertedWith("Strategy: Execution invalid");
@@ -275,7 +275,7 @@ describe("Strategy - AnyItemInASetForFixedPrice ('Trait orders')", () => {
             minPercentageToAsk: constants.Zero,
             params: defaultAbiCoder.encode([], []), // these parameters are used after it reverts
             signerUser: makerAskUser,
-            verifyingContract: dareMarket.address,
+            verifyingContract: vemoMarket.address,
             boundTokens: [],
                 boundAmounts: []
         });
@@ -292,7 +292,7 @@ describe("Strategy - AnyItemInASetForFixedPrice ('Trait orders')", () => {
         };
 
         await expect(
-            dareMarket
+            vemoMarket
                 .connect(takerBidUser)
                 .matchAskWithTakerBid(takerBidOrder, makerAskOrder)
         ).to.be.revertedWith("Strategy: Execution invalid");

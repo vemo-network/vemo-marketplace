@@ -1357,19 +1357,6 @@
   },
   {
     "inputs": [],
-    "name": "dareMarket",
-    "outputs": [
-      {
-        "internalType": "contract DareMarket",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
     "name": "executionManager",
     "outputs": [
       {
@@ -1451,7 +1438,7 @@
       },
       {
         "internalType": "address",
-        "name": "_dareMarket",
+        "name": "_vemoMarket",
         "type": "address"
       }
     ],
@@ -1547,6 +1534,19 @@
     "outputs": [
       {
         "internalType": "contract ITransferSelectorNFTExtended",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "vemoMarket",
+    "outputs": [
+      {
+        "internalType": "contract VemoMarket",
         "name": "",
         "type": "address"
       }

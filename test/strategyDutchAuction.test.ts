@@ -25,7 +25,7 @@ describe("Strategy - Dutch Auction", () => {
     // Exchange contracts
     let transferManagerERC721: Contract;
     let transferManagerERC1155: Contract;
-    let dareMarket: Contract;
+    let vemoMarket: Contract;
 
     // Strategy contract
     let strategyDutchAuction: Contract;
@@ -59,7 +59,7 @@ describe("Strategy - Dutch Auction", () => {
             transferManagerERC721,
             transferManagerERC1155,
             ,
-            dareMarket,
+            vemoMarket,
             ,
             ,
             strategyDutchAuction,
@@ -83,15 +83,15 @@ describe("Strategy - Dutch Auction", () => {
             mockERC721,
             mockERC721WithRoyalty,
             mockERC1155,
-            dareMarket,
+            vemoMarket,
             transferManagerERC721,
             transferManagerERC1155
         );
 
         // Verify the domain separator is properly computed
         assert.equal(
-            await dareMarket.DOMAIN_SEPARATOR(),
-            computeDomainSeparator(dareMarket.address)
+            await vemoMarket.DOMAIN_SEPARATOR(),
+            computeDomainSeparator(vemoMarket.address)
         );
 
         // Set up defaults startTime/endTime (for orders)
@@ -126,7 +126,7 @@ describe("Strategy - Dutch Auction", () => {
             minPercentageToAsk: constants.Zero,
             params: defaultAbiCoder.encode(["uint256"], [parseEther("5")]),
             signerUser: makerAskUser,
-            verifyingContract: dareMarket.address,
+            verifyingContract: vemoMarket.address,
             boundTokens: [],
                 boundAmounts: []
         });
@@ -144,7 +144,7 @@ describe("Strategy - Dutch Auction", () => {
 
         // User 2 cannot buy since the current auction price is not 3
         await expect(
-            dareMarket
+            vemoMarket
                 .connect(takerBidUser)
                 .matchAskWithTakerBidUsingETHAndWETH(
                     takerBidOrder,
@@ -156,7 +156,7 @@ describe("Strategy - Dutch Auction", () => {
         ).to.be.revertedWith("Strategy: Execution invalid");
 
         await expect(
-            dareMarket
+            vemoMarket
                 .connect(takerBidUser)
                 .matchAskWithTakerBid(takerBidOrder, makerAskOrder)
         ).to.be.revertedWith("Strategy: Execution invalid");
@@ -165,11 +165,11 @@ describe("Strategy - Dutch Auction", () => {
         const midTimeOrder = startTimeOrder.add("500");
         await increaseTo(midTimeOrder);
 
-        const tx = await dareMarket
+        const tx = await vemoMarket
             .connect(takerBidUser)
             .matchAskWithTakerBid(takerBidOrder, makerAskOrder);
         await expect(tx)
-            .to.emit(dareMarket, "TakerBid")
+            .to.emit(vemoMarket, "TakerBid")
             .withArgs(
                 computeOrderHash(makerAskOrder),
                 makerAskOrder.nonce,
@@ -185,7 +185,7 @@ describe("Strategy - Dutch Auction", () => {
 
         assert.equal(await mockERC721.ownerOf("0"), takerBidUser.address);
         assert.isTrue(
-            await dareMarket.isUserOrderNonceExecutedOrCancelled(
+            await vemoMarket.isUserOrderNonceExecutedOrCancelled(
                 makerAskUser.address,
                 makerAskOrder.nonce
             )
@@ -212,7 +212,7 @@ describe("Strategy - Dutch Auction", () => {
             minPercentageToAsk: constants.Zero,
             params: defaultAbiCoder.encode(["uint256"], [parseEther("5")]),
             signerUser: makerAskUser,
-            verifyingContract: dareMarket.address,
+            verifyingContract: vemoMarket.address,
             boundTokens: [],
                 boundAmounts: []
         });
@@ -233,11 +233,11 @@ describe("Strategy - Dutch Auction", () => {
         await increaseTo(midTimeOrder);
 
         // User 2 buys with 4.5 WETH (when auction price was at 3 WETH)
-        const tx = await dareMarket
+        const tx = await vemoMarket
             .connect(takerBidUser)
             .matchAskWithTakerBid(takerBidOrder, makerAskOrder);
         await expect(tx)
-            .to.emit(dareMarket, "TakerBid")
+            .to.emit(vemoMarket, "TakerBid")
             .withArgs(
                 computeOrderHash(makerAskOrder),
                 makerAskOrder.nonce,
@@ -291,7 +291,7 @@ describe("Strategy - Dutch Auction", () => {
                 [parseEther("3"), parseEther("5")]
             ), // startPrice/endPrice
             signerUser: makerAskUser,
-            verifyingContract: dareMarket.address,
+            verifyingContract: vemoMarket.address,
             boundTokens: [],
                 boundAmounts: []
         });
@@ -308,7 +308,7 @@ describe("Strategy - Dutch Auction", () => {
         };
 
         await expect(
-            dareMarket
+            vemoMarket
                 .connect(takerBidUser)
                 .matchAskWithTakerBid(takerBidOrder, makerAskOrder)
         ).to.be.revertedWith(
@@ -336,13 +336,13 @@ describe("Strategy - Dutch Auction", () => {
                 [parseEther("5"), parseEther("3")]
             ), // startPrice/endPrice
             signerUser: makerAskUser,
-            verifyingContract: dareMarket.address,
+            verifyingContract: vemoMarket.address,
             boundTokens: [],
                 boundAmounts: []
         });
 
         await expect(
-            dareMarket
+            vemoMarket
                 .connect(takerBidUser)
                 .matchAskWithTakerBid(takerBidOrder, makerAskOrder)
         ).to.be.revertedWith("Dutch Auction: Length must be longer");
@@ -367,7 +367,7 @@ describe("Strategy - Dutch Auction", () => {
             minPercentageToAsk: constants.Zero,
             params: defaultAbiCoder.encode(["uint256"], [parseEther("5")]), // startPrice
             signerUser: takerBidUser,
-            verifyingContract: dareMarket.address,
+            verifyingContract: vemoMarket.address,
             boundTokens: [],
                 boundAmounts: []
         });
@@ -384,7 +384,7 @@ describe("Strategy - Dutch Auction", () => {
         };
 
         await expect(
-            dareMarket
+            vemoMarket
                 .connect(makerAskUser)
                 .matchBidWithTakerAsk(takerAskOrder, makerBidOrder)
         ).to.be.revertedWith("Strategy: Execution invalid");

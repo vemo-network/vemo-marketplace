@@ -24,7 +24,7 @@ describe("Strategy - AnyItemFromCollectionForFixedPrice ('Collection orders')", 
     // Exchange contracts
     let transferManagerERC721: Contract;
     let transferManagerERC1155: Contract;
-    let dareMarket: Contract;
+    let vemoMarket: Contract;
 
     // Strategy contract
     let strategyAnyItemFromCollectionForFixedPrice: Contract;
@@ -58,7 +58,7 @@ describe("Strategy - AnyItemFromCollectionForFixedPrice ('Collection orders')", 
             transferManagerERC721,
             transferManagerERC1155,
             ,
-            dareMarket,
+            vemoMarket,
             ,
             strategyAnyItemFromCollectionForFixedPrice,
             ,
@@ -82,15 +82,15 @@ describe("Strategy - AnyItemFromCollectionForFixedPrice ('Collection orders')", 
             mockERC721,
             mockERC721WithRoyalty,
             mockERC1155,
-            dareMarket,
+            vemoMarket,
             transferManagerERC721,
             transferManagerERC1155
         );
 
         // Verify the domain separator is properly computed
         assert.equal(
-            await dareMarket.DOMAIN_SEPARATOR(),
-            computeDomainSeparator(dareMarket.address)
+            await vemoMarket.DOMAIN_SEPARATOR(),
+            computeDomainSeparator(vemoMarket.address)
         );
 
         // Set up defaults startTime/endTime (for orders)
@@ -123,7 +123,7 @@ describe("Strategy - AnyItemFromCollectionForFixedPrice ('Collection orders')", 
             minPercentageToAsk: constants.Zero,
             params: defaultAbiCoder.encode([], []),
             signerUser: makerBidUser,
-            verifyingContract: dareMarket.address,
+            verifyingContract: vemoMarket.address,
             boundTokens: [],
                 boundAmounts: []
         });
@@ -139,11 +139,11 @@ describe("Strategy - AnyItemFromCollectionForFixedPrice ('Collection orders')", 
                 boundAmounts: []
         });
 
-        const tx = await dareMarket
+        const tx = await vemoMarket
             .connect(takerAskUser)
             .matchBidWithTakerAsk(takerAskOrder, makerBidOrder);
         await expect(tx)
-            .to.emit(dareMarket, "TakerAsk")
+            .to.emit(vemoMarket, "TakerAsk")
             .withArgs(
                 computeOrderHash(makerBidOrder),
                 makerBidOrder.nonce,
@@ -158,7 +158,7 @@ describe("Strategy - AnyItemFromCollectionForFixedPrice ('Collection orders')", 
             );
 
         assert.isTrue(
-            await dareMarket.isUserOrderNonceExecutedOrCancelled(
+            await vemoMarket.isUserOrderNonceExecutedOrCancelled(
                 makerBidUser.address,
                 makerBidOrder.nonce
             )
@@ -184,7 +184,7 @@ describe("Strategy - AnyItemFromCollectionForFixedPrice ('Collection orders')", 
             minPercentageToAsk: constants.Zero,
             params: defaultAbiCoder.encode([], []),
             signerUser: makerBidUser,
-            verifyingContract: dareMarket.address,
+            verifyingContract: vemoMarket.address,
             boundTokens: [],
                 boundAmounts: []
         });
@@ -200,11 +200,11 @@ describe("Strategy - AnyItemFromCollectionForFixedPrice ('Collection orders')", 
                 boundAmounts: []
         });
 
-        const tx = await dareMarket
+        const tx = await vemoMarket
             .connect(takerAskUser)
             .matchBidWithTakerAsk(takerAskOrder, makerBidOrder);
         await expect(tx)
-            .to.emit(dareMarket, "TakerAsk")
+            .to.emit(vemoMarket, "TakerAsk")
             .withArgs(
                 computeOrderHash(makerBidOrder),
                 makerBidOrder.nonce,
@@ -219,7 +219,7 @@ describe("Strategy - AnyItemFromCollectionForFixedPrice ('Collection orders')", 
             );
 
         assert.isTrue(
-            await dareMarket.isUserOrderNonceExecutedOrCancelled(
+            await vemoMarket.isUserOrderNonceExecutedOrCancelled(
                 makerBidUser.address,
                 makerBidOrder.nonce
             )
@@ -245,7 +245,7 @@ describe("Strategy - AnyItemFromCollectionForFixedPrice ('Collection orders')", 
             minPercentageToAsk: constants.Zero,
             params: defaultAbiCoder.encode([], []),
             signerUser: makerAskUser,
-            verifyingContract: dareMarket.address,
+            verifyingContract: vemoMarket.address,
             boundTokens: [],
                 boundAmounts: []
         });
@@ -262,7 +262,7 @@ describe("Strategy - AnyItemFromCollectionForFixedPrice ('Collection orders')", 
         };
 
         await expect(
-            dareMarket
+            vemoMarket
                 .connect(takerBidUser)
                 .matchAskWithTakerBid(takerBidOrder, makerAskOrder)
         ).to.be.revertedWith("Strategy: Execution invalid");

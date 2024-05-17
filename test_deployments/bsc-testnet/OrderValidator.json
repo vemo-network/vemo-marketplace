@@ -1271,10 +1271,10 @@
     },
     {
       "inputs": [],
-      "name": "dareMarket",
+      "name": "vemoMarket",
       "outputs": [
         {
-          "internalType": "contract DareMarket",
+          "internalType": "contract VemoMarket",
           "name": "",
           "type": "address"
         }
@@ -1365,7 +1365,7 @@
         },
         {
           "internalType": "address",
-          "name": "_dareMarket",
+          "name": "_vemoMarket",
           "type": "address"
         }
       ],

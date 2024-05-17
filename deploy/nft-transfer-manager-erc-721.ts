@@ -8,7 +8,7 @@ const func: DeployFunction = async ({
     const { deploy } = deployments;
     const { deployer } = await getNamedAccounts();
 
-    const dareMarket = await deployments.get("DareMarket");
+    const vemoMarket = await deployments.get("VemoMarket");
 
     await deploy("TransferManagerERC721", {
         from: deployer,
@@ -17,7 +17,7 @@ const func: DeployFunction = async ({
             execute: {
                 init: {
                     methodName: "initialize",
-                    args: [deployer, dareMarket.address],
+                    args: [deployer, vemoMarket.address],
                 }
             },
         },
@@ -26,6 +26,6 @@ const func: DeployFunction = async ({
 };
 
 func.tags = ["foundation", "nft-transfer-manager-erc-721", "v1"];
-func.dependencies = ["dare-market"];
+func.dependencies = ["vemo-market"];
 
 export default func;

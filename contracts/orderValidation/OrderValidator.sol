@@ -11,11 +11,11 @@ import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {IERC165, IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import {IERC1155} from "@openzeppelin/contracts/token/ERC1155/IERC1155.sol";
 
-// DareMarket libraries and validation code constants
+// VemoMarket libraries and validation code constants
 import {OrderTypes} from "../libraries/OrderTypes.sol";
 import "./ValidationCodeConstants.sol";
 
-// DareMarket interfaces
+// VemoMarket interfaces
 import {ICurrencyManager} from "../interfaces/ICurrencyManager.sol";
 import {IExecutionManager} from "../interfaces/IExecutionManager.sol";
 import {IExecutionStrategy} from "../interfaces/IExecutionStrategy.sol";
@@ -25,8 +25,8 @@ import {ITransferSelectorNFTExtended, IRoyaltyFeeManagerExtended} from "./Extend
 import "../interfaces/IVoucherFactory.sol";
 
 
-// DareMarket
-import {DareMarket} from "../DareMarket.sol";
+// VemoMarket
+import {VemoMarket} from "../VemoMarket.sol";
 
 /**
  * @title OrderValidator
@@ -64,7 +64,7 @@ contract OrderValidator is Initializable, AccessControlUpgradeable {
     // TransferManager ERC1155
     address public TRANSFER_MANAGER_ERC1155;
 
-    // Domain separator from DareMarket
+    // Domain separator from VemoMarket
     bytes32 public DOMAIN_SEPARATOR;
 
     // Standard royalty fee
@@ -82,8 +82,8 @@ contract OrderValidator is Initializable, AccessControlUpgradeable {
     // Transfer Selector
     ITransferSelectorNFTExtended public transferSelectorNFT;
 
-    // DareMarket
-    DareMarket public dareMarket;
+    // VemoMarket
+    VemoMarket public vemoMarket;
 
     // VemoFactory
     IVoucherFactory public vemoVoucherFactory;
@@ -95,9 +95,9 @@ contract OrderValidator is Initializable, AccessControlUpgradeable {
 
     /**
      * @notice Initialize
-     * @param _dareMarket address of the DareMarket
+     * @param _vemoMarket address of the VemoMarket
      */
-    function initialize(address owner, address _dareMarket) public initializer {
+    function initialize(address owner, address _vemoMarket) public initializer {
         __Context_init_unchained();
         __AccessControl_init_unchained();
 
@@ -108,25 +108,25 @@ contract OrderValidator is Initializable, AccessControlUpgradeable {
 
         _grantRole(DEFAULT_ADMIN_ROLE, defaultAdmin);
 
-        dareMarket = DareMarket(_dareMarket);
-        DOMAIN_SEPARATOR = DareMarket(_dareMarket).DOMAIN_SEPARATOR();
+        vemoMarket = VemoMarket(_vemoMarket);
+        DOMAIN_SEPARATOR = VemoMarket(_vemoMarket).DOMAIN_SEPARATOR();
 
         TRANSFER_MANAGER_ERC721 = ITransferSelectorNFTExtended(
-            address(DareMarket(_dareMarket).transferSelectorNFT())
+            address(VemoMarket(_vemoMarket).transferSelectorNFT())
         ).TRANSFER_MANAGER_ERC721();
 
         TRANSFER_MANAGER_ERC1155 = ITransferSelectorNFTExtended(
-            address(DareMarket(_dareMarket).transferSelectorNFT())
+            address(VemoMarket(_vemoMarket).transferSelectorNFT())
         ).TRANSFER_MANAGER_ERC1155();
 
-        currencyManager = DareMarket(_dareMarket).currencyManager();
-        executionManager = DareMarket(_dareMarket).executionManager();
+        currencyManager = VemoMarket(_vemoMarket).currencyManager();
+        executionManager = VemoMarket(_vemoMarket).executionManager();
         transferSelectorNFT = ITransferSelectorNFTExtended(
-            address(DareMarket(_dareMarket).transferSelectorNFT())
+            address(VemoMarket(_vemoMarket).transferSelectorNFT())
         );
 
         IRoyaltyFeeManagerExtended royaltyFeeManager = IRoyaltyFeeManagerExtended(
-                address(DareMarket(_dareMarket).royaltyFeeManager())
+                address(VemoMarket(_vemoMarket).royaltyFeeManager())
             );
         royaltyFeeRegistry = royaltyFeeManager.royaltyFeeRegistry();
     }
@@ -187,12 +187,12 @@ contract OrderValidator is Initializable, AccessControlUpgradeable {
         OrderTypes.MakerOrder calldata makerOrder
     ) public view returns (uint256 validationCode) {
         if (
-            dareMarket.isUserOrderNonceExecutedOrCancelled(
+            vemoMarket.isUserOrderNonceExecutedOrCancelled(
                 makerOrder.signer,
                 makerOrder.nonce
             )
         ) return NONCE_EXECUTED_OR_CANCELLED;
-        if (makerOrder.nonce < dareMarket.userMinOrderNonce(makerOrder.signer))
+        if (makerOrder.nonce < vemoMarket.userMinOrderNonce(makerOrder.signer))
             return NONCE_BELOW_MIN_ORDER_NONCE;
     }
 
@@ -477,7 +477,7 @@ contract OrderValidator is Initializable, AccessControlUpgradeable {
     ) internal view returns (uint256 validationCode, uint256 currencyType) {
         if (IERC20(currency).balanceOf(user) < price)
             return (ERC20_BALANCE_INFERIOR_TO_PRICE, 20);
-        if (IERC20(currency).allowance(user, address(dareMarket)) < price)
+        if (IERC20(currency).allowance(user, address(vemoMarket)) < price)
             return (ERC20_APPROVAL_INFERIOR_TO_PRICE, 20);
     }
 

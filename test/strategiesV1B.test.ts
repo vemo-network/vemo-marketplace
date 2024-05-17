@@ -3,7 +3,7 @@ import { Contract } from "ethers";
 import { ethers } from "hardhat";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 
-describe("DareMarket V1B strategies test", () => {
+describe("VemoMarket V1B strategies test", () => {
     // Strategy V1B contracts
     let strategyStandardSaleForFixedPriceV1B: Contract;
     let strategyAnyItemFromCollectionForFixedPriceV1B: Contract;

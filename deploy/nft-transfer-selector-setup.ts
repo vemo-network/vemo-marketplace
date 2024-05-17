@@ -11,7 +11,7 @@ const func: DeployFunction = async ({
     const transferSelectorNFT = await deployments.get("TransferSelectorNFT");
 
     await execute(
-        "DareMarket",
+        "VemoMarket",
         { from: deployer, log: true },
         "updateTransferSelectorNFT",
         transferSelectorNFT.address

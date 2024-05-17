@@ -25,9 +25,9 @@ contract TransferManagerERC1155 is
 
     /**
      * @notice Initialize
-     * @param _dareMarket address of the DareMarket
+     * @param _vemoMarket address of the VemoMarket
      */
-    function initialize(address owner, address _dareMarket) public initializer {
+    function initialize(address owner, address _vemoMarket) public initializer {
         __Context_init_unchained();
         __AccessControl_init_unchained();
 
@@ -37,7 +37,7 @@ contract TransferManagerERC1155 is
         }
 
         _grantRole(DEFAULT_ADMIN_ROLE, defaultAdmin);
-        _grantRole(TRANSFERABLE_ROLE, _dareMarket);
+        _grantRole(TRANSFERABLE_ROLE, _vemoMarket);
     }
 
     /**

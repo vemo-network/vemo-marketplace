@@ -8,7 +8,7 @@ export async function tokenSetUp(
     mockERC721: Contract,
     mockERC721WithRoyalty: Contract,
     mockERC1155: Contract,
-    dareMarket: Contract,
+    vemoMarket: Contract,
     transferManagerERC721: Contract,
     transferManagerERC1155: Contract
 ): Promise<void> {
@@ -19,7 +19,7 @@ export async function tokenSetUp(
         // Set approval for WETH
         await weth
             .connect(user)
-            .approve(dareMarket.address, constants.MaxUint256);
+            .approve(vemoMarket.address, constants.MaxUint256);
 
         // Each user mints 1 ERC721 NFT
         await mockERC721.connect(user).mint(user.address);

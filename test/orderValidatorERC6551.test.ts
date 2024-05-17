@@ -32,7 +32,7 @@ describe("OrderValidator - ERC6551 standard", () => {
     let transferManagerNonCompliantERC721: Contract;
     let transferSelectorNFT: Contract;
     let royaltyFeeSetter: Contract;
-    let dareMarket: Contract;
+    let vemoMarket: Contract;
     let orderValidator: OrderValidator;
 
     // Strategy contracts (used for this test file)
@@ -68,7 +68,7 @@ describe("OrderValidator - ERC6551 standard", () => {
             transferManagerERC721,
             transferManagerERC1155,
             transferManagerNonCompliantERC721,
-            dareMarket,
+            vemoMarket,
             strategyStandardSaleForFixedPrice,
             strategyAnyItemFromCollectionForFixedPrice,
             ,
@@ -108,7 +108,7 @@ describe("OrderValidator - ERC6551 standard", () => {
             mockERC721,
             mockERC721WithRoyalty,
             mockERC1155,
-            dareMarket,
+            vemoMarket,
             transferManagerERC721,
             transferManagerERC1155
         );
@@ -130,7 +130,7 @@ describe("OrderValidator - ERC6551 standard", () => {
             minPercentageToAsk: constants.Zero,
             params: defaultAbiCoder.encode([], []),
             signerUser: makerUser,
-            verifyingContract: dareMarket.address,
+            verifyingContract: vemoMarket.address,
             boundTokens: [],
             boundAmounts: []
         });
@@ -150,7 +150,7 @@ describe("OrderValidator - ERC6551 standard", () => {
             minPercentageToAsk: constants.Zero,
             params: defaultAbiCoder.encode([], []),
             signerUser: makerUser,
-            verifyingContract: dareMarket.address,
+            verifyingContract: vemoMarket.address,
             boundTokens: [],
             boundAmounts: []
         });
@@ -167,7 +167,7 @@ describe("OrderValidator - ERC6551 standard", () => {
             mockERC721,
             mockERC721WithRoyalty,
             mockERC1155,
-            dareMarket,
+            vemoMarket,
             transferManagerERC721,
             transferManagerERC1155
         );
@@ -193,7 +193,7 @@ describe("OrderValidator - ERC6551 standard", () => {
             minPercentageToAsk: constants.Zero,
             params: defaultAbiCoder.encode([], []),
             signerUser: makerUser,
-            verifyingContract: dareMarket.address,
+            verifyingContract: vemoMarket.address,
             boundTokens: [],
             boundAmounts: [tbaAmount]
         });

@@ -8,7 +8,7 @@ const func: DeployFunction = async ({
     const { deploy } = deployments;
     const { deployer } = await getNamedAccounts();
 
-    const dareMarket = await deployments.get("DareMarket");
+    const vemoMarket = await deployments.get("VemoMarket");
 
     await deploy("TransferManagerERC1155", {
         from: deployer,
@@ -16,7 +16,7 @@ const func: DeployFunction = async ({
             proxyContract: "OpenZeppelinTransparentProxy",
             execute: {
                 methodName: "initialize",
-                args: [deployer, dareMarket.address],
+                args: [deployer, vemoMarket.address],
             },
         },
         log: true,
@@ -24,6 +24,6 @@ const func: DeployFunction = async ({
 };
 
 func.tags = ["foundation", "nft-transfer-manager-non-compliant-erc-721", "v1"];
-func.dependencies = ["dare-market"];
+func.dependencies = ["vemo-market"];
 
 export default func;

@@ -9,7 +9,7 @@ import {IExecutionManager} from "./interfaces/IExecutionManager.sol";
 
 /**
  * @title ExecutionManager
- * @notice It allows adding/removing execution strategies for trading on the DareMarket.
+ * @notice It allows adding/removing execution strategies for trading on the VemoMarket.
  */
 contract ExecutionManager is
     Initializable,

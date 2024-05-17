@@ -8,7 +8,7 @@ import {IRoyaltyFeeRegistry} from "../interfaces/IRoyaltyFeeRegistry.sol";
 
 /**
  * @title RoyaltyFeeRegistry
- * @notice It is a royalty fee registry for the DareMarket.
+ * @notice It is a royalty fee registry for the VemoMarket.
  */
 contract RoyaltyFeeRegistry is
     Initializable,

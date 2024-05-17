@@ -20,7 +20,7 @@ const func: DeployFunction = async ({
     const PROTOCOL_FEE_ADDRESS =
         process.env[`PROTOCOL_FEE_${chainId}_ADDRESS`] || deployer;
 
-    await deploy("DareMarket", {
+    await deploy("VemoMarket", {
         from: deployer,
         proxy: {
             proxyContract: "OpenZeppelinTransparentProxy",
@@ -45,7 +45,7 @@ const func: DeployFunction = async ({
     await deployments.execute('CurrencyManager', { from: deployer, log: true }, 'addCurrency', _WETH);
 };
 
-func.tags = ["foundation", "dare-market", "v1"];
+func.tags = ["foundation", "vemo-market", "v1"];
 func.dependencies = [
     "currency-manager",
     "execution-manager",

@@ -10,8 +10,8 @@ async function main() {
       ");
   }
 
-  const DareMarket = await ethers.getContractFactory("DareMarket");
-  const upgraded =  await upgrades.upgradeProxy(proxyAddress, DareMarket);
+  const VemoMarket = await ethers.getContractFactory("VemoMarket");
+  const upgraded =  await upgrades.upgradeProxy(proxyAddress, VemoMarket);
   console.log('Proxy has been upgraded to:', upgraded.address);
 }
 

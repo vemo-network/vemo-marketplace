@@ -9,7 +9,7 @@ import {
   TransferManagerNonCompliantERC721,
   TransferSelectorNFT,
   OrderValidator,
-  DareMarket,
+  VemoMarket,
 } from "typechain";
 
 const ROYALTY_FEE_LIMIT = 5000 // in basis point
@@ -110,8 +110,8 @@ async function deployTransferNFTSelector(signer: SignerWithAddress, marketplaceC
   )) as TransferSelectorNFT;
   console.log(`TransferSelectorNFT deployed at address ${transferSelectorNFT.address}`);
 
-  // Set TransferSelectorNFT in DareMarket
-  const marketplace = (await ethers.getContractAt("DareMarket", marketplaceContract)) as DareMarket;
+  // Set TransferSelectorNFT in VemoMarket
+  const marketplace = (await ethers.getContractAt("VemoMarket", marketplaceContract)) as VemoMarket;
   await marketplace.updateTransferSelectorNFT(transferSelectorNFT.address);
 }
 

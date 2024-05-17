@@ -13,8 +13,8 @@ Thực hiện chuyển token cho marketplace thực thi logic có 2 trường h�
 
 ERC20 / Native:
 
-    - Thực tiếp thông qua việc approve cho spender = DareMarket
-    - Với native token: thực thi qua việc gắn currency là DareMarket.WETH(), hàm buy sẽ thực hiện check balance WETH của user nếu còn dư thì sẽ thực hiện deposit native token để mint ra WETH tương ứng cho account. Số WETH mint được lấy từ msg.value của lời gọi hàm. 
+    - Thực tiếp thông qua việc approve cho spender = VemoMarket
+    - Với native token: thực thi qua việc gắn currency là VemoMarket.WETH(), hàm buy sẽ thực hiện check balance WETH của user nếu còn dư thì sẽ thực hiện deposit native token để mint ra WETH tương ứng cho account. Số WETH mint được lấy từ msg.value của lời gọi hàm. 
     - Chỉ thực hiện buy với native, offer không hỗ trợ offer với native token
 
 ERC1155 / 721:
@@ -32,7 +32,7 @@ ERC1155 / 721:
 
 # Ý tưởng
 
-- DareMarket sẽ sử dụng backend + nonce để sinh ra signature + payload tương ứng cho bên A (Maker: người tạo lệnh bán / offer)
+- VemoMarket sẽ sử dụng backend + nonce để sinh ra signature + payload tương ứng cho bên A (Maker: người tạo lệnh bán / offer)
 - Taker (người mua / người chấp thuận lệnh offer) sẽ thực thi trên blockchain.
 
 - Việc mua bán đã được chuẩn hoá về các hàm dễ sử dụng được thực hiện tại marketplace-sdk.

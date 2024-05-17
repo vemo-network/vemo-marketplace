@@ -31,11 +31,11 @@ import {
     assertErrorCode,
     assertOrderValid,
 } from "./helpers/order-validation-helper";
-import { DareMarket, MockERC20, OrderValidator } from "typechain";
+import { VemoMarket, MockERC20, OrderValidator } from "typechain";
 
 const { defaultAbiCoder, parseEther } = utils;
 
-describe("DareMarket", () => {
+describe("VemoMarket", () => {
     // Mock contracts
     let mockUSDT: Contract;
     let mockERC721: Contract;
@@ -53,7 +53,7 @@ describe("DareMarket", () => {
     let royaltyFeeManager: Contract;
     let royaltyFeeRegistry: Contract;
     let royaltyFeeSetter: Contract;
-    let dareMarket: DareMarket;
+    let vemoMarket: VemoMarket;
     let orderValidator: OrderValidator;
 
     // Strategy contracts (used for this test file)
@@ -89,7 +89,7 @@ describe("DareMarket", () => {
             transferManagerERC721,
             transferManagerERC1155,
             transferManagerNonCompliantERC721,
-            dareMarket,
+            vemoMarket,
             strategyStandardSaleForFixedPrice,
             ,
             ,
@@ -115,15 +115,15 @@ describe("DareMarket", () => {
             mockERC721,
             mockERC721WithRoyalty,
             mockERC1155,
-            dareMarket,
+            vemoMarket,
             transferManagerERC721,
             transferManagerERC1155
         );
 
         // Verify the domain separator is properly computed
         assert.equal(
-            await dareMarket.DOMAIN_SEPARATOR(),
-            computeDomainSeparator(dareMarket.address)
+            await vemoMarket.DOMAIN_SEPARATOR(),
+            computeDomainSeparator(vemoMarket.address)
         );
 
         // Set up defaults startTime/endTime (for orders)
@@ -193,7 +193,7 @@ describe("DareMarket", () => {
                     minPercentageToAsk: constants.Zero,
                     params: defaultAbiCoder.encode([], []),
                     signerUser: makerAskUser,
-                    verifyingContract: dareMarket.address,
+                    verifyingContract: vemoMarket.address,
                     boundTokens: [],
                     boundAmounts: []
                 });
@@ -214,7 +214,7 @@ describe("DareMarket", () => {
             //console.log(`MakerAsk order`, makerAskOrder);
             //console.log(`TakerBid order`, takerBidOrder);
 
-            const tx = await dareMarket
+            const tx = await vemoMarket
                 .connect(takerBidUser)
                 .matchAskWithTakerBidUsingETHAndWETH(
                     takerBidOrder,
@@ -225,7 +225,7 @@ describe("DareMarket", () => {
                 );
 
             await expect(tx)
-                .to.emit(dareMarket, "TakerBid")
+                .to.emit(vemoMarket, "TakerBid")
                 .withArgs(
                     computeOrderHash(makerAskOrder),
                     makerAskOrder.nonce,
@@ -247,7 +247,7 @@ describe("DareMarket", () => {
 
             assert.equal(await mockERC721.ownerOf("0"), takerBidUser.address);
             assert.isTrue(
-                await dareMarket.isUserOrderNonceExecutedOrCancelled(
+                await vemoMarket.isUserOrderNonceExecutedOrCancelled(
                     makerAskUser.address,
                     makerAskOrder.nonce
                 )
@@ -255,7 +255,7 @@ describe("DareMarket", () => {
 
             // Orders that have been executed cannot be matched again
             await expect(
-                dareMarket
+                vemoMarket
                     .connect(takerBidUser)
                     .matchAskWithTakerBidUsingETHAndWETH(
                         takerBidOrder,
@@ -287,7 +287,7 @@ describe("DareMarket", () => {
                     minPercentageToAsk: constants.Zero,
                     params: defaultAbiCoder.encode([], []),
                     signerUser: makerAskUser,
-                    verifyingContract: dareMarket.address,
+                    verifyingContract: vemoMarket.address,
                     boundTokens: [],
                     boundAmounts: []
                 });
@@ -310,7 +310,7 @@ describe("DareMarket", () => {
                 (await weth.balanceOf(takerBidUser.address)).toString()
             ).sub(BigNumber.from(parseEther("1")));
 
-            const tx = await dareMarket
+            const tx = await vemoMarket
                 .connect(takerBidUser)
                 .matchAskWithTakerBidUsingETHAndWETH(
                     takerBidOrder,
@@ -321,7 +321,7 @@ describe("DareMarket", () => {
                 );
 
             await expect(tx)
-                .to.emit(dareMarket, "TakerBid")
+                .to.emit(vemoMarket, "TakerBid")
                 .withArgs(
                     computeOrderHash(makerAskOrder),
                     makerAskOrder.nonce,
@@ -343,7 +343,7 @@ describe("DareMarket", () => {
 
             assert.equal(await mockERC721.ownerOf("0"), takerBidUser.address);
             assert.isTrue(
-                await dareMarket.isUserOrderNonceExecutedOrCancelled(
+                await vemoMarket.isUserOrderNonceExecutedOrCancelled(
                     makerAskUser.address,
                     makerAskOrder.nonce
                 )
@@ -375,7 +375,7 @@ describe("DareMarket", () => {
                     minPercentageToAsk: constants.Zero,
                     params: defaultAbiCoder.encode([], []),
                     signerUser: makerAskUser,
-                    verifyingContract: dareMarket.address,
+                    verifyingContract: vemoMarket.address,
                     boundTokens: [],
                     boundAmounts: []
                 });
@@ -393,7 +393,7 @@ describe("DareMarket", () => {
                 boundAmounts: []
             });
 
-            const tx = await dareMarket
+            const tx = await vemoMarket
                 .connect(takerBidUser)
                 .matchAskWithTakerBidUsingETHAndWETH(
                     takerBidOrder,
@@ -404,7 +404,7 @@ describe("DareMarket", () => {
                 );
 
             await expect(tx)
-                .to.emit(dareMarket, "TakerBid")
+                .to.emit(vemoMarket, "TakerBid")
                 .withArgs(
                     computeOrderHash(makerAskOrder),
                     makerAskOrder.nonce,
@@ -424,7 +424,7 @@ describe("DareMarket", () => {
                 orderValidator
             );
             assert.isTrue(
-                await dareMarket.isUserOrderNonceExecutedOrCancelled(
+                await vemoMarket.isUserOrderNonceExecutedOrCancelled(
                     makerAskUser.address,
                     makerAskOrder.nonce
                 )
@@ -502,7 +502,7 @@ describe("DareMarket", () => {
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
                 signerUser: makerBidUser,
-                verifyingContract: dareMarket.address,
+                verifyingContract: vemoMarket.address,
                 boundTokens: [],
                 boundAmounts: []
             });
@@ -520,11 +520,11 @@ describe("DareMarket", () => {
                 boundAmounts: []
             });
 
-            const tx = await dareMarket
+            const tx = await vemoMarket
                 .connect(takerAskUser)
                 .matchBidWithTakerAsk(takerAskOrder, makerBidOrder);
             await expect(tx)
-                .to.emit(dareMarket, "TakerAsk")
+                .to.emit(vemoMarket, "TakerAsk")
                 .withArgs(
                     computeOrderHash(makerBidOrder),
                     makerBidOrder.nonce,
@@ -545,7 +545,7 @@ describe("DareMarket", () => {
             );
             assert.equal(await mockERC721.ownerOf("0"), makerBidUser.address);
             assert.isTrue(
-                await dareMarket.isUserOrderNonceExecutedOrCancelled(
+                await vemoMarket.isUserOrderNonceExecutedOrCancelled(
                     makerBidUser.address,
                     makerBidOrder.nonce
                 )
@@ -571,7 +571,7 @@ describe("DareMarket", () => {
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
                 signerUser: makerBidUser,
-                verifyingContract: dareMarket.address,
+                verifyingContract: vemoMarket.address,
                 boundTokens: [],
                 boundAmounts: []
             });
@@ -589,11 +589,11 @@ describe("DareMarket", () => {
                 boundAmounts: []
             });
 
-            const tx = await dareMarket
+            const tx = await vemoMarket
                 .connect(takerAskUser)
                 .matchBidWithTakerAsk(takerAskOrder, makerBidOrder);
             await expect(tx)
-                .to.emit(dareMarket, "TakerAsk")
+                .to.emit(vemoMarket, "TakerAsk")
                 .withArgs(
                     computeOrderHash(makerBidOrder),
                     makerBidOrder.nonce,
@@ -613,7 +613,7 @@ describe("DareMarket", () => {
                 orderValidator
             );
             assert.isTrue(
-                await dareMarket.isUserOrderNonceExecutedOrCancelled(
+                await vemoMarket.isUserOrderNonceExecutedOrCancelled(
                     makerBidUser.address,
                     makerBidOrder.nonce
                 )
@@ -639,7 +639,7 @@ describe("DareMarket", () => {
                 .transfer(mockSignerContract.address, parseEther("1"));
             await mockSignerContract
                 .connect(userSigningThroughContract)
-                .approveERC20ToBeSpent(weth.address, dareMarket.address);
+                .approveERC20ToBeSpent(weth.address, vemoMarket.address);
 
             const makerBidOrder = await createMakerOrder({
                 isOrderAsk: false,
@@ -656,7 +656,7 @@ describe("DareMarket", () => {
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
                 signerUser: userSigningThroughContract,
-                verifyingContract: dareMarket.address,
+                verifyingContract: vemoMarket.address,
                 boundTokens: [],
                 boundAmounts: []
             });
@@ -674,11 +674,11 @@ describe("DareMarket", () => {
                 boundAmounts: []
             });
 
-            const tx = await dareMarket
+            const tx = await vemoMarket
                 .connect(takerAskUser)
                 .matchBidWithTakerAsk(takerAskOrder, makerBidOrder);
             await expect(tx)
-                .to.emit(dareMarket, "TakerAsk")
+                .to.emit(vemoMarket, "TakerAsk")
                 .withArgs(
                     computeOrderHash(makerBidOrder),
                     makerBidOrder.nonce,
@@ -703,7 +703,7 @@ describe("DareMarket", () => {
                 mockSignerContract.address
             );
             assert.isTrue(
-                await dareMarket.isUserOrderNonceExecutedOrCancelled(
+                await vemoMarket.isUserOrderNonceExecutedOrCancelled(
                     mockSignerContract.address,
                     makerBidOrder.nonce
                 )
@@ -760,7 +760,7 @@ describe("DareMarket", () => {
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
                 signerUser: userSigningThroughContract,
-                verifyingContract: dareMarket.address,
+                verifyingContract: vemoMarket.address,
                 boundTokens: [],
                 boundAmounts: []
             });
@@ -778,11 +778,11 @@ describe("DareMarket", () => {
                 boundAmounts: []
             });
 
-            const tx = await dareMarket
+            const tx = await vemoMarket
                 .connect(takerBidUser)
                 .matchAskWithTakerBid(takerBidOrder, makerAskOrder);
             await expect(tx)
-                .to.emit(dareMarket, "TakerBid")
+                .to.emit(vemoMarket, "TakerBid")
                 .withArgs(
                     computeOrderHash(makerAskOrder),
                     makerAskOrder.nonce,
@@ -808,7 +808,7 @@ describe("DareMarket", () => {
                 await weth.balanceOf(mockSignerContract.address)
             ).to.be.deep.equal(takerBidOrder.price.mul("9800").div("10000"));
             assert.isTrue(
-                await dareMarket.isUserOrderNonceExecutedOrCancelled(
+                await vemoMarket.isUserOrderNonceExecutedOrCancelled(
                     mockSignerContract.address,
                     makerAskOrder.nonce
                 )
@@ -859,7 +859,7 @@ describe("DareMarket", () => {
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
                 signerUser: makerAskUser,
-                verifyingContract: dareMarket.address,
+                verifyingContract: vemoMarket.address,
                 boundTokens: [],
                 boundAmounts: []
             });
@@ -877,11 +877,11 @@ describe("DareMarket", () => {
                 boundAmounts: []
             };
 
-            const tx = await dareMarket
+            const tx = await vemoMarket
                 .connect(takerBidUser)
                 .matchAskWithTakerBid(takerBidOrder, makerAskOrder);
             await expect(tx)
-                .to.emit(dareMarket, "TakerBid")
+                .to.emit(vemoMarket, "TakerBid")
                 .withArgs(
                     computeOrderHash(makerAskOrder),
                     makerAskOrder.nonce,
@@ -900,7 +900,7 @@ describe("DareMarket", () => {
                 .div("10000");
 
             await expect(tx)
-                .to.emit(dareMarket, "RoyaltyPayment")
+                .to.emit(vemoMarket, "RoyaltyPayment")
                 .withArgs(
                     makerAskOrder.collection,
                     takerBidOrder.tokenId,
@@ -919,7 +919,7 @@ describe("DareMarket", () => {
                 takerBidUser.address
             );
             assert.isTrue(
-                await dareMarket.isUserOrderNonceExecutedOrCancelled(
+                await vemoMarket.isUserOrderNonceExecutedOrCancelled(
                     makerAskUser.address,
                     makerAskOrder.nonce
                 )
@@ -963,7 +963,7 @@ describe("DareMarket", () => {
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
                 signerUser: makerAskUser,
-                verifyingContract: dareMarket.address,
+                verifyingContract: vemoMarket.address,
                 boundTokens: [],
                 boundAmounts: []
             });
@@ -981,7 +981,7 @@ describe("DareMarket", () => {
                 boundAmounts: []
             };
 
-            const tx = await dareMarket
+            const tx = await vemoMarket
                 .connect(takerBidUser)
                 .matchAskWithTakerBidUsingETHAndWETH(
                     takerBidOrder,
@@ -992,7 +992,7 @@ describe("DareMarket", () => {
                 );
 
             await expect(tx)
-                .to.emit(dareMarket, "TakerBid")
+                .to.emit(vemoMarket, "TakerBid")
                 .withArgs(
                     computeOrderHash(makerAskOrder),
                     makerAskOrder.nonce,
@@ -1011,7 +1011,7 @@ describe("DareMarket", () => {
                 .div("10000");
 
             await expect(tx)
-                .to.emit(dareMarket, "RoyaltyPayment")
+                .to.emit(vemoMarket, "RoyaltyPayment")
                 .withArgs(
                     makerAskOrder.collection,
                     takerBidOrder.tokenId,
@@ -1030,7 +1030,7 @@ describe("DareMarket", () => {
                 takerBidUser.address
             );
             assert.isTrue(
-                await dareMarket.isUserOrderNonceExecutedOrCancelled(
+                await vemoMarket.isUserOrderNonceExecutedOrCancelled(
                     makerAskUser.address,
                     makerAskOrder.nonce
                 )
@@ -1094,7 +1094,7 @@ describe("DareMarket", () => {
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
                 signerUser: makerAskUser,
-                verifyingContract: dareMarket.address,
+                verifyingContract: vemoMarket.address,
                 boundTokens: [],
                 boundAmounts: []
             });
@@ -1112,12 +1112,12 @@ describe("DareMarket", () => {
                 boundAmounts: []
             };
 
-            tx = await dareMarket
+            tx = await vemoMarket
                 .connect(takerBidUser)
                 .matchAskWithTakerBid(takerBidOrder, makerAskOrder);
 
             await expect(tx)
-                .to.emit(dareMarket, "TakerBid")
+                .to.emit(vemoMarket, "TakerBid")
                 .withArgs(
                     computeOrderHash(makerAskOrder),
                     makerAskOrder.nonce,
@@ -1136,7 +1136,7 @@ describe("DareMarket", () => {
                 .div("10000");
 
             await expect(tx)
-                .to.emit(dareMarket, "RoyaltyPayment")
+                .to.emit(vemoMarket, "RoyaltyPayment")
                 .withArgs(
                     makerAskOrder.collection,
                     takerBidOrder.tokenId,
@@ -1152,7 +1152,7 @@ describe("DareMarket", () => {
             );
             assert.equal(await mockERC721.ownerOf("0"), takerBidUser.address);
             assert.isTrue(
-                await dareMarket.isUserOrderNonceExecutedOrCancelled(
+                await vemoMarket.isUserOrderNonceExecutedOrCancelled(
                     makerAskUser.address,
                     makerAskOrder.nonce
                 )
@@ -1195,7 +1195,7 @@ describe("DareMarket", () => {
                 minPercentageToAsk: BigNumber.from("9500"), // ProtocolFee: 2%, RoyaltyFee: 3%
                 params: defaultAbiCoder.encode([], []),
                 signerUser: makerAskUser,
-                verifyingContract: dareMarket.address,
+                verifyingContract: vemoMarket.address,
                 boundTokens: [],
                 boundAmounts: []
             });
@@ -1230,7 +1230,7 @@ describe("DareMarket", () => {
             };
 
             await expect(
-                dareMarket
+                vemoMarket
                     .connect(takerBidUser)
                     .matchAskWithTakerBidUsingETHAndWETH(
                         takerBidOrder,
@@ -1254,7 +1254,7 @@ describe("DareMarket", () => {
             await assertOrderValid(makerAskOrder, orderValidator);
 
             // Trade is executed
-            const tx = await dareMarket
+            const tx = await vemoMarket
                 .connect(takerBidUser)
                 .matchAskWithTakerBidUsingETHAndWETH(
                     takerBidOrder,
@@ -1265,7 +1265,7 @@ describe("DareMarket", () => {
                 );
 
             await expect(tx)
-                .to.emit(dareMarket, "TakerBid")
+                .to.emit(vemoMarket, "TakerBid")
                 .withArgs(
                     computeOrderHash(makerAskOrder),
                     makerAskOrder.nonce,
@@ -1305,7 +1305,7 @@ describe("DareMarket", () => {
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
                 signerUser: makerBidUser,
-                verifyingContract: dareMarket.address,
+                verifyingContract: vemoMarket.address,
                 boundTokens: [],
                 boundAmounts: []
             });
@@ -1334,7 +1334,7 @@ describe("DareMarket", () => {
                 );
 
             await expect(
-                dareMarket
+                vemoMarket
                     .connect(takerAskUser)
                     .matchBidWithTakerAsk(takerAskOrder, makerBidOrder)
             ).to.be.revertedWith("Fees: Higher than expected");
@@ -1349,11 +1349,11 @@ describe("DareMarket", () => {
                     "300"
                 );
 
-            const tx = await dareMarket
+            const tx = await vemoMarket
                 .connect(takerAskUser)
                 .matchBidWithTakerAsk(takerAskOrder, makerBidOrder);
             await expect(tx)
-                .to.emit(dareMarket, "TakerAsk")
+                .to.emit(vemoMarket, "TakerAsk")
                 .withArgs(
                     computeOrderHash(makerBidOrder),
                     makerBidOrder.nonce,
@@ -1402,7 +1402,7 @@ describe("DareMarket", () => {
                     [takerBidUser.address]
                 ), // target user
                 signerUser: makerAskUser,
-                verifyingContract: dareMarket.address,
+                verifyingContract: vemoMarket.address,
                 boundTokens: [],
                 boundAmounts: []
             });
@@ -1420,7 +1420,7 @@ describe("DareMarket", () => {
                 boundAmounts: []
             };
 
-            const tx = await dareMarket
+            const tx = await vemoMarket
                 .connect(takerBidUser)
                 .matchAskWithTakerBidUsingETHAndWETH(
                     takerBidOrder,
@@ -1431,7 +1431,7 @@ describe("DareMarket", () => {
                 );
 
             await expect(tx)
-                .to.emit(dareMarket, "TakerBid")
+                .to.emit(vemoMarket, "TakerBid")
                 .withArgs(
                     computeOrderHash(makerAskOrder),
                     makerAskOrder.nonce,
@@ -1455,7 +1455,7 @@ describe("DareMarket", () => {
                 takerBidUser.address
             );
             assert.isTrue(
-                await dareMarket.isUserOrderNonceExecutedOrCancelled(
+                await vemoMarket.isUserOrderNonceExecutedOrCancelled(
                     makerAskUser.address,
                     makerAskOrder.nonce
                 )
@@ -1734,7 +1734,7 @@ describe("DareMarket", () => {
                     minPercentageToAsk: constants.Zero,
                     params: defaultAbiCoder.encode([], []),
                     signerUser: makerAskUser,
-                    verifyingContract: dareMarket.address,
+                    verifyingContract: vemoMarket.address,
                     boundTokens: [],
                     boundAmounts: []
                 });
@@ -1755,7 +1755,7 @@ describe("DareMarket", () => {
                     minPercentageToAsk: constants.Zero,
                     params: defaultAbiCoder.encode([], []),
                     signerUser: makerAskUser,
-                    verifyingContract: dareMarket.address,
+                    verifyingContract: vemoMarket.address,
                     boundTokens: [],
                     boundAmounts: []
                 });
@@ -1774,7 +1774,7 @@ describe("DareMarket", () => {
                 boundAmounts: []
             });
 
-            const tx = await dareMarket
+            const tx = await vemoMarket
                 .connect(takerBidUser)
                 .matchAskWithTakerBidUsingETHAndWETH(
                     takerBidOrder,
@@ -1785,7 +1785,7 @@ describe("DareMarket", () => {
                 );
 
             await expect(tx)
-                .to.emit(dareMarket, "TakerBid")
+                .to.emit(vemoMarket, "TakerBid")
                 .withArgs(
                     computeOrderHash(adjustedMakerAskOrder),
                     adjustedMakerAskOrder.nonce,
@@ -1811,13 +1811,13 @@ describe("DareMarket", () => {
             );
             assert.equal(await mockERC721.ownerOf("0"), takerBidUser.address);
             assert.isTrue(
-                await dareMarket.isUserOrderNonceExecutedOrCancelled(
+                await vemoMarket.isUserOrderNonceExecutedOrCancelled(
                     makerAskUser.address,
                     adjustedMakerAskOrder.nonce
                 )
             );
             assert.isTrue(
-                await dareMarket.isUserOrderNonceExecutedOrCancelled(
+                await vemoMarket.isUserOrderNonceExecutedOrCancelled(
                     makerAskUser.address,
                     initialMakerAskOrder.nonce
                 )
@@ -1825,7 +1825,7 @@ describe("DareMarket", () => {
 
             // Initial order is not executable anymore
             await expect(
-                dareMarket
+                vemoMarket
                     .connect(takerBidUser)
                     .matchAskWithTakerBidUsingETHAndWETH(
                         takerBidOrder,
@@ -1856,7 +1856,7 @@ describe("DareMarket", () => {
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
                 signerUser: makerAskUser,
-                verifyingContract: dareMarket.address,
+                verifyingContract: vemoMarket.address,
                 boundTokens: [],
                 boundAmounts: []
             });
@@ -1874,11 +1874,11 @@ describe("DareMarket", () => {
                 boundAmounts: []
             });
 
-            const tx = await dareMarket
+            const tx = await vemoMarket
                 .connect(makerAskUser)
                 .cancelMultipleMakerOrders([makerAskOrder.nonce]);
             // Event params are not tested because of array issue with BN
-            await expect(tx).to.emit(dareMarket, "CancelMultipleOrders");
+            await expect(tx).to.emit(vemoMarket, "CancelMultipleOrders");
 
             await assertErrorCode(
                 makerAskOrder,
@@ -1886,7 +1886,7 @@ describe("DareMarket", () => {
                 orderValidator
             );
             await expect(
-                dareMarket
+                vemoMarket
                     .connect(takerBidUser)
                     .matchAskWithTakerBidUsingETHAndWETH(
                         takerBidOrder,
@@ -1917,7 +1917,7 @@ describe("DareMarket", () => {
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
                 signerUser: makerAskUser,
-                verifyingContract: dareMarket.address,
+                verifyingContract: vemoMarket.address,
                 boundTokens: [],
                 boundAmounts: []
             });
@@ -1935,11 +1935,11 @@ describe("DareMarket", () => {
                 boundAmounts: []
             });
 
-            const tx = await dareMarket
+            const tx = await vemoMarket
                 .connect(makerAskUser)
                 .cancelAllOrdersForSender("1");
             await expect(tx)
-                .to.emit(dareMarket, "CancelAllOrders")
+                .to.emit(vemoMarket, "CancelAllOrders")
                 .withArgs(makerAskUser.address, "1");
 
             await assertErrorCode(
@@ -1948,7 +1948,7 @@ describe("DareMarket", () => {
                 orderValidator
             );
             await expect(
-                dareMarket
+                vemoMarket
                     .connect(takerBidUser)
                     .matchAskWithTakerBidUsingETHAndWETH(
                         takerBidOrder,
@@ -1979,7 +1979,7 @@ describe("DareMarket", () => {
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
                 signerUser: makerAskUser,
-                verifyingContract: dareMarket.address,
+                verifyingContract: vemoMarket.address,
                 boundTokens: [],
                 boundAmounts: []
             });
@@ -1996,7 +1996,7 @@ describe("DareMarket", () => {
             };
 
             await expect(
-                dareMarket
+                vemoMarket
                     .connect(takerBidUser)
                     .matchAskWithTakerBidUsingETHAndWETH(
                         takerBidOrder,
@@ -2027,7 +2027,7 @@ describe("DareMarket", () => {
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
                 signerUser: makerAskUser,
-                verifyingContract: dareMarket.address,
+                verifyingContract: vemoMarket.address,
                 boundTokens: [],
                 boundAmounts: []
             });
@@ -2050,7 +2050,7 @@ describe("DareMarket", () => {
             };
 
             await expect(
-                dareMarket
+                vemoMarket
                     .connect(takerBidUser)
                     .matchAskWithTakerBid(takerBidOrder, makerAskOrder, {})
             ).to.be.revertedWith("Order: Amount cannot be 0");
@@ -2078,7 +2078,7 @@ describe("DareMarket", () => {
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
                 signerUser: makerAskUser,
-                verifyingContract: dareMarket.address,
+                verifyingContract: vemoMarket.address,
                 boundTokens: [],
                 boundAmounts: []
             });
@@ -2095,13 +2095,13 @@ describe("DareMarket", () => {
             };
 
             await expect(
-                dareMarket
+                vemoMarket
                     .connect(fakeTakerUser)
                     .matchAskWithTakerBid(takerBidOrder, makerAskOrder, {})
             ).to.be.revertedWith("Order: Taker must be the sender");
 
             await expect(
-                dareMarket
+                vemoMarket
                     .connect(fakeTakerUser)
                     .matchAskWithTakerBidUsingETHAndWETH(
                         takerBidOrder,
@@ -2116,13 +2116,13 @@ describe("DareMarket", () => {
             takerBidOrder.isOrderAsk = true;
 
             await expect(
-                dareMarket
+                vemoMarket
                     .connect(takerBidUser)
                     .matchAskWithTakerBid(takerBidOrder, makerAskOrder, {})
             ).to.be.revertedWith("Order: Wrong sides");
 
             await expect(
-                dareMarket
+                vemoMarket
                     .connect(takerBidUser)
                     .matchAskWithTakerBidUsingETHAndWETH(
                         takerBidOrder,
@@ -2137,7 +2137,7 @@ describe("DareMarket", () => {
 
             // No need to duplicate tests again
             await expect(
-                dareMarket
+                vemoMarket
                     .connect(takerBidUser)
                     .matchAskWithTakerBid(takerBidOrder, makerAskOrder, {})
             ).to.be.revertedWith("Order: Wrong sides");
@@ -2146,7 +2146,7 @@ describe("DareMarket", () => {
 
             // No need to duplicate tests again
             await expect(
-                dareMarket
+                vemoMarket
                     .connect(takerBidUser)
                     .matchAskWithTakerBid(takerBidOrder, makerAskOrder)
             ).to.be.revertedWith("Order: Wrong sides");
@@ -2171,7 +2171,7 @@ describe("DareMarket", () => {
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
                 signerUser: makerBidUser,
-                verifyingContract: dareMarket.address,
+                verifyingContract: vemoMarket.address,
                 boundTokens: [],
                 boundAmounts: []
             });
@@ -2188,7 +2188,7 @@ describe("DareMarket", () => {
             });
 
             await expect(
-                dareMarket
+                vemoMarket
                     .connect(fakeTakerUser)
                     .matchBidWithTakerAsk(takerAskOrder, makerBidOrder)
             ).to.be.revertedWith("Order: Taker must be the sender");
@@ -2197,7 +2197,7 @@ describe("DareMarket", () => {
             takerAskOrder.isOrderAsk = false;
 
             await expect(
-                dareMarket
+                vemoMarket
                     .connect(makerAskUser)
                     .matchBidWithTakerAsk(takerAskOrder, makerBidOrder)
             ).to.be.revertedWith("Order: Wrong sides");
@@ -2205,7 +2205,7 @@ describe("DareMarket", () => {
             makerBidOrder.isOrderAsk = true;
 
             await expect(
-                dareMarket
+                vemoMarket
                     .connect(takerBidUser)
                     .matchBidWithTakerAsk(takerAskOrder, makerBidOrder)
             ).to.be.revertedWith("Order: Wrong sides");
@@ -2213,7 +2213,7 @@ describe("DareMarket", () => {
             takerAskOrder.isOrderAsk = true;
 
             await expect(
-                dareMarket
+                vemoMarket
                     .connect(takerBidUser)
                     .matchBidWithTakerAsk(takerAskOrder, makerBidOrder, {})
             ).to.be.revertedWith("Order: Wrong sides");
@@ -2221,43 +2221,43 @@ describe("DareMarket", () => {
 
         it("Cancel - Cannot cancel all at an nonce equal or lower than existing one", async () => {
             await expect(
-                dareMarket.connect(accounts[1]).cancelAllOrdersForSender("0")
+                vemoMarket.connect(accounts[1]).cancelAllOrdersForSender("0")
             ).to.be.revertedWith("Cancel: Order nonce lower than current");
 
             await expect(
-                dareMarket
+                vemoMarket
                     .connect(accounts[1])
                     .cancelAllOrdersForSender("500000")
             ).to.be.revertedWith("Cancel: Cannot cancel more orders");
 
             // Change the minimum nonce for user to 2
-            await dareMarket.connect(accounts[1]).cancelAllOrdersForSender("2");
+            await vemoMarket.connect(accounts[1]).cancelAllOrdersForSender("2");
 
             await expect(
-                dareMarket.connect(accounts[1]).cancelAllOrdersForSender("1")
+                vemoMarket.connect(accounts[1]).cancelAllOrdersForSender("1")
             ).to.be.revertedWith("Cancel: Order nonce lower than current");
 
             await expect(
-                dareMarket.connect(accounts[1]).cancelAllOrdersForSender("2")
+                vemoMarket.connect(accounts[1]).cancelAllOrdersForSender("2")
             ).to.be.revertedWith("Cancel: Order nonce lower than current");
         });
 
         it("Cancel - Cannot cancel all at an nonce equal than existing one", async () => {
             // Change the minimum nonce for user to 2
-            await dareMarket.connect(accounts[1]).cancelAllOrdersForSender("2");
+            await vemoMarket.connect(accounts[1]).cancelAllOrdersForSender("2");
 
             await expect(
-                dareMarket.connect(accounts[1]).cancelMultipleMakerOrders(["0"])
+                vemoMarket.connect(accounts[1]).cancelMultipleMakerOrders(["0"])
             ).to.be.revertedWith("Cancel: Order nonce lower than current");
 
             await expect(
-                dareMarket
+                vemoMarket
                     .connect(accounts[1])
                     .cancelMultipleMakerOrders(["3", "1"])
             ).to.be.revertedWith("Cancel: Order nonce lower than current");
 
             // Can cancel at the same nonce that minimum one
-            await dareMarket
+            await vemoMarket
                 .connect(accounts[1])
                 .cancelMultipleMakerOrders(["2"]);
         });
@@ -2291,7 +2291,7 @@ describe("DareMarket", () => {
                     minPercentageToAsk: constants.Zero,
                     params: defaultAbiCoder.encode([], []),
                     signerUser: makerAskUser,
-                    verifyingContract: dareMarket.address,
+                    verifyingContract: vemoMarket.address,
                     boundTokens: [],
                     boundAmounts: []
                 });
@@ -2313,7 +2313,7 @@ describe("DareMarket", () => {
                 boundAmounts: []
             });
             await expect(
-                dareMarket
+                vemoMarket
                     .connect(takerBidUser)
                     .matchAskWithTakerBidUsingETHAndWETH(
                         takerBidOrder,
@@ -2322,7 +2322,7 @@ describe("DareMarket", () => {
             ).to.be.revertedWith("Strategy: Execution invalid");
 
             await increaseTo(startTimeOrder);
-            await dareMarket
+            await vemoMarket
                 .connect(takerBidUser)
                 .matchAskWithTakerBid(takerBidOrder, makerAskOrder);
         });
@@ -2349,7 +2349,7 @@ describe("DareMarket", () => {
                     minPercentageToAsk: constants.Zero,
                     params: defaultAbiCoder.encode([], []),
                     signerUser: makerBidUser,
-                    verifyingContract: dareMarket.address,
+                    verifyingContract: vemoMarket.address,
                     boundTokens: [],
                     boundAmounts: []
                 });
@@ -2368,7 +2368,7 @@ describe("DareMarket", () => {
             await increaseTo(endTimeOrder.add(1));
 
             await expect(
-                dareMarket
+                vemoMarket
                     .connect(takerAskUser)
                     .matchBidWithTakerAsk(takerAskOrder, makerBidOrder)
             ).to.be.revertedWith("Strategy: Execution invalid");
@@ -2405,7 +2405,7 @@ describe("DareMarket", () => {
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
                 signerUser: makerAskUser,
-                verifyingContract: dareMarket.address,
+                verifyingContract: vemoMarket.address,
                 boundTokens: [],
                 boundAmounts: []
             });
@@ -2428,7 +2428,7 @@ describe("DareMarket", () => {
             };
 
             await expect(
-                dareMarket
+                vemoMarket
                     .connect(takerBidUser)
                     .matchAskWithTakerBidUsingETHAndWETH(
                         takerBidOrder,
@@ -2440,7 +2440,7 @@ describe("DareMarket", () => {
             ).to.be.revertedWith("Currency: Not whitelisted");
 
             await expect(
-                dareMarket
+                vemoMarket
                     .connect(takerBidUser)
                     .matchAskWithTakerBid(takerBidOrder, makerAskOrder, {})
             ).to.be.revertedWith("Currency: Not whitelisted");
@@ -2465,7 +2465,7 @@ describe("DareMarket", () => {
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
                 signerUser: makerAskUser,
-                verifyingContract: dareMarket.address,
+                verifyingContract: vemoMarket.address,
                 boundTokens: [],
                 boundAmounts: []
             });
@@ -2482,7 +2482,7 @@ describe("DareMarket", () => {
             };
 
             await expect(
-                dareMarket
+                vemoMarket
                     .connect(takerBidUser)
                     .matchAskWithTakerBidUsingETHAndWETH(
                         takerBidOrder,
@@ -2506,7 +2506,7 @@ describe("DareMarket", () => {
             // Set approval for USDT
             await mockUSDT
                 .connect(takerBidUser)
-                .approve(dareMarket.address, constants.MaxUint256);
+                .approve(vemoMarket.address, constants.MaxUint256);
 
             const makerAskOrder = await createMakerOrder({
                 isOrderAsk: true,
@@ -2523,7 +2523,7 @@ describe("DareMarket", () => {
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
                 signerUser: makerAskUser,
-                verifyingContract: dareMarket.address,
+                verifyingContract: vemoMarket.address,
                 boundTokens: [],
                 boundAmounts: []
             });
@@ -2546,7 +2546,7 @@ describe("DareMarket", () => {
             };
 
             await expect(
-                dareMarket
+                vemoMarket
                     .connect(takerBidUser)
                     .matchAskWithTakerBid(takerBidOrder, makerAskOrder, {})
             ).to.be.revertedWith("Currency: Not whitelisted");
@@ -2560,11 +2560,11 @@ describe("DareMarket", () => {
 
             await assertOrderValid(makerAskOrder, orderValidator);
 
-            tx = await dareMarket
+            tx = await vemoMarket
                 .connect(takerBidUser)
                 .matchAskWithTakerBid(takerBidOrder, makerAskOrder);
             await expect(tx)
-                .to.emit(dareMarket, "TakerBid")
+                .to.emit(vemoMarket, "TakerBid")
                 .withArgs(
                     computeOrderHash(makerAskOrder),
                     makerAskOrder.nonce,
@@ -2598,7 +2598,7 @@ describe("DareMarket", () => {
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
                 signerUser: makerAskUser,
-                verifyingContract: dareMarket.address,
+                verifyingContract: vemoMarket.address,
                 boundTokens: [],
                 boundAmounts: []
             });
@@ -2628,7 +2628,7 @@ describe("DareMarket", () => {
             );
 
             await expect(
-                dareMarket
+                vemoMarket
                     .connect(takerBidUser)
                     .matchAskWithTakerBid(takerBidOrder, makerAskOrder)
             ).to.be.revertedWith("Strategy: Not whitelisted");
@@ -2642,12 +2642,12 @@ describe("DareMarket", () => {
 
             await assertOrderValid(makerAskOrder, orderValidator);
 
-            tx = await dareMarket
+            tx = await vemoMarket
                 .connect(takerBidUser)
                 .matchAskWithTakerBid(takerBidOrder, makerAskOrder);
 
             await expect(tx)
-                .to.emit(dareMarket, "TakerBid")
+                .to.emit(vemoMarket, "TakerBid")
                 .withArgs(
                     computeOrderHash(makerAskOrder),
                     makerAskOrder.nonce,
@@ -2695,7 +2695,7 @@ describe("DareMarket", () => {
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
                 signerUser: makerAskUser,
-                verifyingContract: dareMarket.address,
+                verifyingContract: vemoMarket.address,
                 boundTokens: [],
                 boundAmounts: []
             });
@@ -2718,7 +2718,7 @@ describe("DareMarket", () => {
             };
 
             await expect(
-                dareMarket
+                vemoMarket
                     .connect(takerBidUser)
                     .matchAskWithTakerBid(takerBidOrder, makerAskOrder, {})
             ).to.be.revertedWith("Transfer: No NFT transfer manager available");
@@ -2752,12 +2752,12 @@ describe("DareMarket", () => {
                     true
                 );
 
-            tx = await dareMarket
+            tx = await vemoMarket
                 .connect(takerBidUser)
                 .matchAskWithTakerBid(takerBidOrder, makerAskOrder);
 
             await expect(tx)
-                .to.emit(dareMarket, "TakerBid")
+                .to.emit(vemoMarket, "TakerBid")
                 .withArgs(
                     computeOrderHash(makerAskOrder),
                     makerAskOrder.nonce,
@@ -2832,7 +2832,7 @@ describe("DareMarket", () => {
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
                 signerUser: makerAskUser,
-                verifyingContract: dareMarket.address,
+                verifyingContract: vemoMarket.address,
                 boundTokens: [],
                 boundAmounts: []
             });
@@ -2858,7 +2858,7 @@ describe("DareMarket", () => {
             };
 
             await expect(
-                dareMarket
+                vemoMarket
                     .connect(takerBidUser)
                     .matchAskWithTakerBid(takerBidOrder, makerAskOrder)
             ).to.be.revertedWith("Signature: Invalid v parameter");
@@ -2883,7 +2883,7 @@ describe("DareMarket", () => {
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
                 signerUser: makerAskUser,
-                verifyingContract: dareMarket.address,
+                verifyingContract: vemoMarket.address,
                 boundTokens: [],
                 boundAmounts: []
             });
@@ -2910,7 +2910,7 @@ describe("DareMarket", () => {
             };
 
             await expect(
-                dareMarket
+                vemoMarket
                     .connect(takerBidUser)
                     .matchAskWithTakerBid(takerBidOrder, makerAskOrder)
             ).to.be.revertedWith("Signature: Invalid s parameter");
@@ -2918,11 +2918,11 @@ describe("DareMarket", () => {
 
         it("Order - Cannot cancel if no order", async () => {
             await expect(
-                dareMarket.connect(accounts[1]).cancelMultipleMakerOrders([])
+                vemoMarket.connect(accounts[1]).cancelMultipleMakerOrders([])
             ).to.be.revertedWith("Cancel: Cannot be empty");
 
             await expect(
-                dareMarket.connect(accounts[2]).cancelMultipleMakerOrders([])
+                vemoMarket.connect(accounts[2]).cancelMultipleMakerOrders([])
             ).to.be.revertedWith("Cancel: Cannot be empty");
         });
 
@@ -2942,7 +2942,7 @@ describe("DareMarket", () => {
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
                 signerUser: accounts[3],
-                verifyingContract: dareMarket.address,
+                verifyingContract: vemoMarket.address,
                 boundTokens: [],
                 boundAmounts: []
             });
@@ -2965,7 +2965,7 @@ describe("DareMarket", () => {
             };
 
             await expect(
-                dareMarket
+                vemoMarket
                     .connect(accounts[2])
                     .matchAskWithTakerBid(takerBidOrder, makerAskOrder)
             ).to.be.revertedWith("Order: Invalid signer");
@@ -2987,7 +2987,7 @@ describe("DareMarket", () => {
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
                 signerUser: accounts[3],
-                verifyingContract: dareMarket.address,
+                verifyingContract: vemoMarket.address,
                 boundTokens: [],
                 boundAmounts: []
             });
@@ -3010,13 +3010,13 @@ describe("DareMarket", () => {
             };
 
             await expect(
-                dareMarket
+                vemoMarket
                     .connect(accounts[2])
                     .matchAskWithTakerBid(takerBidOrder, makerAskOrder)
             ).to.be.revertedWith("Signature: Invalid");
         });
 
-        it("Transfer Managers - Transfer functions only callable by DareMarket", async () => {
+        it("Transfer Managers - Transfer functions only callable by VemoMarket", async () => {
             await expect(
                 transferManagerERC721
                     .connect(accounts[5])
@@ -3062,59 +3062,59 @@ describe("DareMarket", () => {
     });
 
     describe("#6 - Owner functions and access rights", async () => {
-        it("DareMarket - Null address in owner functions", async () => {
+        it("VemoMarket - Null address in owner functions", async () => {
             await expect(
-                dareMarket
+                vemoMarket
                     .connect(admin)
                     .updateCurrencyManager(constants.AddressZero)
             ).to.be.revertedWith("Owner: Cannot be null address");
 
             await expect(
-                dareMarket
+                vemoMarket
                     .connect(admin)
                     .updateExecutionManager(constants.AddressZero)
             ).to.be.revertedWith("Owner: Cannot be null address");
 
             await expect(
-                dareMarket
+                vemoMarket
                     .connect(admin)
                     .updateRoyaltyFeeManager(constants.AddressZero)
             ).to.be.revertedWith("Owner: Cannot be null address");
 
             await expect(
-                dareMarket
+                vemoMarket
                     .connect(admin)
                     .updateTransferSelectorNFT(constants.AddressZero)
             ).to.be.revertedWith("Owner: Cannot be null address");
         });
 
-        it("DareMarket - Owner functions work as expected", async () => {
-            let tx = await dareMarket
+        it("VemoMarket - Owner functions work as expected", async () => {
+            let tx = await vemoMarket
                 .connect(admin)
                 .updateCurrencyManager(currencyManager.address);
             await expect(tx)
-                .to.emit(dareMarket, "NewCurrencyManager")
+                .to.emit(vemoMarket, "NewCurrencyManager")
                 .withArgs(currencyManager.address);
 
-            tx = await dareMarket
+            tx = await vemoMarket
                 .connect(admin)
                 .updateExecutionManager(executionManager.address);
             await expect(tx)
-                .to.emit(dareMarket, "NewExecutionManager")
+                .to.emit(vemoMarket, "NewExecutionManager")
                 .withArgs(executionManager.address);
 
-            tx = await dareMarket
+            tx = await vemoMarket
                 .connect(admin)
                 .updateRoyaltyFeeManager(royaltyFeeManager.address);
             await expect(tx)
-                .to.emit(dareMarket, "NewRoyaltyFeeManager")
+                .to.emit(vemoMarket, "NewRoyaltyFeeManager")
                 .withArgs(royaltyFeeManager.address);
 
-            tx = await dareMarket
+            tx = await vemoMarket
                 .connect(admin)
                 .updateProtocolFeeRecipient(admin.address);
             await expect(tx)
-                .to.emit(dareMarket, "NewProtocolFeeRecipient")
+                .to.emit(vemoMarket, "NewProtocolFeeRecipient")
                 .withArgs(admin.address);
         });
 
@@ -3159,11 +3159,11 @@ describe("DareMarket", () => {
             ).to.be.revertedWith("Owner: Royalty fee limit too high");
         });
 
-        it("DareMarket - Owner functions are only callable by owner", async () => {
+        it("VemoMarket - Owner functions are only callable by owner", async () => {
             const notAdminUser = accounts[3];
 
             await expect(
-                dareMarket
+                vemoMarket
                     .connect(notAdminUser)
                     .updateCurrencyManager(currencyManager.address)
             ).to.be.revertedWith(
@@ -3171,7 +3171,7 @@ describe("DareMarket", () => {
             );
 
             await expect(
-                dareMarket
+                vemoMarket
                     .connect(notAdminUser)
                     .updateExecutionManager(executionManager.address)
             ).to.be.revertedWith(
@@ -3179,7 +3179,7 @@ describe("DareMarket", () => {
             );
 
             await expect(
-                dareMarket
+                vemoMarket
                     .connect(notAdminUser)
                     .updateProtocolFeeRecipient(notAdminUser.address)
             ).to.be.revertedWith(
@@ -3187,7 +3187,7 @@ describe("DareMarket", () => {
             );
 
             await expect(
-                dareMarket
+                vemoMarket
                     .connect(notAdminUser)
                     .updateRoyaltyFeeManager(royaltyFeeManager.address)
             ).to.be.revertedWith(
@@ -3195,7 +3195,7 @@ describe("DareMarket", () => {
             );
 
             await expect(
-                dareMarket
+                vemoMarket
                     .connect(notAdminUser)
                     .updateTransferSelectorNFT(transferSelectorNFT.address)
             ).to.be.revertedWith(

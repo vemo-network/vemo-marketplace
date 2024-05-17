@@ -20,8 +20,8 @@ async function main() {
   }
 
   const [owner] = await ethers.getSigners();
-  const DareMarket = await ethers.getContractFactory("DareMarket");
-  const marketplace = await upgrades.deployProxy(DareMarket, [owner.address, currencyManager, executionManager, royaltyFeeManager, wETH, owner.address]);
+  const VemoMarket = await ethers.getContractFactory("VemoMarket");
+  const marketplace = await upgrades.deployProxy(VemoMarket, [owner.address, currencyManager, executionManager, royaltyFeeManager, wETH, owner.address]);
   console.log("Marketplace is deployed at address ", await marketplace.address);
 }
 

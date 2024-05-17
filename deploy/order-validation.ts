@@ -8,7 +8,7 @@ const func: DeployFunction = async ({
     const { deploy } = deployments;
     const { deployer } = await getNamedAccounts();
 
-    const dareMarket = await deployments.get("DareMarket");
+    const vemoMarket = await deployments.get("VemoMarket");
 
     await deploy("OrderValidator", {
         from: deployer,
@@ -16,7 +16,7 @@ const func: DeployFunction = async ({
             proxyContract: "OpenZeppelinTransparentProxy",
             execute: {
                 methodName: "initialize",
-                args: [deployer, dareMarket.address],
+                args: [deployer, vemoMarket.address],
             },
         },
         log: true,
@@ -24,7 +24,7 @@ const func: DeployFunction = async ({
 };
 
 func.tags = ["foundation", "order-validation", "v1"];
-func.dependencies = ["dare-market"];
+func.dependencies = ["vemo-market"];
 func.runAtTheEnd = true;
 
 export default func;

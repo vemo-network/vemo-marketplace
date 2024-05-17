@@ -40,7 +40,7 @@ describe("OrderValidator (additional tests)", () => {
     let transferManagerNonCompliantERC721: Contract;
     let transferSelectorNFT: Contract;
     let royaltyFeeSetter: Contract;
-    let dareMarket: Contract;
+    let vemoMarket: Contract;
     let orderValidator: OrderValidator;
 
     // Strategy contracts (used for this test file)
@@ -76,7 +76,7 @@ describe("OrderValidator (additional tests)", () => {
             transferManagerERC721,
             transferManagerERC1155,
             transferManagerNonCompliantERC721,
-            dareMarket,
+            vemoMarket,
             strategyStandardSaleForFixedPrice,
             strategyAnyItemFromCollectionForFixedPrice,
             ,
@@ -113,7 +113,7 @@ describe("OrderValidator (additional tests)", () => {
             mockERC721,
             mockERC721WithRoyalty,
             mockERC1155,
-            dareMarket,
+            vemoMarket,
             transferManagerERC721,
             transferManagerERC1155
         );
@@ -136,7 +136,7 @@ describe("OrderValidator (additional tests)", () => {
             minPercentageToAsk: constants.Zero,
             params: defaultAbiCoder.encode([], []),
             signerUser: makerUser,
-            verifyingContract: dareMarket.address,
+            verifyingContract: vemoMarket.address,
             boundTokens: [],
                 boundAmounts: []
         });
@@ -157,7 +157,7 @@ describe("OrderValidator (additional tests)", () => {
             minPercentageToAsk: constants.Zero,
             params: defaultAbiCoder.encode([], []),
             signerUser: makerUser,
-            verifyingContract: dareMarket.address,
+            verifyingContract: vemoMarket.address,
             boundTokens: [],
                 boundAmounts: []
         });
@@ -187,7 +187,7 @@ describe("OrderValidator (additional tests)", () => {
             minPercentageToAsk: constants.Zero,
             params: defaultAbiCoder.encode([], []),
             signerUser: makerBidUser,
-            verifyingContract: dareMarket.address,
+            verifyingContract: vemoMarket.address,
             boundTokens: [],
                 boundAmounts: []
         });
@@ -211,7 +211,7 @@ describe("OrderValidator (additional tests)", () => {
         // Approval allowance lower than price
         await weth
             .connect(makerBidUser)
-            .approve(dareMarket.address, makerBidOrder.price.sub("1"));
+            .approve(vemoMarket.address, makerBidOrder.price.sub("1"));
         await assertErrorCode(
             makerBidOrder,
             ERC20_APPROVAL_INFERIOR_TO_PRICE,
@@ -220,7 +220,7 @@ describe("OrderValidator (additional tests)", () => {
         // Approval allowance equal to price
         await weth
             .connect(makerBidUser)
-            .approve(dareMarket.address, makerBidOrder.price);
+            .approve(vemoMarket.address, makerBidOrder.price);
         await assertOrderValid(makerBidOrder, orderValidator);
     });
 
@@ -244,7 +244,7 @@ describe("OrderValidator (additional tests)", () => {
             minPercentageToAsk: constants.Zero,
             params: defaultAbiCoder.encode([], []),
             signerUser: makerAskUser,
-            verifyingContract: dareMarket.address,
+            verifyingContract: vemoMarket.address,
             boundTokens: [],
                 boundAmounts: []
         });
@@ -316,7 +316,7 @@ describe("OrderValidator (additional tests)", () => {
             minPercentageToAsk: constants.Zero,
             params: defaultAbiCoder.encode([], []),
             signerUser: makerAskUser,
-            verifyingContract: dareMarket.address,
+            verifyingContract: vemoMarket.address,
             boundTokens: [],
                 boundAmounts: []
         });
@@ -395,7 +395,7 @@ describe("OrderValidator (additional tests)", () => {
             minPercentageToAsk: BigNumber.from("9800"),
             params: defaultAbiCoder.encode([], []),
             signerUser: makerAskUser,
-            verifyingContract: dareMarket.address,
+            verifyingContract: vemoMarket.address,
             boundTokens: [],
                 boundAmounts: []
         });
@@ -414,7 +414,7 @@ describe("OrderValidator (additional tests)", () => {
             mockERC721,
             mockERC721WithRoyalty,
             mockERC1155,
-            dareMarket,
+            vemoMarket,
             transferManagerERC721,
             transferManagerERC1155
         );
@@ -438,7 +438,7 @@ describe("OrderValidator (additional tests)", () => {
             minPercentageToAsk: BigNumber.from("9801"), // Protocol fee is 2%
             params: defaultAbiCoder.encode([], []),
             signerUser: makerAskUser,
-            verifyingContract: dareMarket.address,
+            verifyingContract: vemoMarket.address,
             boundTokens: [],
                 boundAmounts: []
         });
@@ -475,7 +475,7 @@ describe("OrderValidator (additional tests)", () => {
             minPercentageToAsk: BigNumber.from("9701"), // Protocol fee is 2% and royalty is set at 1%
             params: defaultAbiCoder.encode([], []),
             signerUser: makerAskUser,
-            verifyingContract: dareMarket.address,
+            verifyingContract: vemoMarket.address,
             boundTokens: [],
                 boundAmounts: []
         });
@@ -502,7 +502,7 @@ describe("OrderValidator (additional tests)", () => {
             minPercentageToAsk: BigNumber.from("9701"), // Protocol fee is 2% and royalty fee is 1%
             params: defaultAbiCoder.encode([], []),
             signerUser: makerAskUser,
-            verifyingContract: dareMarket.address,
+            verifyingContract: vemoMarket.address,
             boundTokens: [],
                 boundAmounts: []
         });

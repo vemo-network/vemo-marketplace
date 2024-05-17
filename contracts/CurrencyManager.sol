@@ -9,7 +9,7 @@ import {ICurrencyManager} from "./interfaces/ICurrencyManager.sol";
 
 /**
  * @title CurrencyManager
- * @notice It allows adding/removing currencies for trading on the DareMarket.
+ * @notice It allows adding/removing currencies for trading on the VemoMarket.
  */
 contract CurrencyManager is
     Initializable,

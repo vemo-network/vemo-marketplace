@@ -122,7 +122,7 @@ $ npx hardhat verify --network <chain-name> <contract-address>
 ```
 or
 ```bash
-$ forge verify-contract 0x2133DD7Ad181929F8a4D0f98EE6D97703008228f  --watch --chain 43113 contracts/DareMarket.sol:DareMarket  --etherscan-api-key "" --num-of-optimizations 200 --compiler-version 0.8.7 --constructor-args
+$ forge verify-contract 0x2133DD7Ad181929F8a4D0f98EE6D97703008228f  --watch --chain 43113 contracts/VemoMarket.sol:VemoMarket  --etherscan-api-key "" --num-of-optimizations 200 --compiler-version 0.8.7 --constructor-args
 ```
 
 ## Upgrade contracts

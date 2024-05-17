@@ -24,7 +24,7 @@ describe("Strategy - PrivateSale", () => {
     // Exchange contracts
     let transferManagerERC721: Contract;
     let transferManagerERC1155: Contract;
-    let dareMarket: Contract;
+    let vemoMarket: Contract;
 
     // Strategy contract
     let strategyPrivateSale: Contract;
@@ -59,7 +59,7 @@ describe("Strategy - PrivateSale", () => {
             transferManagerERC721,
             transferManagerERC1155,
             ,
-            dareMarket,
+            vemoMarket,
             ,
             ,
             ,
@@ -83,15 +83,15 @@ describe("Strategy - PrivateSale", () => {
             mockERC721,
             mockERC721WithRoyalty,
             mockERC1155,
-            dareMarket,
+            vemoMarket,
             transferManagerERC721,
             transferManagerERC1155
         );
 
         // Verify the domain separator is properly computed
         assert.equal(
-            await dareMarket.DOMAIN_SEPARATOR(),
-            computeDomainSeparator(dareMarket.address)
+            await vemoMarket.DOMAIN_SEPARATOR(),
+            computeDomainSeparator(vemoMarket.address)
         );
 
         // Set up defaults startTime/endTime (for orders)
@@ -125,7 +125,7 @@ describe("Strategy - PrivateSale", () => {
             minPercentageToAsk: constants.Zero,
             params: defaultAbiCoder.encode(["address"], [takerBidUser.address]),
             signerUser: makerAskUser,
-            verifyingContract: dareMarket.address,
+            verifyingContract: vemoMarket.address,
             boundTokens: [],
                 boundAmounts: []
         });
@@ -143,7 +143,7 @@ describe("Strategy - PrivateSale", () => {
 
         // User 3 cannot buy since the order target is only taker user
         await expect(
-            dareMarket
+            vemoMarket
                 .connect(wrongUser)
                 .matchAskWithTakerBidUsingETHAndWETH(
                     takerBidOrder,
@@ -155,7 +155,7 @@ describe("Strategy - PrivateSale", () => {
         ).to.be.revertedWith("Strategy: Execution invalid");
 
         await expect(
-            dareMarket
+            vemoMarket
                 .connect(wrongUser)
                 .matchAskWithTakerBid(takerBidOrder, makerAskOrder)
         ).to.be.revertedWith("Strategy: Execution invalid");
@@ -175,12 +175,12 @@ describe("Strategy - PrivateSale", () => {
             constants.Zero
         );
 
-        const tx = await dareMarket
+        const tx = await vemoMarket
             .connect(takerBidUser)
             .matchAskWithTakerBid(takerBidOrder, makerAskOrder);
 
         await expect(tx)
-            .to.emit(dareMarket, "TakerBid")
+            .to.emit(vemoMarket, "TakerBid")
             .withArgs(
                 computeOrderHash(makerAskOrder),
                 makerAskOrder.nonce,
@@ -199,7 +199,7 @@ describe("Strategy - PrivateSale", () => {
             takerBidUser.address
         );
         assert.isTrue(
-            await dareMarket.isUserOrderNonceExecutedOrCancelled(
+            await vemoMarket.isUserOrderNonceExecutedOrCancelled(
                 makerAskUser.address,
                 makerAskOrder.nonce
             )
@@ -230,7 +230,7 @@ describe("Strategy - PrivateSale", () => {
             minPercentageToAsk: constants.Zero,
             params: defaultAbiCoder.encode(["address"], [takerBidUser.address]),
             signerUser: makerAskUser,
-            verifyingContract: dareMarket.address,
+            verifyingContract: vemoMarket.address,
             boundTokens: [],
                 boundAmounts: []
         });
@@ -248,7 +248,7 @@ describe("Strategy - PrivateSale", () => {
 
         // User 3 cannot buy since the order target is only taker user
         await expect(
-            dareMarket
+            vemoMarket
                 .connect(wrongUser)
                 .matchAskWithTakerBidUsingETHAndWETH(
                     takerBidOrder,
@@ -260,7 +260,7 @@ describe("Strategy - PrivateSale", () => {
         ).to.be.revertedWith("Strategy: Execution invalid");
 
         await expect(
-            dareMarket
+            vemoMarket
                 .connect(wrongUser)
                 .matchAskWithTakerBid(takerBidOrder, makerAskOrder)
         ).to.be.revertedWith("Strategy: Execution invalid");
@@ -280,11 +280,11 @@ describe("Strategy - PrivateSale", () => {
             constants.Zero
         );
 
-        const tx = await dareMarket
+        const tx = await vemoMarket
             .connect(takerBidUser)
             .matchAskWithTakerBid(takerBidOrder, makerAskOrder);
         await expect(tx)
-            .to.emit(dareMarket, "TakerBid")
+            .to.emit(vemoMarket, "TakerBid")
             .withArgs(
                 computeOrderHash(makerAskOrder),
                 makerAskOrder.nonce,
@@ -303,7 +303,7 @@ describe("Strategy - PrivateSale", () => {
             takerBidUser.address
         );
         assert.isTrue(
-            await dareMarket.isUserOrderNonceExecutedOrCancelled(
+            await vemoMarket.isUserOrderNonceExecutedOrCancelled(
                 makerAskUser.address,
                 makerAskOrder.nonce
             )
@@ -333,7 +333,7 @@ describe("Strategy - PrivateSale", () => {
             minPercentageToAsk: constants.Zero,
             params: defaultAbiCoder.encode([], []),
             signerUser: takerBidUser,
-            verifyingContract: dareMarket.address,
+            verifyingContract: vemoMarket.address,
             boundTokens: [],
                 boundAmounts: []
         });
@@ -350,7 +350,7 @@ describe("Strategy - PrivateSale", () => {
         };
 
         await expect(
-            dareMarket
+            vemoMarket
                 .connect(makerAskUser)
                 .matchBidWithTakerAsk(takerAskOrder, makerBidOrder)
         ).to.be.revertedWith("Strategy: Execution invalid");
