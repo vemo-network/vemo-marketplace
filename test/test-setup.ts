@@ -218,6 +218,16 @@ export async function setUp(
     const vemoVoucherFactory = await MockVoucherFactory.deploy();
     await vemoVoucherFactory.deployed();
 
+    const StrategyStandardSaleForFixedPriceVoucher = await ethers.getContractFactory(
+        "StrategyStandardSaleForFixedPriceVoucher"
+    );
+    const strategyStandardSaleForFixedPriceVoucher =
+        await StrategyStandardSaleForFixedPriceVoucher.deploy(standardProtocolFee, orderValidator.address);
+    await strategyStandardSaleForFixedPriceVoucher.deployed();
+
+    await executionManager
+        .connect(admin)
+        .addStrategy(strategyStandardSaleForFixedPriceVoucher.address);
     /** Return contracts
      */
     return [
@@ -243,8 +253,8 @@ export async function setUp(
         royaltyFeeManager,
         royaltyFeeSetter,
         orderValidator,
-        vemoVoucherFactory
-
+        vemoVoucherFactory,
+        strategyStandardSaleForFixedPriceVoucher,
         // mockDerivative,
     ];
 }

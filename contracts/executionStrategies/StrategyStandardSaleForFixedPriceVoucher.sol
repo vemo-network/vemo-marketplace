@@ -3,7 +3,6 @@ pragma solidity ^0.8.0;
 
 import {OrderTypes} from "../libraries/OrderTypes.sol";
 import {IExecutionStrategy} from "../interfaces/IExecutionStrategy.sol";
-import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import "../interfaces/IVoucherFactory.sol";
 
 interface IOrderValidator  {
@@ -17,7 +16,7 @@ interface IOrderValidator  {
  * @notice Strategy that executes an order at a fixed price that for NFT ERC6551Account
  * can be taken either by a bid or an ask.
  */
-contract StrategyStandardSaleForFixedPriceVoucher is Ownable,IExecutionStrategy {
+contract StrategyStandardSaleForFixedPriceVoucher is IExecutionStrategy {
     uint256 public immutable PROTOCOL_FEE;
     IOrderValidator public immutable orderValidator;
     uint256 constant public ORDER_VALID_CODE = 0;
@@ -95,9 +94,10 @@ contract StrategyStandardSaleForFixedPriceVoucher is Ownable,IExecutionStrategy 
                 validationERC6551Code,
             ) = orderValidator.checkERC6551AccountAssets(makerAsk);
         }
-        
+
         return (
-            (   validationERC6551Code == ORDER_VALID_CODE &&
+            (
+                validationERC6551Code == ORDER_VALID_CODE &&
                 (makerAsk.price == takerBid.price) &&
                 (makerAsk.tokenId == takerBid.tokenId) &&
                 (makerAsk.startTime <= block.timestamp) &&

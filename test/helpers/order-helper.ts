@@ -64,8 +64,6 @@ export function createTakerOrder({
   tokenId,
   minPercentageToAsk,
   params,
-  boundTokens,
-  boundAmounts
 }: TakerOrder): TakerOrder {
   const takerOrder: TakerOrder = {
     isOrderAsk: isOrderAsk,
@@ -73,9 +71,7 @@ export function createTakerOrder({
     price: price,
     tokenId: tokenId,
     minPercentageToAsk: minPercentageToAsk,
-    params: params,
-    boundTokens,
-    boundAmounts
+    params: params
   };
 
   return takerOrder;

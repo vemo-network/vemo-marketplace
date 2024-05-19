@@ -31,6 +31,6 @@ export interface TakerOrder {
   tokenId: BigNumber;
   minPercentageToAsk: BigNumber;
   params: BytesLike; // params (e.g., tokenId)
-  boundTokens: string[]; // locked or vesting tokens inside this nft
-  boundAmounts: BigNumber[]; // locked amounts
+  // boundTokens: string[]; // locked or vesting tokens inside this nft
+  // boundAmounts: BigNumber[]; // locked amounts
 }

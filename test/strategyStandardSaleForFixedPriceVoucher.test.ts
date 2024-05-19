@@ -5,7 +5,10 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { MerkleTree } from "merkletreejs";
 /* eslint-disable node/no-extraneous-import */
 import { keccak256 } from "js-sha3";
-
+import {
+    ERC6551_BALANCE_NOT_CORRECT,
+    INVALID_ERC6551_ASSETS_INPUTS,
+} from "./helpers/configErrorCodes";
 import { MakerOrderWithSignature } from "./helpers/order-types";
 import { createMakerOrder, createTakerOrder } from "./helpers/order-helper";
 import {
@@ -14,15 +17,25 @@ import {
 } from "./helpers/signature-helper";
 import { setUp } from "./test-setup";
 import { tokenSetUp } from "./token-set-up";
+import { MockERC20, MockVoucherFactory, OrderValidator, StrategyStandardSaleForFixedPriceVoucher } from "typechain";
+import {
+    assertErrorCode,
+    assertOrderValid,
+} from "./helpers/order-validation-helper";
+import { boolean } from "hardhat/internal/core/params/argumentTypes";
 
 const { defaultAbiCoder, parseEther } = utils;
 
-describe("Strategy - AnyItemInASetForFixedPrice ('Trait orders')", () => {
+describe("Strategy - Fixed price for ERC6551 assets", () => {
     // Mock contracts
     let mockERC721: Contract;
     let mockERC721WithRoyalty: Contract;
     let mockERC1155: Contract;
+    let mockUSDT: MockERC20;
     let weth: Contract;
+    let vemoVoucherFactory: MockVoucherFactory;
+    let orderValidator: OrderValidator;
+    let strategyStandardSaleForFixedPriceVoucher: StrategyStandardSaleForFixedPriceVoucher;
 
     // Exchange contracts
     let transferManagerERC721: Contract;
@@ -30,7 +43,6 @@ describe("Strategy - AnyItemInASetForFixedPrice ('Trait orders')", () => {
     let vemoMarket: Contract;
 
     // Strategy contract
-    let strategyAnyItemInASetForFixedPrice: Contract;
 
     // Other global variables
     let standardProtocolFee: BigNumber;
@@ -42,9 +54,13 @@ describe("Strategy - AnyItemInASetForFixedPrice ('Trait orders')", () => {
     let startTimeOrder: BigNumber;
     let endTimeOrder: BigNumber;
 
+    // 6551 info
+    let vemoTBA: SignerWithAddress;
+
     beforeEach(async () => {
         accounts = await ethers.getSigners();
         admin = accounts[0];
+        vemoTBA = accounts[2];
         feeRecipient = accounts[19];
         royaltyCollector = accounts[15];
         standardProtocolFee = BigNumber.from("200");
@@ -53,7 +69,7 @@ describe("Strategy - AnyItemInASetForFixedPrice ('Trait orders')", () => {
             weth,
             mockERC721,
             mockERC1155,
-            ,
+            mockUSDT,
             mockERC721WithRoyalty,
             ,
             ,
@@ -66,11 +82,14 @@ describe("Strategy - AnyItemInASetForFixedPrice ('Trait orders')", () => {
             ,
             ,
             ,
-            strategyAnyItemInASetForFixedPrice,
             ,
             ,
             ,
             ,
+            ,
+            orderValidator,
+            vemoVoucherFactory,
+            strategyStandardSaleForFixedPriceVoucher
         ] = await setUp(
             admin,
             feeRecipient,
@@ -105,31 +124,17 @@ describe("Strategy - AnyItemInASetForFixedPrice ('Trait orders')", () => {
             ).timestamp
         );
         endTimeOrder = startTimeOrder.add(BigNumber.from("1000"));
+        
+        await orderValidator.setVemoVoucherFactory(vemoVoucherFactory.address);
     });
 
-    it("ERC721 - MakerBid order is matched by TakerAsk order", async () => {
+    it("ERC721 - with TBA - MakerBid order is matched by TakerAsk order", async () => {
         const takerAskUser = accounts[3]; // has tokenId=2
         const makerBidUser = accounts[1];
 
-        // User wishes to buy either tokenId = 0, 2, 3, or 12
-        const eligibleTokenIds = ["0", "2", "3", "12"];
-
-        // Compute the leaves using Solidity keccak256 (Equivalent of keccak256 with abi.encodePacked) and converts to hex
-        const leaves = eligibleTokenIds.map(
-            (x) => "0x" + utils.solidityKeccak256(["uint256"], [x]).substr(2)
-        );
-
-        // Compute MerkleTree based on the computed leaves
-        const tree = new MerkleTree(leaves, keccak256, { sortPairs: true });
-
-        // Compute the proof for index=1 (aka tokenId=2)
-        const hexProof = tree.getHexProof(leaves[1], 1);
-
-        // Compute the root of the tree
-        const hexRoot = tree.getHexRoot();
-
-        // Verify leaf is matched in the tree with the computed root
-        assert.isTrue(tree.verify(hexProof, leaves[1], hexRoot));
+        const tbaAsset = mockUSDT.address;
+        const tbaAmount = BigNumber.from("1000000");
+        await mockERC721.mint(makerBidUser.address);
 
         const makerBidOrder: MakerOrderWithSignature = await createMakerOrder({
             isOrderAsk: false,
@@ -138,120 +143,53 @@ describe("Strategy - AnyItemInASetForFixedPrice ('Trait orders')", () => {
             tokenId: constants.Zero,
             price: parseEther("3"),
             amount: constants.One,
-            strategy: strategyAnyItemInASetForFixedPrice.address,
+            strategy: strategyStandardSaleForFixedPriceVoucher.address,
             currency: weth.address,
             nonce: constants.Zero,
             startTime: startTimeOrder,
             endTime: endTimeOrder,
             minPercentageToAsk: constants.Zero,
-            params: defaultAbiCoder.encode(["bytes32"], [hexRoot]),
+            params: defaultAbiCoder.encode([], []),
             signerUser: makerBidUser,
             verifyingContract: vemoMarket.address,
-            boundTokens: [],
-            boundAmounts: []
+            boundTokens: [tbaAsset],
+            boundAmounts: [tbaAmount]
         });
 
         const takerAskOrder = createTakerOrder({
             isOrderAsk: true,
             taker: takerAskUser.address,
-            tokenId: BigNumber.from("2"),
+            tokenId: constants.Zero,
             price: makerBidOrder.price,
             minPercentageToAsk: constants.Zero,
-            params: defaultAbiCoder.encode(["bytes32[]"], [hexProof]),
+            params: defaultAbiCoder.encode([], []),
         });
 
-        const tx = await vemoMarket
-            .connect(takerAskUser)
-            .matchBidWithTakerAsk(takerAskOrder, makerBidOrder);
-        await expect(tx)
-            .to.emit(vemoMarket, "TakerAsk")
-            .withArgs(
-                computeOrderHash(makerBidOrder),
-                makerBidOrder.nonce,
-                takerAskUser.address,
-                makerBidUser.address,
-                strategyAnyItemInASetForFixedPrice.address,
-                makerBidOrder.currency,
-                makerBidOrder.collection,
-                takerAskOrder.tokenId,
-                makerBidOrder.amount,
-                makerBidOrder.price
-            );
-
-        assert.equal(await mockERC721.ownerOf("2"), makerBidUser.address);
-        assert.isTrue(
-            await vemoMarket.isUserOrderNonceExecutedOrCancelled(
-                makerBidUser.address,
-                makerBidOrder.nonce
-            )
+        await vemoVoucherFactory.setTokenBoundAccount(makerBidOrder.collection, makerBidOrder.tokenId, vemoTBA.address);
+        await mockUSDT.mint(vemoTBA.address, tbaAmount.sub(constants.One));
+        
+        // validate by ordervalidator first
+        await assertErrorCode(
+            makerBidOrder,
+            ERC6551_BALANCE_NOT_CORRECT,
+            orderValidator
         );
-    });
+        let result = await strategyStandardSaleForFixedPriceVoucher.canExecuteTakerAsk(takerAskOrder, makerBidOrder);
+        await expect(result[0]).to.be.false;
 
-    it("ERC721 - TokenIds not in the set cannot be sold", async () => {
-        const takerAskUser = accounts[3]; // has tokenId=2
-        const makerBidUser = accounts[1];
+        result = await strategyStandardSaleForFixedPriceVoucher.canExecuteTakerBid(takerAskOrder, makerBidOrder);
+        await expect(result[0]).to.be.false;
+        
+        // make the seller enough condition to sell the nft
+        await mockUSDT.mint(vemoTBA.address, constants.One);
+        await assertOrderValid(makerBidOrder, orderValidator);
+        
+        result = await strategyStandardSaleForFixedPriceVoucher.canExecuteTakerAsk(takerAskOrder, makerBidOrder);
+        await expect(result[0]).to.be.true;
 
-        // User wishes to buy either tokenId = 1, 2, 3, 4, or 12
-        const eligibleTokenIds = ["1", "2", "3", "4", "12"];
+        result = await strategyStandardSaleForFixedPriceVoucher.canExecuteTakerBid(takerAskOrder, makerBidOrder);
+        await expect(result[0]).to.be.true;
 
-        // Compute the leaves using Solidity keccak256 (Equivalent of keccak256 with abi.encodePacked) and converts to hex
-        const leaves = eligibleTokenIds.map(
-            (x) => "0x" + utils.solidityKeccak256(["uint256"], [x]).substr(2)
-        );
-
-        // Compute MerkleTree based on the computed leaves
-        const tree = new MerkleTree(leaves, keccak256, { sortPairs: true });
-
-        // Compute the proof for index=1 (aka tokenId=2)
-        const hexProof = tree.getHexProof(leaves[1], 1);
-
-        // Compute the root of the tree
-        const hexRoot = tree.getHexRoot();
-
-        // Verify leaf is matched in the tree with the computed root
-        assert.isTrue(tree.verify(hexProof, leaves[1], hexRoot));
-
-        const makerBidOrder: MakerOrderWithSignature = await createMakerOrder({
-            isOrderAsk: false,
-            signer: makerBidUser.address,
-            collection: mockERC721.address,
-            tokenId: constants.Zero, // not used
-            price: parseEther("3"),
-            amount: constants.One,
-            strategy: strategyAnyItemInASetForFixedPrice.address,
-            currency: weth.address,
-            nonce: constants.Zero,
-            startTime: startTimeOrder,
-            endTime: endTimeOrder,
-            minPercentageToAsk: constants.Zero,
-            params: defaultAbiCoder.encode(["bytes32"], [hexRoot]),
-            signerUser: makerBidUser,
-            verifyingContract: vemoMarket.address,
-            boundTokens: [],
-                boundAmounts: []
-        });
-
-        for (const tokenId of Array.from(Array(9).keys())) {
-            // If the tokenId is not included, it skips
-            if (!eligibleTokenIds.includes(tokenId.toString())) {
-                const takerAskOrder = createTakerOrder({
-                    isOrderAsk: true,
-                    taker: takerAskUser.address,
-                    tokenId: BigNumber.from(tokenId),
-                    price: parseEther("3"),
-                    minPercentageToAsk: constants.Zero,
-                    params: defaultAbiCoder.encode(["bytes32[]"], [hexProof]),
-                    boundTokens: [],
-                boundAmounts: []
-                });
-
-                await expect(
-                    vemoMarket
-                        .connect(takerAskUser)
-                        .matchBidWithTakerAsk(takerAskOrder, makerBidOrder)
-                ).to.be.revertedWith("Strategy: Execution invalid");
-            }
-        }
     });
 
     it("Cannot match if wrong side", async () => {
@@ -265,7 +203,7 @@ describe("Strategy - AnyItemInASetForFixedPrice ('Trait orders')", () => {
             tokenId: constants.Zero,
             price: parseEther("3"),
             amount: constants.One,
-            strategy: strategyAnyItemInASetForFixedPrice.address,
+            strategy: strategyStandardSaleForFixedPriceVoucher.address,
             currency: weth.address,
             nonce: constants.Zero,
             startTime: startTimeOrder,
@@ -275,7 +213,7 @@ describe("Strategy - AnyItemInASetForFixedPrice ('Trait orders')", () => {
             signerUser: makerAskUser,
             verifyingContract: vemoMarket.address,
             boundTokens: [],
-                boundAmounts: []
+            boundAmounts: []
         });
 
         const takerBidOrder = {

@@ -136,9 +136,7 @@ describe("Strategy - PrivateSale", () => {
             tokenId: constants.Zero,
             price: makerAskOrder.price,
             minPercentageToAsk: constants.Zero,
-            params: defaultAbiCoder.encode([], []),
-            boundTokens: [],
-                boundAmounts: []
+            params: defaultAbiCoder.encode([], [])
         });
 
         // User 3 cannot buy since the order target is only taker user
@@ -166,9 +164,7 @@ describe("Strategy - PrivateSale", () => {
             price: makerAskOrder.price,
             tokenId: constants.Zero,
             minPercentageToAsk: constants.Zero,
-            params: defaultAbiCoder.encode([], []),
-            boundTokens: [],
-                boundAmounts: []
+            params: defaultAbiCoder.encode([], [])
         });
 
         expect(await weth.balanceOf(feeRecipient.address)).to.be.deep.equal(
@@ -241,9 +237,7 @@ describe("Strategy - PrivateSale", () => {
             tokenId: constants.Zero,
             price: makerAskOrder.price,
             minPercentageToAsk: constants.Zero,
-            params: defaultAbiCoder.encode([], []),
-            boundTokens: [],
-                boundAmounts: []
+            params: defaultAbiCoder.encode([], [])
         });
 
         // User 3 cannot buy since the order target is only taker user
@@ -271,9 +265,7 @@ describe("Strategy - PrivateSale", () => {
             price: makerAskOrder.price,
             tokenId: constants.Zero,
             minPercentageToAsk: constants.Zero,
-            params: defaultAbiCoder.encode([], []),
-            boundTokens: [],
-                boundAmounts: []
+            params: defaultAbiCoder.encode([], [])
         });
 
         expect(await weth.balanceOf(feeRecipient.address)).to.be.deep.equal(
