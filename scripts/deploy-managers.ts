@@ -22,6 +22,7 @@ enum ManagerKind {
   TRANSFER_NFT_SELECTOR,
   ORDER_VALIDATOR,
   STRATEGY_STANDARD_FIXED_PRICE,
+  STRATEGY_STANDARD_FIXED_PRICE_VOUCHER,
 }
 
 const deployUpgradeable = async (
@@ -71,6 +72,18 @@ async function deployStrategyStandardFixedPrice(signer: SignerWithAddress, execu
   const tx = await executionManager.connect(signer).addStrategy(strategyStandardSaleForFixedPrice.address);
   await tx.wait();
   console.log(`StrategyStandardSaleForFixedPrice has been added to ExecutionManager`);
+}
+
+async function deployStrategyStandardFixedPriceVoucher(signer: SignerWithAddress, executionManagerContract: string, orderValidatorContract: string) {
+  const StrategyStandardSaleForFixedPriceVoucher = await ethers.getContractFactory("StrategyStandardSaleForFixedPriceVoucher");
+  const strategyStandardSaleForFixedPriceVoucher = await StrategyStandardSaleForFixedPriceVoucher.deploy(PROTOCOL_FEE, orderValidatorContract);
+  await strategyStandardSaleForFixedPriceVoucher.deployed();
+  console.log(`StrategyStandardSaleForFixedPriceVoucher deployed at address ${strategyStandardSaleForFixedPriceVoucher.address}`);
+
+  const executionManager = (await ethers.getContractAt("ExecutionManager", executionManagerContract)) as ExecutionManager;
+  const tx = await executionManager.connect(signer).addStrategy(strategyStandardSaleForFixedPriceVoucher.address);
+  await tx.wait();
+  console.log(`StrategyStandardSaleForFixedPriceVoucher has been added to ExecutionManager`);
 }
 
 async function deployOrderValidator(signer: SignerWithAddress, marketplaceContract: string) {
@@ -158,6 +171,18 @@ async function main() {
         break;
       }
       deployStrategyStandardFixedPrice(signer, process.env.EXECUTION_MANAGER);
+      break
+    }
+    case ManagerKind.STRATEGY_STANDARD_FIXED_PRICE_VOUCHER: {
+      if (process.env.EXECUTION_MANAGER == undefined || process.env.EXECUTION_MANAGER.length != 42) {
+        throw new Error(`Missing argument process.env.EXECUTION_MANAGER`);
+        break;
+      }
+      if (process.env.ORDER_VALIDATOR == undefined || process.env.ORDER_VALIDATOR.length != 42) {
+        throw new Error(`Missing argument process.env.ORDER_VALIDATOR`);
+        break;
+      }
+      deployStrategyStandardFixedPriceVoucher(signer, process.env.EXECUTION_MANAGER, process.env.ORDER_VALIDATOR);
       break
     }
     default: {

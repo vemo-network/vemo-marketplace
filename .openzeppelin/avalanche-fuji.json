@@ -129,6 +129,16 @@
       "address": "0x17AE4382306c6f7601ac3C282dD1A66059BC9A90",
       "txHash": "0xb1d407cbb635fcecc984386ae5b7cf5afd663b5c57cd429e1152397c88fd771d",
       "kind": "transparent"
+    },
+    {
+      "address": "0xA96A5DEE392cde15B3eEF3A317b3C3CB74fB36D8",
+      "txHash": "0x383c2b8a1f04a6f2bba833d5c71f0e9c3d7594be9d653f5c23c63d1f6dcbbf5b",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x72Fe7b8D5981a9AEcb7Dc5cc0b9d16730e05f42A",
+      "txHash": "0xd8f6674bc430e106ad91adbe9792ac41e888b6aba645a006310f071d57eea30b",
+      "kind": "transparent"
     }
   ],
   "impls": {
@@ -2085,6 +2095,224 @@
           },
           "t_mapping(t_uint256,t_bool)": {
             "label": "mapping(uint256 => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_struct(RoleData)34_storage": {
+            "label": "struct AccessControlUpgradeable.RoleData",
+            "members": [
+              {
+                "label": "members",
+                "type": "t_mapping(t_address,t_bool)",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "adminRole",
+                "type": "t_bytes32",
+                "offset": 0,
+                "slot": "1"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        }
+      }
+    },
+    "c4e38113032e0f0528724c40201eefc731f02a8b4402ce3139d07cc809d6e0c7": {
+      "address": "0x5D99968A9185FE75bA08aDE6369Ce50Eb27659b3",
+      "txHash": "0x1be15859c205f842e5e790cbabc6903f3875105b2d067ed1bad05cb216d9b45d",
+      "layout": {
+        "solcVersion": "0.8.7",
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:62",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:67"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ContextUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol:36"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "51",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ERC165Upgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/utils/introspection/ERC165Upgradeable.sol:41"
+          },
+          {
+            "label": "_roles",
+            "offset": 0,
+            "slot": "101",
+            "type": "t_mapping(t_bytes32,t_struct(RoleData)34_storage)",
+            "contract": "AccessControlUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol:61"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "102",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "AccessControlUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol:259"
+          },
+          {
+            "label": "TRANSFER_MANAGER_ERC721",
+            "offset": 0,
+            "slot": "151",
+            "type": "t_address",
+            "contract": "OrderValidator",
+            "src": "contracts/orderValidation/OrderValidator.sol:62"
+          },
+          {
+            "label": "TRANSFER_MANAGER_ERC1155",
+            "offset": 0,
+            "slot": "152",
+            "type": "t_address",
+            "contract": "OrderValidator",
+            "src": "contracts/orderValidation/OrderValidator.sol:65"
+          },
+          {
+            "label": "DOMAIN_SEPARATOR",
+            "offset": 0,
+            "slot": "153",
+            "type": "t_bytes32",
+            "contract": "OrderValidator",
+            "src": "contracts/orderValidation/OrderValidator.sol:68"
+          },
+          {
+            "label": "STANDARD_ROYALTY_FEE",
+            "offset": 0,
+            "slot": "154",
+            "type": "t_uint256",
+            "contract": "OrderValidator",
+            "src": "contracts/orderValidation/OrderValidator.sol:71"
+          },
+          {
+            "label": "currencyManager",
+            "offset": 0,
+            "slot": "155",
+            "type": "t_contract(ICurrencyManager)12850",
+            "contract": "OrderValidator",
+            "src": "contracts/orderValidation/OrderValidator.sol:74"
+          },
+          {
+            "label": "executionManager",
+            "offset": 0,
+            "slot": "156",
+            "type": "t_contract(IExecutionManager)12887",
+            "contract": "OrderValidator",
+            "src": "contracts/orderValidation/OrderValidator.sol:77"
+          },
+          {
+            "label": "royaltyFeeRegistry",
+            "offset": 0,
+            "slot": "157",
+            "type": "t_contract(IRoyaltyFeeRegistry)13002",
+            "contract": "OrderValidator",
+            "src": "contracts/orderValidation/OrderValidator.sol:80"
+          },
+          {
+            "label": "transferSelectorNFT",
+            "offset": 0,
+            "slot": "158",
+            "type": "t_contract(ITransferSelectorNFTExtended)13372",
+            "contract": "OrderValidator",
+            "src": "contracts/orderValidation/OrderValidator.sol:83"
+          },
+          {
+            "label": "vemoMarket",
+            "offset": 0,
+            "slot": "159",
+            "type": "t_contract(VemoMarket)10849",
+            "contract": "OrderValidator",
+            "src": "contracts/orderValidation/OrderValidator.sol:86"
+          },
+          {
+            "label": "vemoVoucherFactory",
+            "offset": 0,
+            "slot": "160",
+            "type": "t_contract(IVoucherFactory)13072",
+            "contract": "OrderValidator",
+            "src": "contracts/orderValidation/OrderValidator.sol:89"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]",
+            "numberOfBytes": "1568"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]",
+            "numberOfBytes": "1600"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_bytes32": {
+            "label": "bytes32",
+            "numberOfBytes": "32"
+          },
+          "t_contract(ICurrencyManager)12850": {
+            "label": "contract ICurrencyManager",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IExecutionManager)12887": {
+            "label": "contract IExecutionManager",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IRoyaltyFeeRegistry)13002": {
+            "label": "contract IRoyaltyFeeRegistry",
+            "numberOfBytes": "20"
+          },
+          "t_contract(ITransferSelectorNFTExtended)13372": {
+            "label": "contract ITransferSelectorNFTExtended",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IVoucherFactory)13072": {
+            "label": "contract IVoucherFactory",
+            "numberOfBytes": "20"
+          },
+          "t_contract(VemoMarket)10849": {
+            "label": "contract VemoMarket",
+            "numberOfBytes": "20"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_struct(RoleData)34_storage)": {
+            "label": "mapping(bytes32 => struct AccessControlUpgradeable.RoleData)",
             "numberOfBytes": "32"
           },
           "t_struct(RoleData)34_storage": {
