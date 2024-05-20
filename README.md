@@ -143,6 +143,7 @@ Copyright belongs to VemeNFT - Ace Labs
 | ROYALTY_FEE_MANAGER                   | 0x9ee1BFf46f270aB0818A6Ae9b7083Df40f9BeaA4 |
 | CurrencyManager                       | 0x20A39584bF67419e051111a87678606f84c07Eff |
 | StrategyStandardSaleForFixedPrice     | 0xB83876eb92198aBe282489f79740113050483D8c |
+| StrategyStandardSaleForFixedPriceVoucher | 0x9911B12279436a1Ec81c914A293D0D5D4ed925Aa |
 
 
 
