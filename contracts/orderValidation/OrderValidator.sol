@@ -364,7 +364,7 @@ contract OrderValidator is Initializable, AccessControlUpgradeable {
             return (INVALID_ERC6551_ASSETS_INPUTS, 0x0);
         }
 
-        (bool success, bytes memory data) = address(vemoVoucherFactory).staticcall(
+        (bool success, bytes memory encodedTBA) = address(vemoVoucherFactory).staticcall(
             abi.encodeWithSelector(IVoucherFactory.getTokenBoundAccount.selector, makerOrder.collection, makerOrder.tokenId)
         );
 
@@ -372,16 +372,15 @@ contract OrderValidator is Initializable, AccessControlUpgradeable {
             return (VOUCHER_FACTORY_NOT_CORRECT, 0);
         }
 
-        address vemoTBA = abi.decode(data, (address));
+        address vemoTBA = abi.decode(encodedTBA, (address));
         uint256 assetL = makerOrder.boundAmounts.length;
 
         for (uint i = 0; i < assetL;) {
             (bool success, bytes memory data) = makerOrder.boundTokens[i].staticcall(
                 abi.encodeWithSelector(IERC20.balanceOf.selector, vemoTBA)
             );
-            uint256 balance = abi.decode(data, (uint256));
 
-            if (!success || balance < makerOrder.boundAmounts[i]) {
+            if (!success || abi.decode(data, (uint256)) < makerOrder.boundAmounts[i]) {
                 return (ERC6551_BALANCE_NOT_CORRECT, 20);
             }
 
