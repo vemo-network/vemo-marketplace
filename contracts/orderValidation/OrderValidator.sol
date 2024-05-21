@@ -380,7 +380,7 @@ contract OrderValidator is Initializable, AccessControlUpgradeable {
                 abi.encodeWithSelector(IERC20.balanceOf.selector, vemoTBA)
             );
 
-            if (!success || abi.decode(data, (uint256)) < makerOrder.boundAmounts[i]) {
+            if (!success || abi.decode(data, (uint256)) < makerOrder.boundAmounts[i] || makerOrder.boundAmounts[i] == 0) {
                 return (ERC6551_BALANCE_NOT_CORRECT, 20);
             }
 

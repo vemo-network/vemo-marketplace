@@ -8227,7 +8227,7 @@
     },
     {
       "address": "0x4826533B4897376654Bb4d4AD88B7faFD0C98528",
-      "txHash": "0xaead37821b53e71aa17dbbbef8aa405dbb8f98c3cef415fcc871f3683756c9bc",
+      "txHash": "0xba95733e784415c62abf15209a8d520ac494e6a149482baec3922f2550dec954",
       "kind": "transparent"
     },
     {
@@ -13232,7 +13232,7 @@
             "label": "_royaltyFeeInfoCollection",
             "offset": 0,
             "slot": "152",
-            "type": "t_mapping(t_address,t_struct(FeeInfo)14840_storage)",
+            "type": "t_mapping(t_address,t_struct(FeeInfo)14875_storage)",
             "contract": "RoyaltyFeeRegistry",
             "src": "contracts/royaltyFeeHelpers/RoyaltyFeeRegistry.sol:29"
           }
@@ -13262,7 +13262,7 @@
             "label": "mapping(address => bool)",
             "numberOfBytes": "32"
           },
-          "t_mapping(t_address,t_struct(FeeInfo)14840_storage)": {
+          "t_mapping(t_address,t_struct(FeeInfo)14875_storage)": {
             "label": "mapping(address => struct RoyaltyFeeRegistry.FeeInfo)",
             "numberOfBytes": "32"
           },
@@ -13270,7 +13270,7 @@
             "label": "mapping(bytes32 => struct AccessControlUpgradeable.RoleData)",
             "numberOfBytes": "32"
           },
-          "t_struct(FeeInfo)14840_storage": {
+          "t_struct(FeeInfo)14875_storage": {
             "label": "struct RoyaltyFeeRegistry.FeeInfo",
             "members": [
               {
@@ -13776,7 +13776,7 @@
             "label": "currencyManager",
             "offset": 0,
             "slot": "204",
-            "type": "t_contract(ICurrencyManager)4986",
+            "type": "t_contract(ICurrencyManager)12852",
             "contract": "VemoMarket",
             "src": "contracts/VemoMarket.sol:55"
           },
@@ -13784,7 +13784,7 @@
             "label": "executionManager",
             "offset": 0,
             "slot": "205",
-            "type": "t_contract(IExecutionManager)5023",
+            "type": "t_contract(IExecutionManager)12889",
             "contract": "VemoMarket",
             "src": "contracts/VemoMarket.sol:56"
           },
@@ -13792,7 +13792,7 @@
             "label": "royaltyFeeManager",
             "offset": 0,
             "slot": "206",
-            "type": "t_contract(IRoyaltyFeeManager)5079",
+            "type": "t_contract(IRoyaltyFeeManager)12963",
             "contract": "VemoMarket",
             "src": "contracts/VemoMarket.sol:57"
           },
@@ -13800,7 +13800,7 @@
             "label": "transferSelectorNFT",
             "offset": 0,
             "slot": "207",
-            "type": "t_contract(ITransferSelectorNFT)5146",
+            "type": "t_contract(ITransferSelectorNFT)13030",
             "contract": "VemoMarket",
             "src": "contracts/VemoMarket.sol:58"
           },
@@ -13842,19 +13842,19 @@
             "label": "bytes32",
             "numberOfBytes": "32"
           },
-          "t_contract(ICurrencyManager)4986": {
+          "t_contract(ICurrencyManager)12852": {
             "label": "contract ICurrencyManager",
             "numberOfBytes": "20"
           },
-          "t_contract(IExecutionManager)5023": {
+          "t_contract(IExecutionManager)12889": {
             "label": "contract IExecutionManager",
             "numberOfBytes": "20"
           },
-          "t_contract(IRoyaltyFeeManager)5079": {
+          "t_contract(IRoyaltyFeeManager)12963": {
             "label": "contract IRoyaltyFeeManager",
             "numberOfBytes": "20"
           },
-          "t_contract(ITransferSelectorNFT)5146": {
+          "t_contract(ITransferSelectorNFT)13030": {
             "label": "contract ITransferSelectorNFT",
             "numberOfBytes": "20"
           },
@@ -13907,9 +13907,9 @@
         }
       }
     },
-    "037a88fedcab33afc68d2356b5a0e196cef6bf13e0eb7c607319429995d5aa96": {
+    "51e4c73ed485c1845108ba51c8688efe08ed28090ae9f88c697525ea032e673f": {
       "address": "0x70e0bA845a1A0F2DA3359C97E0285013525FFC49",
-      "txHash": "0xe18a57d6d3653d632bf931ac5181547e1d1662bcfcc09f85162fe61397604a6e",
+      "txHash": "0x1e84871d6aafade45e652ae398ebb1ccb927f47fb9787ef263f59e6514412f37",
       "layout": {
         "solcVersion": "0.8.7",
         "storage": [
@@ -13990,7 +13990,7 @@
             "label": "currencyManager",
             "offset": 0,
             "slot": "154",
-            "type": "t_contract(ICurrencyManager)4986",
+            "type": "t_contract(ICurrencyManager)12852",
             "contract": "OrderValidator",
             "src": "contracts/orderValidation/OrderValidator.sol:71"
           },
@@ -13998,7 +13998,7 @@
             "label": "executionManager",
             "offset": 0,
             "slot": "155",
-            "type": "t_contract(IExecutionManager)5023",
+            "type": "t_contract(IExecutionManager)12889",
             "contract": "OrderValidator",
             "src": "contracts/orderValidation/OrderValidator.sol:74"
           },
@@ -14006,7 +14006,7 @@
             "label": "royaltyFeeRegistry",
             "offset": 0,
             "slot": "156",
-            "type": "t_contract(IRoyaltyFeeRegistry)5120",
+            "type": "t_contract(IRoyaltyFeeRegistry)13004",
             "contract": "OrderValidator",
             "src": "contracts/orderValidation/OrderValidator.sol:77"
           },
@@ -14014,7 +14014,7 @@
             "label": "transferSelectorNFT",
             "offset": 0,
             "slot": "157",
-            "type": "t_contract(ITransferSelectorNFTExtended)5490",
+            "type": "t_contract(ITransferSelectorNFTExtended)13374",
             "contract": "OrderValidator",
             "src": "contracts/orderValidation/OrderValidator.sol:80"
           },
@@ -14022,7 +14022,7 @@
             "label": "vemoMarket",
             "offset": 0,
             "slot": "158",
-            "type": "t_contract(VemoMarket)4787",
+            "type": "t_contract(VemoMarket)10850",
             "contract": "OrderValidator",
             "src": "contracts/orderValidation/OrderValidator.sol:83"
           },
@@ -14030,7 +14030,7 @@
             "label": "vemoVoucherFactory",
             "offset": 0,
             "slot": "159",
-            "type": "t_contract(IVoucherFactory)5190",
+            "type": "t_contract(IVoucherFactory)13074",
             "contract": "OrderValidator",
             "src": "contracts/orderValidation/OrderValidator.sol:86"
           }
@@ -14056,27 +14056,27 @@
             "label": "bytes32",
             "numberOfBytes": "32"
           },
-          "t_contract(ICurrencyManager)4986": {
+          "t_contract(ICurrencyManager)12852": {
             "label": "contract ICurrencyManager",
             "numberOfBytes": "20"
           },
-          "t_contract(IExecutionManager)5023": {
+          "t_contract(IExecutionManager)12889": {
             "label": "contract IExecutionManager",
             "numberOfBytes": "20"
           },
-          "t_contract(IRoyaltyFeeRegistry)5120": {
+          "t_contract(IRoyaltyFeeRegistry)13004": {
             "label": "contract IRoyaltyFeeRegistry",
             "numberOfBytes": "20"
           },
-          "t_contract(ITransferSelectorNFTExtended)5490": {
+          "t_contract(ITransferSelectorNFTExtended)13374": {
             "label": "contract ITransferSelectorNFTExtended",
             "numberOfBytes": "20"
           },
-          "t_contract(IVoucherFactory)5190": {
+          "t_contract(IVoucherFactory)13074": {
             "label": "contract IVoucherFactory",
             "numberOfBytes": "20"
           },
-          "t_contract(VemoMarket)4787": {
+          "t_contract(VemoMarket)10850": {
             "label": "contract VemoMarket",
             "numberOfBytes": "20"
           },
