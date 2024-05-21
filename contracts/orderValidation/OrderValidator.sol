@@ -64,9 +64,6 @@ contract OrderValidator is Initializable, AccessControlUpgradeable {
     // TransferManager ERC1155
     address public TRANSFER_MANAGER_ERC1155;
 
-    // Domain separator from VemoMarket
-    bytes32 public DOMAIN_SEPARATOR;
-
     // Standard royalty fee
     uint256 public STANDARD_ROYALTY_FEE;
 
@@ -109,7 +106,6 @@ contract OrderValidator is Initializable, AccessControlUpgradeable {
         _grantRole(DEFAULT_ADMIN_ROLE, defaultAdmin);
 
         vemoMarket = VemoMarket(_vemoMarket);
-        DOMAIN_SEPARATOR = VemoMarket(_vemoMarket).DOMAIN_SEPARATOR();
 
         TRANSFER_MANAGER_ERC721 = ITransferSelectorNFTExtended(
             address(VemoMarket(_vemoMarket).transferSelectorNFT())
@@ -218,7 +214,7 @@ contract OrderValidator is Initializable, AccessControlUpgradeable {
         if (makerOrder.signer == address(0)) return MAKER_SIGNER_IS_NULL_SIGNER;
 
         bytes32 digest = keccak256(
-            abi.encodePacked("\x19\x01", DOMAIN_SEPARATOR, makerOrder.hash())
+            abi.encodePacked("\x19\x01", VemoMarket(vemoMarket).DOMAIN_SEPARATOR(), makerOrder.hash())
         );
 
         if (!AddressUpgradeable.isContract(makerOrder.signer)) {
@@ -368,12 +364,26 @@ contract OrderValidator is Initializable, AccessControlUpgradeable {
             return (INVALID_ERC6551_ASSETS_INPUTS, 0x0);
         }
 
-        address vemoTBA = vemoVoucherFactory.getTokenBoundAccount(makerOrder.collection, makerOrder.tokenId);
+        (bool success, bytes memory data) = address(vemoVoucherFactory).staticcall(
+            abi.encodeWithSelector(IVoucherFactory.getTokenBoundAccount.selector, makerOrder.collection, makerOrder.tokenId)
+        );
+
+        if (!success) {
+            return (VOUCHER_FACTORY_NOT_CORRECT, 0);
+        }
+
+        address vemoTBA = abi.decode(data, (address));
         uint256 assetL = makerOrder.boundAmounts.length;
 
         for (uint i = 0; i < assetL;) {
-            if (IERC20(makerOrder.boundTokens[i]).balanceOf(vemoTBA) < makerOrder.boundAmounts[i])
+            (bool success, bytes memory data) = makerOrder.boundTokens[i].staticcall(
+                abi.encodeWithSelector(IERC20.balanceOf.selector, vemoTBA)
+            );
+            uint256 balance = abi.decode(data, (uint256));
+
+            if (!success || balance < makerOrder.boundAmounts[i]) {
                 return (ERC6551_BALANCE_NOT_CORRECT, 20);
+            }
 
             unchecked {
 	            ++i;
