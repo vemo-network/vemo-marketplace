@@ -178,7 +178,7 @@ describe("OrderValidator - ERC6551 standard", () => {
         const tbaAmount = BigNumber.from("1000000");
 
         // 1. Collection order
-        const makerBidOrder = await createMakerOrder({
+        let makerBidOrder = await createMakerOrder({
             isOrderAsk: false,
             signer: makerUser.address,
             collection: mockERC721.address,
@@ -206,8 +206,26 @@ describe("OrderValidator - ERC6551 standard", () => {
             orderValidator
         );
         
+        makerBidOrder = await createMakerOrder({
+            isOrderAsk: false,
+            signer: makerUser.address,
+            collection: mockERC721.address,
+            tokenId: constants.Zero,
+            price: parseEther("3"),
+            amount: constants.One,
+            strategy: strategyAnyItemFromCollectionForFixedPrice.address,
+            currency: weth.address,
+            nonce: constants.Zero,
+            startTime: startTimeOrder,
+            endTime: endTimeOrder,
+            minPercentageToAsk: constants.Zero,
+            params: defaultAbiCoder.encode([], []),
+            signerUser: makerUser,
+            verifyingContract: vemoMarket.address,
+            boundTokens: [tbaAsset],
+            boundAmounts: [tbaAmount]
+        });
         // make the input correct format
-        makerBidOrder.boundTokens.push(tbaAsset);
 
         // create a tba and transfer some fund
         await vemoVoucherFactory.setTokenBoundAccount(makerBidOrder.collection, makerBidOrder.tokenId, vemoTBA.address);

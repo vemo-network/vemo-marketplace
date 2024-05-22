@@ -45,6 +45,15 @@ library OrderTypes {
         pure
         returns (bytes32)
     {
+        // this is for avoiding stack too deep error
+        bytes32 orderMetaData = keccak256(
+            abi.encodePacked(
+                makerOrder.params,
+                abi.encodePacked(makerOrder.boundTokens),
+                abi.encodePacked(makerOrder.boundAmounts)
+            )
+        );
+
         return
             keccak256(
                 abi.encode(
@@ -61,8 +70,9 @@ library OrderTypes {
                     makerOrder.startTime,
                     makerOrder.endTime,
                     makerOrder.minPercentageToAsk,
-                    keccak256(makerOrder.params)
+                    orderMetaData
                 )
             );
     }
+
 }

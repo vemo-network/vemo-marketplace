@@ -1,4 +1,4 @@
-import { BigNumber, utils, Wallet } from "ethers";
+import { BigNumber, utils, Wallet, ethers } from "ethers";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 /* eslint-disable node/no-extraneous-import */
 import { TypedDataDomain } from "@ethersproject/abstract-signer";
@@ -144,6 +144,17 @@ export const signMakerOrder = (
         "bytes32",
     ];
 
+    const boundTokensPacked = ethers.utils.solidityPack(["address[]"], [order.boundTokens]);
+    const boundAmountsPacked = ethers.utils.solidityPack(["uint256[]"], [order.boundAmounts]);
+
+    // Combine all the packed components and hash them
+    const orderMetaData = ethers.utils.keccak256(
+        ethers.utils.solidityPack(
+            ["bytes", "bytes", "bytes"],
+            [order.params, boundTokensPacked, boundAmountsPacked]
+        )
+    );
+
     const values = [
         "0x40261ade532fa1d2c7293df30aaadb9b3c616fae525a0b56d3d411c841a85028",
         order.isOrderAsk,
@@ -158,7 +169,7 @@ export const signMakerOrder = (
         order.startTime,
         order.endTime,
         order.minPercentageToAsk,
-        keccak256(order.params),
+        orderMetaData,
     ];
 
     return signTypedData(signer, types, values, verifyingContract);
