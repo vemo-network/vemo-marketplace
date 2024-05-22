@@ -45,7 +45,7 @@ export async function createMakerOrder({
   };
 
   const signedOrder = await signMakerOrder(signerUser, verifyingContract, makerOrder);
-
+  
   // Extend makerOrder with proper signature
   const makerOrderExtended: MakerOrderWithSignature = {
     ...makerOrder,

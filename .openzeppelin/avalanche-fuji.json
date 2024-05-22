@@ -9,6 +9,31 @@
       "address": "0xA236bD1c9696dfE5A555AdD13D619b9DBbF7BA20",
       "txHash": "0xaaf3ee611dd60a309ecc463173e039bf2894190143b50417de9c0362c1a93434",
       "kind": "transparent"
+    },
+    {
+      "address": "0xF8bF206E6961a48022B6FB6efd8BcF47cBa3eB40",
+      "txHash": "0x5e60199bd8133c8a9edfcb7f4d0d5c8f38d2fc3f698bde0b41a4397522376152",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x25Adf0fAe6801c52911222Beb581fFD914497349",
+      "txHash": "0xf559c3499e58a7a61283c543945513b871599af1f25e1080dcd903a198007da6",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xC74fd521379378aDDBDF010A4C23d3DAd8f19b75",
+      "txHash": "0x5f5ccbf9ab8077232646e0f19fe26ca77d4da87c8575e9c341eb3a56dc9e7211",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x24E0440Ed3BDf11840C14f322277284fF851F905",
+      "txHash": "0x9e582cb9ea0a916dafa4a2960902746a6bc0f878b0d2c99b3dd7ece3af3a9522",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x6D5095B08c3A512F2b9B328Ff965CDC3B2704e0f",
+      "txHash": "0x160b60fee2913ab02938e2bc6d7607b7de9bc231f13baa1f5a881c1633a8a6d3",
+      "kind": "transparent"
     }
   ],
   "impls": {
@@ -191,6 +216,866 @@
           },
           "t_mapping(t_bytes32,t_struct(RoleData)34_storage)": {
             "label": "mapping(bytes32 => struct AccessControlUpgradeable.RoleData)",
+            "numberOfBytes": "32"
+          },
+          "t_struct(RoleData)34_storage": {
+            "label": "struct AccessControlUpgradeable.RoleData",
+            "members": [
+              {
+                "label": "members",
+                "type": "t_mapping(t_address,t_bool)",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "adminRole",
+                "type": "t_bytes32",
+                "offset": 0,
+                "slot": "1"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        }
+      }
+    },
+    "fa887cac964fc76f261436b81ba42495855ab7c1277d70c13e0640a96c70e250": {
+      "address": "0x601a9E767cd85de82b3E2FE69A308D9B2720c2ab",
+      "txHash": "0x8877462145adf15aa78a039b738b64ff1c2445e094e5f0d774b2212babee414b",
+      "layout": {
+        "solcVersion": "0.8.7",
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:62",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:67"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ContextUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol:36"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "51",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ERC165Upgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/utils/introspection/ERC165Upgradeable.sol:41"
+          },
+          {
+            "label": "_roles",
+            "offset": 0,
+            "slot": "101",
+            "type": "t_mapping(t_bytes32,t_struct(RoleData)34_storage)",
+            "contract": "AccessControlUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol:61"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "102",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "AccessControlUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol:259"
+          },
+          {
+            "label": "TRANSFER_MANAGER_ERC721",
+            "offset": 0,
+            "slot": "151",
+            "type": "t_address",
+            "contract": "OrderValidator",
+            "src": "contracts/orderValidation/OrderValidator.sol:62"
+          },
+          {
+            "label": "TRANSFER_MANAGER_ERC1155",
+            "offset": 0,
+            "slot": "152",
+            "type": "t_address",
+            "contract": "OrderValidator",
+            "src": "contracts/orderValidation/OrderValidator.sol:65"
+          },
+          {
+            "label": "STANDARD_ROYALTY_FEE",
+            "offset": 0,
+            "slot": "153",
+            "type": "t_uint256",
+            "contract": "OrderValidator",
+            "src": "contracts/orderValidation/OrderValidator.sol:68"
+          },
+          {
+            "label": "currencyManager",
+            "offset": 0,
+            "slot": "154",
+            "type": "t_contract(ICurrencyManager)12850",
+            "contract": "OrderValidator",
+            "src": "contracts/orderValidation/OrderValidator.sol:71"
+          },
+          {
+            "label": "executionManager",
+            "offset": 0,
+            "slot": "155",
+            "type": "t_contract(IExecutionManager)12887",
+            "contract": "OrderValidator",
+            "src": "contracts/orderValidation/OrderValidator.sol:74"
+          },
+          {
+            "label": "royaltyFeeRegistry",
+            "offset": 0,
+            "slot": "156",
+            "type": "t_contract(IRoyaltyFeeRegistry)13002",
+            "contract": "OrderValidator",
+            "src": "contracts/orderValidation/OrderValidator.sol:77"
+          },
+          {
+            "label": "transferSelectorNFT",
+            "offset": 0,
+            "slot": "157",
+            "type": "t_contract(ITransferSelectorNFTExtended)13389",
+            "contract": "OrderValidator",
+            "src": "contracts/orderValidation/OrderValidator.sol:80"
+          },
+          {
+            "label": "vemoMarket",
+            "offset": 0,
+            "slot": "158",
+            "type": "t_contract(VemoMarket)10849",
+            "contract": "OrderValidator",
+            "src": "contracts/orderValidation/OrderValidator.sol:83"
+          },
+          {
+            "label": "vemoVoucherFactory",
+            "offset": 0,
+            "slot": "159",
+            "type": "t_contract(IVoucherFactory)13072",
+            "contract": "OrderValidator",
+            "src": "contracts/orderValidation/OrderValidator.sol:86"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]",
+            "numberOfBytes": "1568"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]",
+            "numberOfBytes": "1600"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_bytes32": {
+            "label": "bytes32",
+            "numberOfBytes": "32"
+          },
+          "t_contract(ICurrencyManager)12850": {
+            "label": "contract ICurrencyManager",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IExecutionManager)12887": {
+            "label": "contract IExecutionManager",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IRoyaltyFeeRegistry)13002": {
+            "label": "contract IRoyaltyFeeRegistry",
+            "numberOfBytes": "20"
+          },
+          "t_contract(ITransferSelectorNFTExtended)13389": {
+            "label": "contract ITransferSelectorNFTExtended",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IVoucherFactory)13072": {
+            "label": "contract IVoucherFactory",
+            "numberOfBytes": "20"
+          },
+          "t_contract(VemoMarket)10849": {
+            "label": "contract VemoMarket",
+            "numberOfBytes": "20"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_struct(RoleData)34_storage)": {
+            "label": "mapping(bytes32 => struct AccessControlUpgradeable.RoleData)",
+            "numberOfBytes": "32"
+          },
+          "t_struct(RoleData)34_storage": {
+            "label": "struct AccessControlUpgradeable.RoleData",
+            "members": [
+              {
+                "label": "members",
+                "type": "t_mapping(t_address,t_bool)",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "adminRole",
+                "type": "t_bytes32",
+                "offset": 0,
+                "slot": "1"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        }
+      }
+    },
+    "fd3ef7f1a85a438ad69db28c7b71d64080d111c6466af296d45429e886b192a6": {
+      "address": "0xF355Eeb3c673fFEB9af5395af85c415D918dbA74",
+      "txHash": "0x368d09def9e1c82534542742a6ea472c80e6388f60b0706e919d4b038b60c648",
+      "layout": {
+        "solcVersion": "0.8.7",
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:62",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:67"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ContextUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol:36"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "51",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ERC165Upgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/utils/introspection/ERC165Upgradeable.sol:41"
+          },
+          {
+            "label": "_roles",
+            "offset": 0,
+            "slot": "101",
+            "type": "t_mapping(t_bytes32,t_struct(RoleData)34_storage)",
+            "contract": "AccessControlUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol:61"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "102",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "AccessControlUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol:259"
+          },
+          {
+            "label": "TRANSFER_MANAGER_ERC721",
+            "offset": 0,
+            "slot": "151",
+            "type": "t_address",
+            "contract": "OrderValidator",
+            "src": "contracts/orderValidation/OrderValidator.sol:62"
+          },
+          {
+            "label": "TRANSFER_MANAGER_ERC1155",
+            "offset": 0,
+            "slot": "152",
+            "type": "t_address",
+            "contract": "OrderValidator",
+            "src": "contracts/orderValidation/OrderValidator.sol:65"
+          },
+          {
+            "label": "STANDARD_ROYALTY_FEE",
+            "offset": 0,
+            "slot": "153",
+            "type": "t_uint256",
+            "contract": "OrderValidator",
+            "src": "contracts/orderValidation/OrderValidator.sol:68"
+          },
+          {
+            "label": "currencyManager",
+            "offset": 0,
+            "slot": "154",
+            "type": "t_contract(ICurrencyManager)12850",
+            "contract": "OrderValidator",
+            "src": "contracts/orderValidation/OrderValidator.sol:71"
+          },
+          {
+            "label": "executionManager",
+            "offset": 0,
+            "slot": "155",
+            "type": "t_contract(IExecutionManager)12887",
+            "contract": "OrderValidator",
+            "src": "contracts/orderValidation/OrderValidator.sol:74"
+          },
+          {
+            "label": "royaltyFeeRegistry",
+            "offset": 0,
+            "slot": "156",
+            "type": "t_contract(IRoyaltyFeeRegistry)13002",
+            "contract": "OrderValidator",
+            "src": "contracts/orderValidation/OrderValidator.sol:77"
+          },
+          {
+            "label": "transferSelectorNFT",
+            "offset": 0,
+            "slot": "157",
+            "type": "t_contract(ITransferSelectorNFTExtended)13389",
+            "contract": "OrderValidator",
+            "src": "contracts/orderValidation/OrderValidator.sol:80"
+          },
+          {
+            "label": "vemoMarket",
+            "offset": 0,
+            "slot": "158",
+            "type": "t_contract(VemoMarket)10849",
+            "contract": "OrderValidator",
+            "src": "contracts/orderValidation/OrderValidator.sol:83"
+          },
+          {
+            "label": "vemoVoucherFactory",
+            "offset": 0,
+            "slot": "159",
+            "type": "t_contract(IVoucherFactory)13072",
+            "contract": "OrderValidator",
+            "src": "contracts/orderValidation/OrderValidator.sol:86"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]",
+            "numberOfBytes": "1568"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]",
+            "numberOfBytes": "1600"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_bytes32": {
+            "label": "bytes32",
+            "numberOfBytes": "32"
+          },
+          "t_contract(ICurrencyManager)12850": {
+            "label": "contract ICurrencyManager",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IExecutionManager)12887": {
+            "label": "contract IExecutionManager",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IRoyaltyFeeRegistry)13002": {
+            "label": "contract IRoyaltyFeeRegistry",
+            "numberOfBytes": "20"
+          },
+          "t_contract(ITransferSelectorNFTExtended)13389": {
+            "label": "contract ITransferSelectorNFTExtended",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IVoucherFactory)13072": {
+            "label": "contract IVoucherFactory",
+            "numberOfBytes": "20"
+          },
+          "t_contract(VemoMarket)10849": {
+            "label": "contract VemoMarket",
+            "numberOfBytes": "20"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_struct(RoleData)34_storage)": {
+            "label": "mapping(bytes32 => struct AccessControlUpgradeable.RoleData)",
+            "numberOfBytes": "32"
+          },
+          "t_struct(RoleData)34_storage": {
+            "label": "struct AccessControlUpgradeable.RoleData",
+            "members": [
+              {
+                "label": "members",
+                "type": "t_mapping(t_address,t_bool)",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "adminRole",
+                "type": "t_bytes32",
+                "offset": 0,
+                "slot": "1"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        }
+      }
+    },
+    "95641d9b54287bbabda5344bea159f6aa92539ee5709ceaa98fb587f1805fbb3": {
+      "address": "0xd8E513A4020aa0057FdBeE2ba5B84339fA7C5AF9",
+      "txHash": "0xd3b30cf501140ffd62c70632c20fb4c735d2a1997cef100cd3f20e5527141b85",
+      "layout": {
+        "solcVersion": "0.8.7",
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:62",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:67"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ContextUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol:36"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "51",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ERC165Upgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/utils/introspection/ERC165Upgradeable.sol:41"
+          },
+          {
+            "label": "_roles",
+            "offset": 0,
+            "slot": "101",
+            "type": "t_mapping(t_bytes32,t_struct(RoleData)34_storage)",
+            "contract": "AccessControlUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol:61"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "102",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "AccessControlUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol:259"
+          },
+          {
+            "label": "TRANSFER_MANAGER_ERC721",
+            "offset": 0,
+            "slot": "151",
+            "type": "t_address",
+            "contract": "OrderValidator",
+            "src": "contracts/orderValidation/OrderValidator.sol:62"
+          },
+          {
+            "label": "TRANSFER_MANAGER_ERC1155",
+            "offset": 0,
+            "slot": "152",
+            "type": "t_address",
+            "contract": "OrderValidator",
+            "src": "contracts/orderValidation/OrderValidator.sol:65"
+          },
+          {
+            "label": "STANDARD_ROYALTY_FEE",
+            "offset": 0,
+            "slot": "153",
+            "type": "t_uint256",
+            "contract": "OrderValidator",
+            "src": "contracts/orderValidation/OrderValidator.sol:68"
+          },
+          {
+            "label": "currencyManager",
+            "offset": 0,
+            "slot": "154",
+            "type": "t_contract(ICurrencyManager)7270",
+            "contract": "OrderValidator",
+            "src": "contracts/orderValidation/OrderValidator.sol:71"
+          },
+          {
+            "label": "executionManager",
+            "offset": 0,
+            "slot": "155",
+            "type": "t_contract(IExecutionManager)7307",
+            "contract": "OrderValidator",
+            "src": "contracts/orderValidation/OrderValidator.sol:74"
+          },
+          {
+            "label": "royaltyFeeRegistry",
+            "offset": 0,
+            "slot": "156",
+            "type": "t_contract(IRoyaltyFeeRegistry)7404",
+            "contract": "OrderValidator",
+            "src": "contracts/orderValidation/OrderValidator.sol:77"
+          },
+          {
+            "label": "transferSelectorNFT",
+            "offset": 0,
+            "slot": "157",
+            "type": "t_contract(ITransferSelectorNFTExtended)7791",
+            "contract": "OrderValidator",
+            "src": "contracts/orderValidation/OrderValidator.sol:80"
+          },
+          {
+            "label": "vemoMarket",
+            "offset": 0,
+            "slot": "158",
+            "type": "t_contract(VemoMarket)5447",
+            "contract": "OrderValidator",
+            "src": "contracts/orderValidation/OrderValidator.sol:83"
+          },
+          {
+            "label": "vemoVoucherFactory",
+            "offset": 0,
+            "slot": "159",
+            "type": "t_contract(IVoucherFactory)7474",
+            "contract": "OrderValidator",
+            "src": "contracts/orderValidation/OrderValidator.sol:86"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]",
+            "numberOfBytes": "1568"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]",
+            "numberOfBytes": "1600"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_bytes32": {
+            "label": "bytes32",
+            "numberOfBytes": "32"
+          },
+          "t_contract(ICurrencyManager)7270": {
+            "label": "contract ICurrencyManager",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IExecutionManager)7307": {
+            "label": "contract IExecutionManager",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IRoyaltyFeeRegistry)7404": {
+            "label": "contract IRoyaltyFeeRegistry",
+            "numberOfBytes": "20"
+          },
+          "t_contract(ITransferSelectorNFTExtended)7791": {
+            "label": "contract ITransferSelectorNFTExtended",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IVoucherFactory)7474": {
+            "label": "contract IVoucherFactory",
+            "numberOfBytes": "20"
+          },
+          "t_contract(VemoMarket)5447": {
+            "label": "contract VemoMarket",
+            "numberOfBytes": "20"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_struct(RoleData)34_storage)": {
+            "label": "mapping(bytes32 => struct AccessControlUpgradeable.RoleData)",
+            "numberOfBytes": "32"
+          },
+          "t_struct(RoleData)34_storage": {
+            "label": "struct AccessControlUpgradeable.RoleData",
+            "members": [
+              {
+                "label": "members",
+                "type": "t_mapping(t_address,t_bool)",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "adminRole",
+                "type": "t_bytes32",
+                "offset": 0,
+                "slot": "1"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        }
+      }
+    },
+    "2c984dd7fdaddf6ab9b9b4f8c6af8fafc2eebe88adc52ab723e35972ae6fa169": {
+      "address": "0x224f415F3c7a2A644D0494273574a22cB99ac49e",
+      "txHash": "0x934daa5517b76f2ffaa5f52e26b076a5c0d95455e1c1eea06e59367961098465",
+      "layout": {
+        "solcVersion": "0.8.7",
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:62",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:67"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ContextUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol:36"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "51",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ERC165Upgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/utils/introspection/ERC165Upgradeable.sol:41"
+          },
+          {
+            "label": "_roles",
+            "offset": 0,
+            "slot": "101",
+            "type": "t_mapping(t_bytes32,t_struct(RoleData)34_storage)",
+            "contract": "AccessControlUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol:61"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "102",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "AccessControlUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol:259"
+          },
+          {
+            "label": "_status",
+            "offset": 0,
+            "slot": "151",
+            "type": "t_uint256",
+            "contract": "ReentrancyGuardUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol:38"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "152",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "ReentrancyGuardUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol:80"
+          },
+          {
+            "label": "WETH",
+            "offset": 0,
+            "slot": "201",
+            "type": "t_address",
+            "contract": "VemoMarket",
+            "src": "contracts/VemoMarket.sol:50"
+          },
+          {
+            "label": "DOMAIN_SEPARATOR",
+            "offset": 0,
+            "slot": "202",
+            "type": "t_bytes32",
+            "contract": "VemoMarket",
+            "src": "contracts/VemoMarket.sol:51"
+          },
+          {
+            "label": "protocolFeeRecipient",
+            "offset": 0,
+            "slot": "203",
+            "type": "t_address",
+            "contract": "VemoMarket",
+            "src": "contracts/VemoMarket.sol:53"
+          },
+          {
+            "label": "currencyManager",
+            "offset": 0,
+            "slot": "204",
+            "type": "t_contract(ICurrencyManager)7270",
+            "contract": "VemoMarket",
+            "src": "contracts/VemoMarket.sol:55"
+          },
+          {
+            "label": "executionManager",
+            "offset": 0,
+            "slot": "205",
+            "type": "t_contract(IExecutionManager)7307",
+            "contract": "VemoMarket",
+            "src": "contracts/VemoMarket.sol:56"
+          },
+          {
+            "label": "royaltyFeeManager",
+            "offset": 0,
+            "slot": "206",
+            "type": "t_contract(IRoyaltyFeeManager)7363",
+            "contract": "VemoMarket",
+            "src": "contracts/VemoMarket.sol:57"
+          },
+          {
+            "label": "transferSelectorNFT",
+            "offset": 0,
+            "slot": "207",
+            "type": "t_contract(ITransferSelectorNFT)7430",
+            "contract": "VemoMarket",
+            "src": "contracts/VemoMarket.sol:58"
+          },
+          {
+            "label": "userMinOrderNonce",
+            "offset": 0,
+            "slot": "208",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "VemoMarket",
+            "src": "contracts/VemoMarket.sol:60"
+          },
+          {
+            "label": "_isUserOrderNonceExecutedOrCancelled",
+            "offset": 0,
+            "slot": "209",
+            "type": "t_mapping(t_address,t_mapping(t_uint256,t_bool))",
+            "contract": "VemoMarket",
+            "src": "contracts/VemoMarket.sol:61"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]",
+            "numberOfBytes": "1568"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]",
+            "numberOfBytes": "1600"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_bytes32": {
+            "label": "bytes32",
+            "numberOfBytes": "32"
+          },
+          "t_contract(ICurrencyManager)7270": {
+            "label": "contract ICurrencyManager",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IExecutionManager)7307": {
+            "label": "contract IExecutionManager",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IRoyaltyFeeManager)7363": {
+            "label": "contract IRoyaltyFeeManager",
+            "numberOfBytes": "20"
+          },
+          "t_contract(ITransferSelectorNFT)7430": {
+            "label": "contract ITransferSelectorNFT",
+            "numberOfBytes": "20"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_mapping(t_uint256,t_bool))": {
+            "label": "mapping(address => mapping(uint256 => bool))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_uint256)": {
+            "label": "mapping(address => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_struct(RoleData)34_storage)": {
+            "label": "mapping(bytes32 => struct AccessControlUpgradeable.RoleData)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_bool)": {
+            "label": "mapping(uint256 => bool)",
             "numberOfBytes": "32"
           },
           "t_struct(RoleData)34_storage": {

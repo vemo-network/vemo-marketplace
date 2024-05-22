@@ -249,4 +249,47 @@ describe("OrderValidator - ERC6551 standard", () => {
         await assertOrderValid(makerBidOrder, orderValidator);
     });
 
+
+    it("Check validity of signature", async () => {
+        await tokenSetUp(
+            accounts.slice(1, 10),
+            weth,
+            mockERC721,
+            mockERC721WithRoyalty,
+            mockERC1155,
+            vemoMarket,
+            transferManagerERC721,
+            transferManagerERC1155
+        );
+
+        const makerAskUser = accounts[1];
+        const tokenId = constants.Zero;
+        const tbaAsset = mockUSDT.address;
+        const tbaAmount = BigNumber.from("1000000");
+
+        // 1. Royalty fee
+        let makerAskOrder: MakerOrderWithSignature = await createMakerOrder({
+            isOrderAsk: true,
+            signer: makerAskUser.address,
+            collection: mockERC721.address,
+            price: parseEther("3"),
+            tokenId: tokenId,
+            amount: constants.One,
+            strategy: strategyStandardSaleForFixedPrice.address,
+            currency: weth.address,
+            nonce: constants.Zero,
+            startTime: startTimeOrder,
+            endTime: endTimeOrder,
+            minPercentageToAsk: BigNumber.from("9801"), // Protocol fee is 2%
+            params: defaultAbiCoder.encode([], []),
+            signerUser: makerAskUser,
+            verifyingContract: vemoMarket.address,
+            boundTokens: [tbaAsset],
+            boundAmounts: [tbaAmount]
+        });
+
+        let result = await orderValidator.checkOrderValidity(makerAskOrder);
+        console.log(result);
+    })
+
 });
