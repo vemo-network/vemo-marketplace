@@ -1,6 +1,5 @@
 /**
- *
- * WETH=0xd00ae08403b9bbb9124bb305c09058e32c39a48c \
+   WETH=0xd00ae08403b9bbb9124bb305c09058e32c39a48c \
    VOUCHER_FACTORY=0x65B903D7903d277bE600B8524a759aBEa3CC7e1A \
    npx hardhat run scripts/deploy.ts --network avax_fuji
  */

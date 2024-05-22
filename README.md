@@ -20,13 +20,19 @@ Avax Fuji
 Avax Mainnet
 | Contract Type                         | Address                                   |
 |---------------------------------------|-------------------------------------------|
-| WETH                                  | 0xd00ae08403b9bbb9124bb305c09058e32c39a48c |
-| MARKETPLACE                           | 0x4eE89877330A247065E6E340BB914B3bba304d3e |
-| EXECUTION_MANAGER                     | 0x320b6996a815AF9C4A773fD59A3130994a8daC2b |
-| ROYALTY_FEE_MANAGER                   | 0xd047e208b9A3feDD27ED361586C9827C91c0093d |
-| CurrencyManager                       | 0x27B7ceC5Baf9C2B8558Ff4c5e2F8B5e57FCfFE11 |
-| StrategyStandardSaleForFixedPrice     | 0x19B8dd424BbEe16F091628a415f58cBCd438c429 |
-| OrderValidator                        | 0x3A24DA07ae15393F6Bc15a84b296Bc55898a982A |
+| WETH | 0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7|
+| VOUCHER_FACTORY | 0xbB740E17f3c177172CaAcCef2F472DB41b9b1d19|
+| CurrencyManager | 0x878AAD75e7A1D336D1872c0A4C5562c7c06F0b90|
+| ExecutionManager | 0x1201e0975213EeEA087Ee630492841C1aC0f0311|
+| RoyaltyFeeRegistry | 0x11060AaDB929a6254D741961e0076FD26d3E20c4|
+| RoyaltyFeeManager | 0xd93d971516F8E51AFfD38eF2bBee31fAbdEf2ef4|
+| VemoMarketplace | 0x5E6E62b978CFD1c8b3E798aEF2622DF18e801A1d|
+| TransferManagerERC721 | 0xe39fb784f8F441338a0215b0E597d9fF914dAdF8|
+| TransferManagerERC1155 | 0xE71ad6D9E3Ac9C63BED65250aCd758e080e656A1|
+| TransferManagerNonCompliantERC721 | 0xfBD8812DDFB56B5C92Ba89E9E2BE72d362f774Bf|
+| TransferSelectorNFT | 0x095b63f91C76cAa245ccb070c798EfCCd8919e23|
+| OrderValidator | 0x8FDf772c6B7f606c52Dd55c03735784840857Af9|
+| StrategyStandardSaleForFixedPriceVoucher | 0xbd8f46A1427c8146A565a22d05AaFf2aa00a0ded"|
 
 
 BNB mainnet
