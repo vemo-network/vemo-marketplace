@@ -45,7 +45,7 @@ BNB mainnet
 | CurrencyManager                       | 0xe85e685c692f5242E0B4647895206518a3cdCCed |
 | StrategyStandardSaleForFixedPrice     | 0x3A24DA07ae15393F6Bc15a84b296Bc55898a982A |
 
-BNB mainnet v2
+BNB mainnet v2 (current)
 | Contract Type                         | Address                                   |
 |---------------------------------------|-------------------------------------------|
 |CurrencyManager|             "0x7F912790606D7914d6dA71B951896Eb09CbeB221"|
@@ -59,6 +59,23 @@ BNB mainnet v2
 |TransferSelectorNFT|             "0x02735D4335897f881B7043e256504aB47987BA39"|
 |OrderValidator|             "0x17289b293d55886cAB9e1A42E4A6fC402c251492"|
 |StrategyStandardSaleForFixedPriceVoucher|             "0x2Bdd93007aE01616Fd0D4B8C550DE83DF9B6801a"|
+
+BNB testnet v1
+| Contract Type                         | Address                                   |
+|---------------------------------------|-------------------------------------------|
+| WETH | 0x0dE8FCAE8421fc79B29adE9ffF97854a424Cad09 |
+| VOUCHER_FACTORY | 0xD0901C6fE9FA1A8D56D2250Db272D65391117dfc |
+| CurrencyManager |0xDee03828d53cEd8673b3Da42E58726E270879672 |
+| ExecutionManager |0xE386449B15512A2ABc6E9e27Aba55CDFe0012eFa |
+| RoyaltyFeeRegistry |0x4170f66135892da562174d249bb8b36FC3069aB7 |
+| RoyaltyFeeManager |0x749cC834fE85d40088968F7980A4806638c81fFA |
+| Marketplace | 0x27d47868433C467e9Fa0109F6E5086D15D8e06A5 |
+| TransferManagerERC721 |0xb7411BcAFeFDc571B0ca7273D4152f938AF72354 |
+| TransferManagerERC1155 |0x84E2a57c961BcAD46D5725e3B73B3879C813Bbb1 |
+| TransferManagerNonCompliantERC721 |0x31095b3A27A4821c505E8B51822eE7d53b8f2432 |
+| TransferSelectorNFT |0x026Db00E52d79a4c4b5CFc66bC9Ca78533a92B72 |
+| OrderValidator |0xe3ca17bE926564eFcf3b62a245fC387f7eBAa537 |
+| StrategyStandardSaleForFixedPriceVoucher | 0x22Fe90B9c380e84dD102D8D74C1913067D172e2B |
 
 ## Prerequisites
 - [NodeJS v18.x](https://nodejs.org/en)

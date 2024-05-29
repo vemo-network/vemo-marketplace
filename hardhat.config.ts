@@ -122,7 +122,8 @@ const config: HardhatUserConfig = {
     },
     networks: {
       bnb_testnet: {
-        url: "https://data-seed-prebsc-1-s2.binance.org:8545/",
+        url: "https://bsc-testnet-rpc.publicnode.com",
+        chainId: 97,
         accounts: [privateKey1],
       },
       avax_fuji: {
@@ -136,7 +137,7 @@ const config: HardhatUserConfig = {
         accounts: [privateKey1],
       },
       bnb_mainnet: {
-        url: "https://bsc-dataseed4.bnbchain.org",
+        url: "https://bsc-dataseed4.ninicoin.io/",
         chainId: 56,
         accounts: [privateKey1],
       },
