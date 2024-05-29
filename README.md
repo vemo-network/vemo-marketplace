@@ -28,7 +28,7 @@ Avax Mainnet
 | RoyaltyFeeManager | 0xd93d971516F8E51AFfD38eF2bBee31fAbdEf2ef4|
 | VemoMarketplace | 0x5E6E62b978CFD1c8b3E798aEF2622DF18e801A1d|
 | TransferManagerERC721 | 0xe39fb784f8F441338a0215b0E597d9fF914dAdF8|
-| TransferManagerERC1155 | 0xE71ad6D9E3Ac9C63BED65250aCd758e080e656A1|
+| TransferManagerERC1155 | 0xE71ad6D9E3Ac9C63BED65250aCd758e080e656A1| --> not verify
 | TransferManagerNonCompliantERC721 | 0xfBD8812DDFB56B5C92Ba89E9E2BE72d362f774Bf|
 | TransferSelectorNFT | 0x095b63f91C76cAa245ccb070c798EfCCd8919e23|
 | OrderValidator | 0x8FDf772c6B7f606c52Dd55c03735784840857Af9|
@@ -45,6 +45,20 @@ BNB mainnet
 | CurrencyManager                       | 0xe85e685c692f5242E0B4647895206518a3cdCCed |
 | StrategyStandardSaleForFixedPrice     | 0x3A24DA07ae15393F6Bc15a84b296Bc55898a982A |
 
+BNB mainnet v2
+| Contract Type                         | Address                                   |
+|---------------------------------------|-------------------------------------------|
+|CurrencyManager|             "0x7F912790606D7914d6dA71B951896Eb09CbeB221"|
+|ExecutionManager|             "0x5A44621838dd637b4386E1aA6d38695E02E62884"|
+|RoyaltyFeeRegistry|             "0xfBD8812DDFB56B5C92Ba89E9E2BE72d362f774Bf"|
+|RoyaltyFeeManager|             "0xE9f918f441A910bb4FCdFb09F1B75C3C43Ea9d57"|
+|Marketplace|             "0xed13e8d502d612b811846524ea303ceece31ea83"|
+|TransferManagerERC721|             "0x8FDf772c6B7f606c52Dd55c03735784840857Af9"|
+|TransferManagerERC1155|             "0xbd8f46A1427c8146A565a22d05AaFf2aa00a0ded"|
+|TransferManagerNonCompliantERC721|             "0x2f22062177fa0e8d3233e3EE605FEDf34557f4AC"|
+|TransferSelectorNFT|             "0x02735D4335897f881B7043e256504aB47987BA39"|
+|OrderValidator|             "0x17289b293d55886cAB9e1A42E4A6fC402c251492"|
+|StrategyStandardSaleForFixedPriceVoucher|             "0x2Bdd93007aE01616Fd0D4B8C550DE83DF9B6801a"|
 
 ## Prerequisites
 - [NodeJS v18.x](https://nodejs.org/en)
