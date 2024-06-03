@@ -632,4 +632,25 @@ contract OrderValidator is Initializable, AccessControlUpgradeable {
 
         if (magicValue != MAGIC_VALUE_EIP1271) return SIGNATURE_INVALID_EIP1271;
     }
+
+    function refreshTransferManagers() public onlyRole(DEFAULT_ADMIN_ROLE){
+        TRANSFER_MANAGER_ERC721 = ITransferSelectorNFTExtended(
+            address(vemoMarket.transferSelectorNFT())
+        ).TRANSFER_MANAGER_ERC721();
+
+        TRANSFER_MANAGER_ERC1155 = ITransferSelectorNFTExtended(
+            address(vemoMarket.transferSelectorNFT())
+        ).TRANSFER_MANAGER_ERC1155();
+
+        currencyManager = vemoMarket.currencyManager();
+        executionManager = vemoMarket.executionManager();
+        transferSelectorNFT = ITransferSelectorNFTExtended(
+            address(vemoMarket.transferSelectorNFT())
+        );
+
+        IRoyaltyFeeManagerExtended royaltyFeeManager = IRoyaltyFeeManagerExtended(
+                address(vemoMarket.royaltyFeeManager())
+            );
+        royaltyFeeRegistry = royaltyFeeManager.royaltyFeeRegistry();
+    }
 }

@@ -53,11 +53,11 @@ BNB mainnet v2 (current)
 |RoyaltyFeeRegistry|             "0xfBD8812DDFB56B5C92Ba89E9E2BE72d362f774Bf"|
 |RoyaltyFeeManager|             "0xE9f918f441A910bb4FCdFb09F1B75C3C43Ea9d57"|
 |Marketplace|             "0xed13e8d502d612b811846524ea303ceece31ea83"|
-|TransferManagerERC721|             "0x8FDf772c6B7f606c52Dd55c03735784840857Af9"|
-|TransferManagerERC1155|             "0xbd8f46A1427c8146A565a22d05AaFf2aa00a0ded"|
-|TransferManagerNonCompliantERC721|             "0x2f22062177fa0e8d3233e3EE605FEDf34557f4AC"|
-|TransferSelectorNFT|             "0x02735D4335897f881B7043e256504aB47987BA39"|
-|OrderValidator|             "0x17289b293d55886cAB9e1A42E4A6fC402c251492"|
+|TransferManagerERC721|             "0x5aA4FDf226f43BfC28F10C1e2ad3A295303f6fB3"|
+|TransferManagerERC1155|             "0x580e0E3Ec4954361EB297b2a77d577F65699D0E8"|
+|TransferManagerNonCompliantERC721|             "0xf478dEbC6933c11D9D180E91d3e2C8bd622e49eE"|
+|TransferSelectorNFT|             "0xE921Ed58acFD842E6D0B51e8f1d26D8DA7143854"|
+|OrderValidator|             "0xb385ccaa8A80cf5c151915787c7ed6BA59dA87E4"|
 |StrategyStandardSaleForFixedPriceVoucher|             "0x2Bdd93007aE01616Fd0D4B8C550DE83DF9B6801a"|
 
 BNB testnet v1
@@ -146,8 +146,10 @@ The deployment flow:
 
 - Deploy main
 ```bash
-$ IMPLEMENTATION=<kind> \
-npx hardhat run ./scripts/deploy-managers.ts --network <chain-name>
+$ IMPLEMENTATION=3 \
+npx hardhat run ./scripts/deploy-managers.ts --network bnb_mainnet \
+--verifier-url 'https://api.routescan.io/v2/network/mainnet/evm/43114/etherscan' \
+--etherscan-api-key "1VYRT81XHNBY8BC2X88N9ZF4XRBXUJDYKQ"
 ```
 
 >   where IMPLEMENTATION is number kind, values corresponding
@@ -178,6 +180,9 @@ npx hardhat run scripts/deploy-marketplace.ts --network <chain-name>
 $ IMPLEMENTATION=<kind> \
 MARKETPLACE=<address> \
 npx hardhat run ./scripts/deploy-managers.ts --network <chain-name>
+--rpc-url [NETWORK_RPC_URL]
+--verifier-url 'https://api.routescan.io/v2/network/mainnet/evm/43114/etherscan'
+--etherscan-api-key ""
 ```
 
 >   where IMPLEMENTATION is number kind, values corresponding
@@ -220,4 +225,4 @@ TBD
 
 
 ## License
-Copyright belongs to VemeNFT - Ace Labs
+Copyright belongs to VemoNFT - Ace Labs

@@ -1435,6 +1435,13 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "refreshTransferManagers",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "bytes32",
