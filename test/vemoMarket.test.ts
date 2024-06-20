@@ -351,7 +351,7 @@ describe("VemoMarket", () => {
             );
         });
 
-        it("Standard Order/ERC1155/ETH only - MakerAsk order is matched by TakerBid order", async () => {
+        it("Standard Order/ERC1155/ETH only - WETH as currency - MakerAsk order is matched by TakerBid order", async () => {
             const makerAskUser = accounts[1];
             const takerBidUser = accounts[2];
 
@@ -424,6 +424,98 @@ describe("VemoMarket", () => {
                 )
             );
 
+            // User 2 had minted 2 tokenId=1 so he has 4
+            assert.equal(
+                (
+                    await mockERC1155.balanceOf(takerBidUser.address, "1")
+                ).toString(),
+                "4"
+            );
+        });
+
+        it("Standard Order/ERC1155/ETH only - ETH as currency - MakerAsk order is matched by TakerBid order", async () => {
+            const makerAskUser = accounts[1];
+            const takerBidUser = accounts[2];
+
+            const makerAskOrder: MakerOrderWithSignature =
+                await createMakerOrder({
+                    isOrderAsk: true,
+                    signer: makerAskUser.address,
+                    collection: mockERC1155.address,
+                    tokenId: constants.One,
+                    price: parseEther("3"),
+                    amount: constants.Two,
+                    strategy: strategyStandardSaleForFixedPrice.address,
+                    currency: "0x0000000000000000000000000000000000000000",
+                    nonce: constants.Zero,
+                    startTime: startTimeOrder,
+                    endTime: endTimeOrder,
+                    minPercentageToAsk: constants.Zero,
+                    params: defaultAbiCoder.encode([], []),
+                    signerUser: makerAskUser,
+                    verifyingContract: vemoMarket.address,
+                    boundTokens: [],
+                    boundAmounts: []
+                });
+
+            await assertOrderValid(makerAskOrder, orderValidator);
+
+            const takerBidOrder = createTakerOrder({
+                isOrderAsk: false,
+                taker: takerBidUser.address,
+                tokenId: constants.One,
+                price: parseEther("3"),
+                minPercentageToAsk: constants.Zero,
+                params: defaultAbiCoder.encode([], [])
+            });
+            
+            const makerBalanceBefore: BigNumber = await ethers.provider.getBalance(makerAskUser.address);
+
+            const tx = await vemoMarket
+                .connect(takerBidUser)
+                .matchAskWithTakerBidUsingETH(
+                    takerBidOrder,
+                    makerAskOrder,
+                    {
+                        value: takerBidOrder.price,
+                    }
+                );
+
+            await expect(tx)
+                .to.emit(vemoMarket, "TakerBid")
+                .withArgs(
+                    computeOrderHash(makerAskOrder),
+                    makerAskOrder.nonce,
+                    takerBidUser.address,
+                    makerAskUser.address,
+                    strategyStandardSaleForFixedPrice.address,
+                    makerAskOrder.currency,
+                    makerAskOrder.collection,
+                    makerAskOrder.tokenId,
+                    makerAskOrder.amount,
+                    takerBidOrder.price
+                );
+
+            await assertErrorCode(
+                makerAskOrder,
+                NONCE_EXECUTED_OR_CANCELLED,
+                orderValidator
+            );
+
+            assert.isTrue(
+                await vemoMarket.isUserOrderNonceExecutedOrCancelled(
+                    makerAskUser.address,
+                    makerAskOrder.nonce
+                )
+            );
+
+            const makerBalanceAfter: BigNumber = await ethers.provider.getBalance(makerAskUser.address);
+            // the protocol fee is 0.02
+            assert.equal(
+                makerBalanceAfter.sub(makerBalanceBefore).eq(parseEther((3*0.98).toFixed(2))),
+                true
+            );
+            
             // User 2 had minted 2 tokenId=1 so he has 4
             assert.equal(
                 (
@@ -2268,9 +2360,7 @@ describe("VemoMarket", () => {
                 tokenId: makerAskOrder.tokenId,
                 price: makerAskOrder.price,
                 minPercentageToAsk: constants.Zero,
-                params: defaultAbiCoder.encode([], []),
-                boundTokens: [],
-                boundAmounts: []
+                params: defaultAbiCoder.encode([], [])
             });
             await expect(
                 vemoMarket
@@ -2320,9 +2410,7 @@ describe("VemoMarket", () => {
                 tokenId: makerBidOrder.tokenId,
                 price: makerBidOrder.price,
                 minPercentageToAsk: constants.Zero,
-                params: defaultAbiCoder.encode([], []),
-                boundTokens: [],
-                boundAmounts: []
+                params: defaultAbiCoder.encode([], [])
             });
 
             await increaseTo(endTimeOrder.add(1));
@@ -2383,8 +2471,6 @@ describe("VemoMarket", () => {
                 price: makerAskOrder.price,
                 minPercentageToAsk: constants.Zero,
                 params: defaultAbiCoder.encode([], []),
-                boundTokens: [],
-                boundAmounts: []
             };
 
             await expect(
@@ -2436,9 +2522,7 @@ describe("VemoMarket", () => {
                 tokenId: makerAskOrder.price,
                 price: makerAskOrder.price,
                 minPercentageToAsk: constants.Zero,
-                params: defaultAbiCoder.encode([], []),
-                boundTokens: [],
-                boundAmounts: []
+                params: defaultAbiCoder.encode([], [])
             };
 
             await expect(
@@ -2500,9 +2584,7 @@ describe("VemoMarket", () => {
                 tokenId: makerAskOrder.tokenId,
                 price: makerAskOrder.price,
                 minPercentageToAsk: constants.Zero,
-                params: defaultAbiCoder.encode([], []),
-                boundTokens: [],
-                boundAmounts: []
+                params: defaultAbiCoder.encode([], [])
             };
 
             await expect(
@@ -2569,9 +2651,7 @@ describe("VemoMarket", () => {
                 tokenId: makerAskOrder.tokenId,
                 price: makerAskOrder.price,
                 minPercentageToAsk: constants.Zero,
-                params: defaultAbiCoder.encode([], []),
-                boundTokens: [],
-                boundAmounts: []
+                params: defaultAbiCoder.encode([], [])
             };
 
             let tx = await executionManager
@@ -2672,9 +2752,7 @@ describe("VemoMarket", () => {
                 tokenId: makerAskOrder.tokenId,
                 price: makerAskOrder.price,
                 minPercentageToAsk: constants.Zero,
-                params: defaultAbiCoder.encode([], []),
-                boundTokens: [],
-                boundAmounts: []
+                params: defaultAbiCoder.encode([], [])
             };
 
             await expect(
@@ -2812,9 +2890,7 @@ describe("VemoMarket", () => {
                 tokenId: makerAskOrder.tokenId,
                 price: makerAskOrder.price,
                 minPercentageToAsk: constants.Zero,
-                params: defaultAbiCoder.encode([], []),
-                boundTokens: [],
-                boundAmounts: []
+                params: defaultAbiCoder.encode([], [])
             };
 
             await expect(
@@ -2864,9 +2940,7 @@ describe("VemoMarket", () => {
                 price: makerAskOrder.price,
                 tokenId: makerAskOrder.tokenId,
                 minPercentageToAsk: constants.Zero,
-                params: defaultAbiCoder.encode([], []),
-                boundTokens: [],
-                boundAmounts: []
+                params: defaultAbiCoder.encode([], [])
             };
 
             await expect(
@@ -2919,9 +2993,7 @@ describe("VemoMarket", () => {
                 tokenId: makerAskOrder.tokenId,
                 price: makerAskOrder.price,
                 minPercentageToAsk: constants.Zero,
-                params: defaultAbiCoder.encode([], []),
-                boundTokens: [],
-                boundAmounts: []
+                params: defaultAbiCoder.encode([], [])
             };
 
             await expect(
@@ -2964,9 +3036,7 @@ describe("VemoMarket", () => {
                 tokenId: makerAskOrder.tokenId,
                 price: makerAskOrder.price,
                 minPercentageToAsk: constants.Zero,
-                params: defaultAbiCoder.encode([], []),
-                boundTokens: [],
-                boundAmounts: []
+                params: defaultAbiCoder.encode([], [])
             };
 
             await expect(
@@ -3257,7 +3327,7 @@ describe("VemoMarket", () => {
 
             const numberCurrencies =
                 await currencyManager.viewCountWhitelistedCurrencies();
-            assert.equal(numberCurrencies.toString(), "2");
+            assert.equal(numberCurrencies.toString(), "3");
 
             let tx = await currencyManager.viewWhitelistedCurrencies("0", "1");
             assert.equal(tx[0].length, 1);
@@ -3266,7 +3336,7 @@ describe("VemoMarket", () => {
             );
 
             tx = await currencyManager.viewWhitelistedCurrencies("1", "100");
-            assert.equal(tx[0].length, 1);
+            assert.equal(tx[0].length, 2);
             expect(BigNumber.from(tx[1].toString())).to.be.deep.equal(
                 BigNumber.from(numberCurrencies.toString())
             );

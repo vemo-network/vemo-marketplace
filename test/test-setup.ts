@@ -72,6 +72,7 @@ export async function setUp(
         admin.address,
     ])) as CurrencyManager;
     await currencyManager.connect(admin).addCurrency(weth.address);
+    await currencyManager.connect(admin).addCurrency("0x0000000000000000000000000000000000000000");
 
     /** 3. Deploy ExecutionManager contract
      */

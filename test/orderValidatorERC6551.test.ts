@@ -289,7 +289,6 @@ describe("OrderValidator - ERC6551 standard", () => {
         });
 
         let result = await orderValidator.checkOrderValidity(makerAskOrder);
-        console.log(result);
     })
 
 });

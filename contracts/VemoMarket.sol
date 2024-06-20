@@ -867,4 +867,178 @@ contract VemoMarket is
             strategy.functionCall(data);
         }
     }
+
+    /**
+     * @notice Match ask with a taker bid order using ETH
+     * @param takerBid taker bid order
+     * @param makerAsk maker ask order
+     */
+    function matchAskWithTakerBidUsingETH(
+        OrderTypes.TakerOrder calldata takerBid,
+        OrderTypes.MakerOrder calldata makerAsk
+    ) external payable override nonReentrant {
+        require(
+            (makerAsk.isOrderAsk) && (!takerBid.isOrderAsk),
+            "Order: Wrong sides"
+        );
+        require(makerAsk.currency == address(0), "Order: Currency must be ETH");
+        require(
+            msg.sender == takerBid.taker,
+            "Order: Taker must be the sender"
+        );
+
+        // Check the maker ask order
+        bytes32 askHash = makerAsk.hash();
+        _validateOrder(makerAsk, askHash);
+
+        // Retrieve execution parameters
+        (
+            bool isExecutionValid,
+            uint256 tokenId,
+            uint256 amount
+        ) = IExecutionStrategy(makerAsk.strategy).canExecuteTakerBid(
+                takerBid,
+                makerAsk
+            );
+
+        require(isExecutionValid, "Strategy: Execution invalid");
+
+        // Update maker ask order status to true (prevents replay)
+        _isUserOrderNonceExecutedOrCancelled[makerAsk.signer][
+            makerAsk.nonce
+        ] = true;
+
+        _invokeCallbackable(
+            makerAsk.strategy,
+            abi.encodeWithSelector(
+                ICallbackable.beforeTransferFeeAndFunds.selector,
+                makerAsk,
+                takerBid
+            )
+        );
+
+        // Execution part 1/2
+        _transferFeesAndFundsWithETH(
+            makerAsk.strategy,
+            makerAsk.collection,
+            tokenId,
+            makerAsk.signer,
+            takerBid.price,
+            makerAsk.minPercentageToAsk
+        );
+
+        _invokeCallbackable(
+            makerAsk.strategy,
+            abi.encodeWithSelector(
+                ICallbackable.beforeTransferNonFungibleToken.selector,
+                makerAsk,
+                takerBid
+            )
+        );
+
+        // Execution part 2/2
+        _transferNonFungibleToken(
+            makerAsk.collection,
+            makerAsk.signer,
+            takerBid.taker,
+            tokenId,
+            amount
+        );
+
+        _invokeCallbackable(
+            makerAsk.strategy,
+            abi.encodeWithSelector(
+                ICallbackable.afterTransferNonFungibleToken.selector,
+                makerAsk,
+                takerBid
+            )
+        );
+
+        emit TakerBid(
+            askHash,
+            makerAsk.nonce,
+            takerBid.taker,
+            makerAsk.signer,
+            makerAsk.strategy,
+            makerAsk.currency,
+            makerAsk.collection,
+            tokenId,
+            amount,
+            takerBid.price
+        );
+    }
+
+    /**
+     * @notice Transfer fees and funds to royalty recipient, protocol, and seller
+     * @param strategy address of the execution strategy
+     * @param collection non fungible token address for the transfer
+     * @param tokenId tokenId
+     * @param to seller's recipient
+     * @param amount amount being transferred (in currency)
+     * @param minPercentageToAsk minimum percentage of the gross amount that goes to ask
+     */
+    function _transferFeesAndFundsWithETH(
+        address strategy,
+        address collection,
+        uint256 tokenId,
+        address to,
+        uint256 amount,
+        uint256 minPercentageToAsk
+    ) internal {
+        // Initialize the final amount that is transferred to seller
+        uint256 finalSellerAmount = amount;
+
+        // 1. Protocol fee
+        {
+            uint256 protocolFeeAmount = _calculateProtocolFee(strategy, amount);
+            if (
+                (protocolFeeRecipient != address(0)) && (protocolFeeAmount != 0)
+            ) {
+                _transferNative(protocolFeeRecipient, protocolFeeAmount);
+                finalSellerAmount -= protocolFeeAmount;
+            }
+        }
+
+        // 2. Royalty fee
+        {
+            (
+                address royaltyFeeRecipient,
+                uint256 royaltyFeeAmount
+            ) = royaltyFeeManager.calculateRoyaltyFeeAndGetRecipient(
+                    collection,
+                    tokenId,
+                    amount
+                );
+
+            if (
+                (royaltyFeeRecipient != address(0)) && (royaltyFeeAmount != 0)
+            ) {
+                _transferNative(royaltyFeeRecipient, royaltyFeeAmount);
+                finalSellerAmount -= royaltyFeeAmount;
+
+                emit RoyaltyPayment(
+                    collection,
+                    tokenId,
+                    royaltyFeeRecipient,
+                    address(0),
+                    royaltyFeeAmount
+                );
+            }
+        }
+
+        require(
+            (finalSellerAmount * 10000) >= (minPercentageToAsk * amount),
+            "Fees: Higher than expected"
+        );
+
+        // 3. Transfer final amount (post-fees) to seller
+        {
+            _transferNative(to, finalSellerAmount);
+        }
+    }
+
+    function _transferNative(address to, uint256 amount) internal {
+        (bool success, ) = to.call{value: amount}("");
+                require(success, "Fees: Failed to send ETH");
+    }
 }
