@@ -20,6 +20,7 @@ Avax Fuji
 Avax Mainnet
 | Contract Type                         | Address                                   |
 |---------------------------------------|-------------------------------------------|
+| ProxyAdmin | 0xA3b964dB3f497fBeD3A687d362FEea33dD88eBa4 |
 | WETH | 0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7|
 | VOUCHER_FACTORY | 0xbB740E17f3c177172CaAcCef2F472DB41b9b1d19|
 | CurrencyManager | 0x878AAD75e7A1D336D1872c0A4C5562c7c06F0b90|
@@ -48,6 +49,7 @@ BNB mainnet
 BNB mainnet v2 (current)
 | Contract Type                         | Address                                   |
 |---------------------------------------|-------------------------------------------|
+|ProxyAdmin | 0x210358e7F20a19DD04D6a6FBF607246CCaf07D6B| 
 |CurrencyManager|             "0x7F912790606D7914d6dA71B951896Eb09CbeB221"|
 |ExecutionManager|             "0x5A44621838dd637b4386E1aA6d38695E02E62884"|
 |RoyaltyFeeRegistry|             "0xfBD8812DDFB56B5C92Ba89E9E2BE72d362f774Bf"|
